@@ -2,11 +2,43 @@
 /** Global **/
 
 html {
-	overflow: -moz-scrollbars-vertical; 
-	overflow-y: scroll;
-	height: 100%;
+	background: url(images/popcorn.gif) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #000;
+  height: 50px;
+  color: white;
+}
+
+.App-body {
+}
+
+.App-diag-msg {
+	top: 0;
+	right: 0;
+	position: absolute;
+}
+
+.no-deco {
+	text-decoration: none;
+}
+
+.offset15 {
+	top: 15px;
+}
+
+.showBorders {
+	border: 1px solid red;
+}
 body {
 	font-family: 'Open Sans', sans-serif;
 	height: 100%;

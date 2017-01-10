@@ -5,13 +5,35 @@
   </alert>
 </div>
 
-<div 
-	ng-cloak 
-	id="tt-main-container" 
->
+<div class="App" ng-cloak>
+	<div class="App-header">
+		<div class="col-md-8 col-md-offset-2 offset15">
+			<div class="pull-right">
+				<span>
+					Already Have an Account? <a href="" class="no-deco">Sign In</a> to Access Your Account
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="App-body">
+		<div class="App-diag-msg">
+			<img src="/images/new_flavors.png" class="App-diag-msg" alt="Check Out Our New Flavors!" />
+		</div>
+		<div class="col-md-8 col-md-offset-2">
+			<div class="row">
+				<div class="col-md-12 offset15">
+					<img src="/images/logo.png" class="pull-left" alt="Rebecca's Gourmet Popcorn" />
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="tt-main" ng-view>
 	</div>
 </div>
+		
+
+
+
 
 <!-- Hack for ensuring event-based services are instantiated -->
 <div ng-controller="LoadServices" style="display:none;" aria-hidden="true"></div>
