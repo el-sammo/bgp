@@ -30,7 +30,7 @@
 			},
 
 			getAllPopcorn: function() {
-				var url = '/popcorn/';
+				var url = '/popcorn/allPopcorn/';
 				return $http.get(url).then(function(res) {
 					return res.data;
 				}).catch(function(err) {

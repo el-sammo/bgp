@@ -14,10 +14,18 @@ var httpAdapter = 'http';
 var extra = {};
 
 module.exports = {
+	allPopcorn: function(req, res) {
+		Popcorn.find().then(function(results) {
+			res.send(JSON.stringify(results));
+		}).catch(function(err) {
+      res.json({error: 'Server error'}, 500);
+      console.error(err);
+      throw err;
+		});
+	},
+	
 	byId: function(req, res) {
-		Popcorn.find({id: req.params.id}).sort({
-			name: 'asc', entryFee: 'asc'
-		}).limit(30).then(function(results) {
+		Popcorn.find({id: req.params.id}).then(function(results) {
 			res.send(JSON.stringify(results));
 		}).catch(function(err) {
       res.json({error: 'Server error'}, 500);

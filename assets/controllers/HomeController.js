@@ -23,10 +23,11 @@ function controller(
 	$scope, $http, $routeParams, $rootScope, $location,
 	$modal, $timeout, $window,
 	signupPrompter, deviceMgr, layoutMgmt, 
-	customerMgmt, orderMgmt, popcornMgmt
+	customerMgmt, orderMgmt, popcornMgmt,
 	messenger, 
 	_
 ) {
+console.log('HomeController() called');
 	///
 	// Variable declaration
 	///
@@ -63,23 +64,23 @@ function controller(
 	}
 
 	function initDate() {
+		var monthMap = [
+			'Jan',
+			'Feb',
+			'Mar',
+			'Apr',
+			'May',
+			'Jun',
+			'Jul',
+			'Aug',
+			'Sep',
+			'Oct',
+			'Nov',
+			'Dec'
+		];
 		var dateObj = new Date();
-		var year = dateObj.getFullYear();
-		var month = (dateObj.getMonth() + 1);
-		var date = dateObj.getDate();
-
-		if(month < 10) {
-			month = '0' + month;
-		}
-
-		if(date < 10) {
-			date = '0' + date;
-		}
-
-		todayDate = year + month + date;
-
-		// debug code
-		todayDate = 20160727;
+		var month = monthMap[dateObj.getMonth()];
+console.log('month: '+month);
 	}
 
 	function initPopcorn() {
@@ -126,6 +127,8 @@ function controller(
 			}
 
 			$scope.allPopcornData = allPopcornData;
+console.log('$scope.allPopcornData:');
+console.log($scope.allPopcornData);
 		});
 	}
 
