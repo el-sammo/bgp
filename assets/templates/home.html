@@ -1,0 +1,95 @@
+
+<div class="hr_wide">
+	<div id="tt-menu">
+		<div 
+			id="menuDisplay" 
+			class="menuDisplay"
+		>
+			<span 
+				class="footerLinkRed"
+			>
+				Today's Tournaments: 
+			</span>
+			<span 
+				class="footerLink reservationYellow" 
+				ng-click="setActiveTournament(tournament)"
+				ng-show="!tournament.custom && tournament.name.indexOf('Daily') > -1"
+				ng-repeat="tournament in currentTournaments" track by $index
+			>
+				{{tournament.name}}
+				<timer
+					ng-if="tournament.mtp >= 0"
+					class="footerLinkSmaller reservationYellow"
+					countdown="tournament.mtp"
+					max-time-unit="'minute'" 
+					interval="1000"
+				>
+					{{mminutes}}M
+				</timer>
+				<span
+					class="footerLinkSmaller reservationYellow"
+					ng-if="tournament.mtp < 0 && tournament.closed && !tournament.scored"
+				>
+					In Progress
+				</span>
+				<span
+					class="footerLinkSmaller reservationYellow"
+					ng-if="tournament.mtp < 0 && tournament.closed && tournament.scored"
+					ng-click="showTournamentLeaders(tournament.id)"
+				>
+					Results
+				</span>
+			</span>
+			<span 
+				class="footerLink reservationYellow pull-right" 
+				ng-show="showSignup"
+				ng-click="signUp()"
+			>
+				Sign Up
+			</span>
+			<span 
+				class="footerLink pull-right"
+				ng-show="!showLogout"
+			>
+				/
+			</span>
+			<span 
+				class="footerLink reservationYellow pull-right" 
+				ng-show="showLogin"
+				ng-click="logIn()"
+			>
+				Log In
+			</span>
+			<span 
+				class="footerLink reservationYellow pull-right" 
+				ng-show="showLogout"
+				ng-click="logOut()"
+			>
+				Log Out
+			</span>
+			<span 
+				class="footerLink reservationYellow pull-right" 
+				ng-show="customer" 
+				ng-click="account()"
+			>
+				Hi, {{customer.fName}}!
+			</span>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="row" id="homeMain">
+			<div 
+				class="contentGreyBg"
+				style="top: 8px;"
+			>
+				<span
+					class="beccaWhite"
+					ng-repeat="tournament in currentTournaments" track by $index
+				>
+					{{tournament.name}} 
+					({{tournament.entryFee}}) <br>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
