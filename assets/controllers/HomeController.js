@@ -27,7 +27,6 @@ function controller(
 	messenger, 
 	_
 ) {
-console.log('HomeController() called');
 	///
 	// Variable declaration
 	///
@@ -55,6 +54,8 @@ console.log('HomeController() called');
 		$scope.signUp = layoutMgmt.signUp;
 		$scope.logOut = layoutMgmt.logOut;
 
+		$scope.showCategory = showCategory;
+
 		$scope.account = account;
 
 		// For debugging
@@ -79,8 +80,7 @@ console.log('HomeController() called');
 			'Dec'
 		];
 		var dateObj = new Date();
-		var month = monthMap[dateObj.getMonth()];
-console.log('month: '+month);
+		$scope.month = monthMap[dateObj.getMonth()];
 	}
 
 	function initPopcorn() {
@@ -125,10 +125,21 @@ console.log('month: '+month);
 				$scope.showSignup = true;
 				$scope.showLogout = false;
 			}
-
-			$scope.allPopcornData = allPopcornData;
-console.log('$scope.allPopcornData:');
-console.log($scope.allPopcornData);
+	
+			var popcornCategories = [];
+			allPopcornData.forEach(function(flavor) {
+				if(popcornCategories.indexOf(flavor.category) < 0) {
+					popcornCategories.push(flavor.category);
+				}
+				flavor.cleanName = "/images/popcorn_images/" + flavor.name.toLowerCase().replace('\'', '').replace(/ /g, '_') + ".jpg";
+			});
+			$scope.popcornCategories = popcornCategories;
+			$scope.allPopcornFlavors = allPopcornData;
+			showCategory();
+console.log('$scope.popcornCategories:');
+console.log($scope.popcornCategories);
+console.log('$scope.allPopcornFlavors:');
+console.log($scope.allPopcornFlavors);
 		});
 	}
 
@@ -153,6 +164,41 @@ console.log($scope.allPopcornData);
 	// View methods
 	///
 
+
+	function hideCategories() {
+		$scope.CandyShow = false;
+		$scope.CaramelShow = false;
+		$scope.CheeseShow = false;
+		$scope.ChocolateShow = false;
+		$scope.OriginalShow = false;
+		$scope.SpecialtyShow = false;
+	}
+
+	function showCategory(category) {
+		hideCategories();
+		switch(category) {
+			case 'Candy':
+				$scope.CandyShow = true;
+				break;
+			case 'Caramel':
+				$scope.CaramelShow = true;
+				break;
+			case 'Cheese':
+				$scope.CheeseShow = true;
+				break;
+			case 'Chocolate':
+				$scope.ChocolateShow = true;
+				break;
+			case 'Original':
+				$scope.OriginalShow = true;
+				break;
+			case 'Specialty':
+				$scope.SpecialtyShow = true;
+				break;
+			default:
+				$scope.CandyShow = true;
+		}
+	}
 
 	function account() {
 		if(!$scope.customerId) {

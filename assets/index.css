@@ -36,9 +36,24 @@ html {
 	top: 15px;
 }
 
+.offsetNeg15 {
+	top: -25px;
+}
+
 .showBorders {
 	border: 1px solid red;
 }
+
+.softBack {
+	border: 1px solid black;
+	border-radius: 12px;
+	background: rgba(54, 25, 25, .2);
+}
+
+.clickable {
+	cursor: pointer;
+}
+
 body {
 	font-family: 'Open Sans', sans-serif;
 	height: 100%;

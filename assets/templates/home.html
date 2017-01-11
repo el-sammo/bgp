@@ -1,0 +1,54 @@
+				<div class="softBack">
+					<div class="row">
+						<div 
+							class="col-md-2" 
+							ng-repeat="category in popcornCategories"
+						>
+							<span 
+								class="catHead clickable" 
+								ng-click="showCategory(category)"
+							>
+								{{category}}
+							</span>
+						</div>
+					</div>
+					<div 
+						class="row" 
+						ng-repeat="category in popcornCategories" 
+						ng-show="{{category}}Show"
+						id="{{category}}Flavors"
+					>
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-12">
+									<span class="candyFlavorDescription">
+										{{category}} Flavors
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div 
+								class="row"
+								ng-repeat="flavor in allPopcornFlavors"
+								ng-show="flavor.category === category && flavor.active"
+							>
+								<span 
+									class="popcornName"
+									ng-click="showFlavor(flavor)"
+								>
+									{{flavor.name}}
+								</span>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="row">
+										<img src="{{flavor.cleanName}}" class="img-responsive">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
