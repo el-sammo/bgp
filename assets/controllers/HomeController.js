@@ -14,7 +14,7 @@ controller.$inject = [
 	'$modal', '$timeout', '$window',
 
 	'signupPrompter', 'deviceMgr', 'layoutMgmt',
-	'customerMgmt', 'orderMgmt', 'popcornMgmt',
+	'customerMgmt', 'orderMgmt', 'popcornMgmt', 'categoryMgmt',
 	'messenger', 
 	'lodash',
 ];
@@ -23,7 +23,7 @@ function controller(
 	$scope, $http, $routeParams, $rootScope, $location,
 	$modal, $timeout, $window,
 	signupPrompter, deviceMgr, layoutMgmt, 
-	customerMgmt, orderMgmt, popcornMgmt,
+	customerMgmt, orderMgmt, popcornMgmt, categoryMgmt,
 	messenger, 
 	_
 ) {
@@ -48,13 +48,14 @@ function controller(
 
 	function init() {
 		initDate();
-		initPopcorn();
+		initCategories();
 
 		$scope.logIn = layoutMgmt.logIn;
 		$scope.signUp = layoutMgmt.signUp;
 		$scope.logOut = layoutMgmt.logOut;
 
 		$scope.showCategory = showCategory;
+		$scope.showFlavor = showFlavor;
 
 		$scope.account = account;
 
@@ -83,9 +84,9 @@ function controller(
 		$scope.month = monthMap[dateObj.getMonth()];
 	}
 
-	function initPopcorn() {
-		popcornMgmt.getAllPopcorn().then(
-			onGetPopcorn
+	function initCategories() {
+		categoryMgmt.getAllCategories().then(
+			onGetCategories
 		);
 	}
 
@@ -105,7 +106,8 @@ function controller(
 		});
 	}
 
-	function onGetPopcorn(allPopcornData) {
+	function onGetCategories(allCategoriesData) {
+		$scope.popcornCategories = allCategoriesData;
 		customerMgmt.getSession().then(function(sessionData) {
 
 			if(sessionData.customerId) {
@@ -126,20 +128,8 @@ function controller(
 				$scope.showLogout = false;
 			}
 	
-			var popcornCategories = [];
-			allPopcornData.forEach(function(flavor) {
-				if(popcornCategories.indexOf(flavor.category) < 0) {
-					popcornCategories.push(flavor.category);
-				}
-				flavor.cleanName = "/images/popcorn_images/" + flavor.name.toLowerCase().replace('\'', '').replace(/ /g, '_') + ".jpg";
-			});
-			$scope.popcornCategories = popcornCategories;
-			$scope.allPopcornFlavors = allPopcornData;
 			showCategory();
-console.log('$scope.popcornCategories:');
-console.log($scope.popcornCategories);
-console.log('$scope.allPopcornFlavors:');
-console.log($scope.allPopcornFlavors);
+			showFlavor();
 		});
 	}
 
@@ -175,29 +165,57 @@ console.log($scope.allPopcornFlavors);
 	}
 
 	function showCategory(category) {
-		hideCategories();
-		switch(category) {
-			case 'Candy':
-				$scope.CandyShow = true;
-				break;
-			case 'Caramel':
-				$scope.CaramelShow = true;
-				break;
-			case 'Cheese':
-				$scope.CheeseShow = true;
-				break;
-			case 'Chocolate':
-				$scope.ChocolateShow = true;
-				break;
-			case 'Original':
-				$scope.OriginalShow = true;
-				break;
-			case 'Specialty':
-				$scope.SpecialtyShow = true;
-				break;
-			default:
-				$scope.CandyShow = true;
+		if(!category) {
+			popcornMgmt.getPopcornByCategory($scope.popcornCategories[0].id).then(function(categoryFlavors) {
+				$scope.categoryFlavors = categoryFlavors;
+			});
+			$scope.CandyShow = true;
+		} else {
+			hideCategories();
+			popcornMgmt.getPopcornByCategory(category.id).then(function(categoryFlavors) {
+				$scope.categoryFlavors = categoryFlavors;
+			});
+			switch(category.name) {
+				case 'Candy':
+					$scope.CandyShow = true;
+					break;
+				case 'Caramel':
+					$scope.CaramelShow = true;
+					break;
+				case 'Cheese':
+					$scope.CheeseShow = true;
+					break;
+				case 'Chocolate':
+					$scope.ChocolateShow = true;
+					break;
+				case 'Original':
+					$scope.OriginalShow = true;
+					break;
+				case 'Specialty':
+					$scope.SpecialtyShow = true;
+					break;
+				default:
+					$scope.CandyShow = true;
+			}
 		}
+	}
+
+	function showFlavor(flavor) {
+		if(!flavor) {
+			popcornMgmt.getPopcornByCategory($scope.popcornCategories[0].id).then(function(categoryFlavors) {
+				$scope.activeFlavorImgSrc = "/images/popcorn_images/" + categoryFlavors[0].name.toLowerCase().replace('\'', '').replace(/ /g, '_') + ".jpg";
+				$scope.activeFlavorDesc = categoryFlavors[0].description;
+				showDescription(categoryFlavors[0]);
+			});
+		} else {
+			$scope.activeFlavorDesc = flavor.description;
+			$scope.activeFlavorImgSrc = "/images/popcorn_images/" + flavor.name.toLowerCase().replace('\'', '').replace(/ /g, '_') + ".jpg";
+			showDescription(flavor);
+		}
+	}
+
+	showDescription(flavor) {
+		$scope.flavor
 	}
 
 	function account() {
@@ -219,9 +237,6 @@ console.log($scope.allPopcornFlavors);
 		}
 	}
 
-	setTimeout(function() { 
-		initPopcorn();
-	}, 60000);
 
 	///
 	// Debugging methods

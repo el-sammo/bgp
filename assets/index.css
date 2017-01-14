@@ -40,8 +40,20 @@ html {
 	top: -25px;
 }
 
+.leftFifty {
+	left: 50px;
+}
+
+.rightFifty {
+	right: 50px;
+}
+
 .showBorders {
 	border: 1px solid red;
+}
+
+.popcornImgBorder {
+	border: 1px solid black;
 }
 
 .softBack {

@@ -1,7 +1,7 @@
 /**
- * PopcornController
+ * CategoriesController
  *
- * @description :: Server-side logic for managing popcorn
+ * @description :: Server-side logic for managing categories
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
@@ -14,8 +14,8 @@ var httpAdapter = 'http';
 var extra = {};
 
 module.exports = {
-	allPopcorn: function(req, res) {
-		Popcorn.find().sort({category: 1, name: 1}).then(function(results) {
+	allCategories: function(req, res) {
+		Categories.find().sort({name: 1}).then(function(results) {
 			res.send(JSON.stringify(results));
 		}).catch(function(err) {
       res.json({error: 'Server error'}, 500);
@@ -25,39 +25,19 @@ module.exports = {
 	},
 	
 	byId: function(req, res) {
-		Popcorn.find({id: req.params.id}).then(function(results) {
+		Categories.find({id: req.params.id}).then(function(results) {
 			res.send(JSON.stringify(results));
 		}).catch(function(err) {
       res.json({error: 'Server error'}, 500);
       console.error(err);
       throw err;
 		});
-	},
-	
-	byCategoryId: function(req, res) {
-		Popcorn.find({category: req.params.id}).sort({
-			name: 'asc', entryFee: 'asc'
-		}).then(function(results) {
-			res.send(JSON.stringify(results));
-		}).catch(function(err) {
-      res.json({error: 'Server error'}, 500);
-      console.error(err);
-      throw err;
-		});
-	},
-	
-	resultsByCustomerId: function(req, res) {
-		if(req.params.id) {
-			return getResultsByCustomerId(req, res);
-		} else {
-			return res.send(JSON.stringify({success: false, failMsg: 'Invalid updateTCC data'}));
-		}
 	},
 	
   datatables: function(req, res) {
     var options = req.query;
 
-    Popcorn.datatables(options).then(function(results) {
+    Categories.datatables(options).then(function(results) {
       res.send(JSON.stringify(results));
     }).catch(function(err) {
       res.json({error: 'Server error'}, 500);

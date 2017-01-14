@@ -8,45 +8,55 @@
 								class="catHead clickable" 
 								ng-click="showCategory(category)"
 							>
-								{{category}}
+								{{category.name}}
 							</span>
 						</div>
 					</div>
 					<div 
 						class="row" 
 						ng-repeat="category in popcornCategories" 
-						ng-show="{{category}}Show"
+						ng-show="{{category.name}}Show"
 						id="{{category}}Flavors"
 					>
 						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-12">
 									<span class="candyFlavorDescription">
-										{{category}} Flavors
+										{{category.name}} Flavors
 									</span>
 								</div>
 							</div>
-						</div>
-						<div class="col-md-6">
-							<div 
-								class="row"
-								ng-repeat="flavor in allPopcornFlavors"
-								ng-show="flavor.category === category && flavor.active"
-							>
-								<span 
-									class="popcornName"
-									ng-click="showFlavor(flavor)"
-								>
-									{{flavor.name}}
-								</span>
-							</div>
-						</div>
-						<div class="col-md-6">
 							<div class="row">
-								<div class="col-md-12">
-									<div class="row">
-										<img src="{{flavor.cleanName}}" class="img-responsive">
+								<div class="col-md-6">
+									<div 
+										class="row"
+										ng-repeat="flavor in categoryFlavors"
+									>
+										<div class="col-md-12">
+											<div class="row">
+												<span 
+													class="popcornFlavor clickable"
+													ng-click="showFlavor(flavor)"
+												>
+													{{flavor.name}}
+												</span>
+											</div>
+											<div 
+												class="row"
+												ng-show="{{flavor.name}}DescriptionShow"
+											>
+												<span 
+													class="popcornDescription clickable"
+													ng-click="showFlavor(flavor)"
+												>
+													{{flavor.description}}
+												</span>
+											</div>
+										</div>
 									</div>
+								</div>
+								<div class="col-md-4 col-md-offset-1">
+									<img src="{{activeFlavorImgSrc}}" class="img-responsive popcornImgBorder">
 								</div>
 							</div>
 						</div>

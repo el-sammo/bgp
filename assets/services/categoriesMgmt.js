@@ -4,10 +4,10 @@
 	var app = angular.module('app');
 
 	///
-	// Popcorn Management
+	// Category Management
 	///
 
-	app.factory('popcornMgmt', service);
+	app.factory('categoryMgmt', service);
 	
 	service.$inject = [
 		'$http', '$q', '$sce', 'configMgr', 'querystring'
@@ -18,8 +18,8 @@
 	) {
 
 		var service = {
-			getPopcornById: function(popcornId) {
-				var url = '/popcorn/byId/' + popcornId;
+			getCategoryById: function(categoryId) {
+				var url = '/categories/byId/' + categoryId;
 				return $http.get(url).then(function(res) {
 					return res.data;
 				}).catch(function(err) {
@@ -29,8 +29,8 @@
 				});
 			},
 
-			getAllPopcorn: function() {
-				var url = '/popcorn/allPopcorn/';
+			getAllCategories: function() {
+				var url = '/categories/allCategories/';
 				return $http.get(url).then(function(res) {
 					return res.data;
 				}).catch(function(err) {
@@ -40,26 +40,15 @@
 				});
 			},
 
-			getPopcornByCategory: function(categoryId) {
-				var url = '/popcorn/byCategoryId/' +categoryId;
-				return $http.get(url).then(function(res) {
-					return res.data;
-				}).catch(function(err) {
-					console.log('GET ' + url + ': ajax failed');
-					console.error(err);
-					return $q.reject(err);
-				});
-			},
-
-			updatePopcorn: function(popcornData) {
-				var url = '/popcorns/' + popcornData.id;
-				return $http.put(url, popcornData).success(
+			updateCategory: function(categoryData) {
+				var url = '/categories/' + categoryData.id;
+				return $http.put(url, categoryData).success(
 					function(data, status, headers, config) {
 						if(status >= 400) {
 							return $q.reject(data);
 						}
-						mergeIntoPopcorn(data, true);
-						return popcorn;
+						mergeIntoCategory(data, true);
+						return category;
 					}
 				).catch(function(err) {
 					console.log('PUT ' + url + ': ajax failed');
@@ -70,21 +59,21 @@
 
 		};
 
-		function mergeIntoPopcorn(data, replace) {
-			if(! popcorn) {
-				popcorn = data;
+		function mergeIntoCategory(data, replace) {
+			if(! category) {
+				category = data;
 				return;
 			}
 
 			// Delete all original keys
 			if(replace) {
-				angular.forEach(popcorn, function(val, key) {
-					delete popcorn[key];
+				angular.forEach(category, function(val, key) {
+					delete category[key];
 				});
 			}
 
 			angular.forEach(data, function(val, key) {
-				popcorn[key] = val;
+				category[key] = val;
 			});
 		};
 
