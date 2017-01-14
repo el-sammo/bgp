@@ -174,6 +174,7 @@ function controller(
 			hideCategories();
 			popcornMgmt.getPopcornByCategory(category.id).then(function(categoryFlavors) {
 				$scope.categoryFlavors = categoryFlavors;
+				showFlavor(categoryFlavors[0], 0);
 			});
 			switch(category.name) {
 				case 'Candy':
@@ -200,22 +201,179 @@ function controller(
 		}
 	}
 
-	function showFlavor(flavor) {
+	function showFlavor(flavor, showId) {
 		if(!flavor) {
 			popcornMgmt.getPopcornByCategory($scope.popcornCategories[0].id).then(function(categoryFlavors) {
-				$scope.activeFlavorImgSrc = "/images/popcorn_images/" + categoryFlavors[0].name.toLowerCase().replace('\'', '').replace(/ /g, '_') + ".jpg";
+				$scope.activeFlavorName = categoryFlavors[0].name;
 				$scope.activeFlavorDesc = categoryFlavors[0].description;
+				$scope.activeFlavorImgSrc = "/images/popcorn_images/" + categoryFlavors[0].name.toLowerCase().replace('\'', '').replace(/ /g, '_') + ".jpg";
 				showDescription(categoryFlavors[0]);
+				$scope.showFlavorDescId = 'flavor0Show';
 			});
 		} else {
+			$scope.activeFlavorName = flavor.name;
 			$scope.activeFlavorDesc = flavor.description;
 			$scope.activeFlavorImgSrc = "/images/popcorn_images/" + flavor.name.toLowerCase().replace('\'', '').replace(/ /g, '_') + ".jpg";
-			showDescription(flavor);
+			showDescription(showId);
 		}
 	}
 
-	showDescription(flavor) {
-		$scope.flavor
+	function showDescription(showId) {
+		showId = showId.toString();
+		switch(showId) {
+			case '0':
+				$scope.showFlavorDescId = 'flavor0Show';
+				break;
+			case '1':
+				$scope.showFlavorDescId = 'flavor1Show';
+				break;
+			case '2':
+				$scope.showFlavorDescId = 'flavor2Show';
+				break;
+			case '3':
+				$scope.showFlavorDescId = 'flavor3Show';
+				break;
+			case '4':
+				$scope.showFlavorDescId = 'flavor4Show';
+				break;
+			case '5':
+				$scope.showFlavorDescId = 'flavor5Show';
+				break;
+			case '6':
+				$scope.showFlavorDescId = 'flavor6Show';
+				break;
+			case '7':
+				$scope.showFlavorDescId = 'flavor7Show';
+				break;
+			case '8':
+				$scope.showFlavorDescId = 'flavor8Show';
+				break;
+			case '9':
+				$scope.showFlavorDescId = 'flavor9Show';
+				break;
+			case '10':
+				$scope.showFlavorDescId = 'flavor10Show';
+				break;
+			case '11':
+				$scope.showFlavorDescId = 'flavor11Show';
+				break;
+			case '12':
+				$scope.showFlavorDescId = 'flavor12Show';
+				break;
+			case '13':
+				$scope.showFlavorDescId = 'flavor13Show';
+				break;
+			case '14':
+				$scope.showFlavorDescId = 'flavor14Show';
+				break;
+			case '15':
+				$scope.showFlavorDescId = 'flavor15Show';
+				break;
+			case '16':
+				$scope.showFlavorDescId = 'flavor16Show';
+				break;
+			case '17':
+				$scope.showFlavorDescId = 'flavor17Show';
+				break;
+			case '18':
+				$scope.showFlavorDescId = 'flavor18Show';
+				break;
+			case '19':
+				$scope.showFlavorDescId = 'flavor19Show';
+				break;
+			case '20':
+				$scope.showFlavorDescId = 'flavor20Show';
+				break;
+			case '21':
+				$scope.showFlavorDescId = 'flavor21Show';
+				break;
+			case '22':
+				$scope.showFlavorDescId = 'flavor22Show';
+				break;
+			case '23':
+				$scope.showFlavorDescId = 'flavor23Show';
+				break;
+			case '24':
+				$scope.showFlavorDescId = 'flavor24Show';
+				break;
+			case '25':
+				$scope.showFlavorDescId = 'flavor25Show';
+				break;
+			case '26':
+				$scope.showFlavorDescId = 'flavor26Show';
+				break;
+			case '27':
+				$scope.showFlavorDescId = 'flavor27Show';
+				break;
+			case '28':
+				$scope.showFlavorDescId = 'flavor28Show';
+				break;
+			case '29':
+				$scope.showFlavorDescId = 'flavor29Show';
+				break;
+			case '30':
+				$scope.showFlavorDescId = 'flavor30Show';
+				break;
+			case '31':
+				$scope.showFlavorDescId = 'flavor31Show';
+				break;
+			case '32':
+				$scope.showFlavorDescId = 'flavor32Show';
+				break;
+			case '33':
+				$scope.showFlavorDescId = 'flavor33Show';
+				break;
+			case '34':
+				$scope.showFlavorDescId = 'flavor34Show';
+				break;
+			case '35':
+				$scope.showFlavorDescId = 'flavor35Show';
+				break;
+			case '36':
+				$scope.showFlavorDescId = 'flavor36Show';
+				break;
+			case '37':
+				$scope.showFlavorDescId = 'flavor37Show';
+				break;
+			case '38':
+				$scope.showFlavorDescId = 'flavor38Show';
+				break;
+			case '39':
+				$scope.showFlavorDescId = 'flavor39Show';
+				break;
+			case '40':
+				$scope.showFlavorDescId = 'flavor40Show';
+				break;
+			case '41':
+				$scope.showFlavorDescId = 'flavor41Show';
+				break;
+			case '42':
+				$scope.showFlavorDescId = 'flavor42Show';
+				break;
+			case '43':
+				$scope.showFlavorDescId = 'flavor43Show';
+				break;
+			case '44':
+				$scope.showFlavorDescId = 'flavor44Show';
+				break;
+			case '45':
+				$scope.showFlavorDescId = 'flavor45Show';
+				break;
+			case '46':
+				$scope.showFlavorDescId = 'flavor46Show';
+				break;
+			case '47':
+				$scope.showFlavorDescId = 'flavor47Show';
+				break;
+			case '48':
+				$scope.showFlavorDescId = 'flavor48Show';
+				break;
+			case '49':
+				$scope.showFlavorDescId = 'flavor49Show';
+				break;
+			default:
+				$scope.showFlavorDescId = 'flavor0Show';
+		}
 	}
 
 	function account() {
