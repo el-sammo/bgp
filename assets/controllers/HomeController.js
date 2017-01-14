@@ -206,7 +206,7 @@ function controller(
 			popcornMgmt.getPopcornByCategory($scope.popcornCategories[0].id).then(function(categoryFlavors) {
 				$scope.activeFlavorName = categoryFlavors[0].name;
 				$scope.activeFlavorDesc = categoryFlavors[0].description;
-				$scope.activeFlavorImgSrc = "/images/popcorn_images/" + categoryFlavors[0].name.toLowerCase().replace('\'', '').replace(/ /g, '_') + ".jpg";
+				$scope.activeFlavorImgSrc = "/images/popcorn_images/" + categoryFlavors[0].name.toLowerCase().replace('\'', '').replace('&', 'and').replace(/ /g, '_') + ".jpg";
 				showDescription(categoryFlavors[0]);
 				$scope.showFlavorDescId = 'flavor0Show';
 			});

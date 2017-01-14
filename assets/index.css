@@ -34,6 +34,7 @@ html {
 
 .offset15 {
 	top: 15px;
+	position: relative;
 }
 
 .offsetNeg15 {
@@ -59,11 +60,45 @@ html {
 .softBack {
 	border: 1px solid black;
 	border-radius: 12px;
-	background: rgba(54, 25, 25, .2);
+	background: rgba(255,20,147, .2);
 }
 
 .clickable {
 	cursor: pointer;
+}
+
+.catHead {
+	size: 24px;
+	font-weight: 900;
+}
+
+.candyFlavorDescription {
+	size: 20px;
+	font-weight: 700;
+}
+
+.popcornFlavor {
+	size: 18px;
+	font-weight: 600;
+	text-align: left!important;
+}
+
+.popcornDescription {
+	size: 14px;
+	font-weight: 500;
+	text-align: left!important;
+}
+
+.imgCaption {
+	size: 12px;
+}
+
+.alignLeft {
+	text-align: left!important;
+}
+
+.spaceBottom {
+	margin-bottom: 15px;
 }
 
 body {
