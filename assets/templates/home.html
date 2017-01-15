@@ -1,4 +1,4 @@
-				<div class="softBack">
+				<div class="softBack offsetNeg75">
 					<div class="row offset15">
 						<div 
 							class="col-md-2" 
@@ -31,6 +31,7 @@
 									<div 
 										class="row offset15 spaceBottom"
 										ng-repeat="flavor in categoryFlavors"
+										ng-show="flavor.active"
 										ng-init="showId = 'flavor'+$index+'Show'"
 										track by $index
 									>
@@ -72,6 +73,13 @@
 										<div class="col-md-12">
 											<span class="imgCaption">
 												{{activeFlavorName}}
+											</span>
+										</div>
+									</div>
+									<div class="row offset15">
+										<div class="col-md-12">
+											<span class="sizePrice">
+												(Sizes & Prices Here)
 											</span>
 										</div>
 									</div>

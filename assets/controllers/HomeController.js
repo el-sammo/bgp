@@ -213,7 +213,7 @@ function controller(
 		} else {
 			$scope.activeFlavorName = flavor.name;
 			$scope.activeFlavorDesc = flavor.description;
-			$scope.activeFlavorImgSrc = "/images/popcorn_images/" + flavor.name.toLowerCase().replace('\'', '').replace(/ /g, '_') + ".jpg";
+			$scope.activeFlavorImgSrc = "/images/popcorn_images/" + flavor.name.toLowerCase().replace('\'', '').replace('&', 'and').replace(/ /g, '_') + ".jpg";
 			showDescription(showId);
 		}
 	}

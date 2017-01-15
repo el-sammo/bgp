@@ -32,13 +32,46 @@ html {
 	text-decoration: none;
 }
 
+.topDepth {
+	z-index: 99;
+}
+
 .offset15 {
 	top: 15px;
 	position: relative;
 }
 
+.offset25 {
+	top: 25px;
+	position: relative;
+}
+
+.offset50 {
+	top: 50px;
+	position: relative;
+}
+
 .offsetNeg15 {
+	top: -15px;
+}
+
+.offsetNeg25 {
 	top: -25px;
+}
+
+.offsetNeg50 {
+	top: -50px;
+	position: relative;
+}
+
+.offsetNeg60 {
+	top: -60px;
+	position: relative;
+}
+
+.offsetNeg75 {
+	top: -75px;
+	position: relative;
 }
 
 .leftFifty {
@@ -60,7 +93,8 @@ html {
 .softBack {
 	border: 1px solid black;
 	border-radius: 12px;
-	background: rgba(255,20,147, .2);
+	background: rgba(255,255,0, .2);
+	min-height: 580px;
 }
 
 .clickable {
@@ -68,17 +102,18 @@ html {
 }
 
 .catHead {
-	size: 24px;
+	size: 28px;
 	font-weight: 900;
+	color: #a800ff;
 }
 
 .candyFlavorDescription {
-	size: 20px;
+	size: 24px;
 	font-weight: 700;
 }
 
 .popcornFlavor {
-	size: 18px;
+	size: 12px;
 	font-weight: 600;
 	text-align: left!important;
 }
