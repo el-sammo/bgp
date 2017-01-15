@@ -14,7 +14,8 @@ controller.$inject = [
 	'$modal', '$timeout', '$window',
 
 	'signupPrompter', 'deviceMgr', 'layoutMgmt',
-	'customerMgmt', 'orderMgmt', 'popcornMgmt', 'categoryMgmt',
+	'customerMgmt', 'orderMgmt', 'popcornMgmt', 
+	'categoryMgmt', 'optionsMgmt',
 	'messenger', 
 	'lodash',
 ];
@@ -23,7 +24,8 @@ function controller(
 	$scope, $http, $routeParams, $rootScope, $location,
 	$modal, $timeout, $window,
 	signupPrompter, deviceMgr, layoutMgmt, 
-	customerMgmt, orderMgmt, popcornMgmt, categoryMgmt,
+	customerMgmt, orderMgmt, popcornMgmt,
+	categoryMgmt, optionsMgmt,
 	messenger, 
 	_
 ) {
@@ -56,6 +58,8 @@ function controller(
 
 		$scope.showCategory = showCategory;
 		$scope.showFlavor = showFlavor;
+
+		$scope.addFlavor = orderMgmt.add;
 
 		$scope.account = account;
 
@@ -204,15 +208,25 @@ function controller(
 	function showFlavor(flavor, showId) {
 		if(!flavor) {
 			popcornMgmt.getPopcornByCategory($scope.popcornCategories[0].id).then(function(categoryFlavors) {
+				$scope.activeFlavor = categoryFlavors[0];
+				$scope.activeFlavorId = categoryFlavors[0].id;
 				$scope.activeFlavorName = categoryFlavors[0].name;
 				$scope.activeFlavorDesc = categoryFlavors[0].description;
+				optionsMgmt.getOptionsByPopcornId($scope.activeFlavorId).then(function(optionsData) {
+					$scope.activeFlavorSizes = optionsData;
+				});
 				$scope.activeFlavorImgSrc = "/images/popcorn_images/" + categoryFlavors[0].name.toLowerCase().replace('\'', '').replace('&', 'and').replace(/ /g, '_') + ".jpg";
 				showDescription(categoryFlavors[0]);
 				$scope.showFlavorDescId = 'flavor0Show';
 			});
 		} else {
+			$scope.activeFlavor = flavor;
+			$scope.activeFlavorId = flavor.id;
 			$scope.activeFlavorName = flavor.name;
 			$scope.activeFlavorDesc = flavor.description;
+			optionsMgmt.getOptionsByPopcornId($scope.activeFlavorId).then(function(optionsData) {
+				$scope.activeFlavorSizes = optionsData;
+			});
 			$scope.activeFlavorImgSrc = "/images/popcorn_images/" + flavor.name.toLowerCase().replace('\'', '').replace('&', 'and').replace(/ /g, '_') + ".jpg";
 			showDescription(showId);
 		}

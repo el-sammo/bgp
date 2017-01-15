@@ -1,5 +1,5 @@
 /**
-* Popcorn.js
+* Options.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
@@ -10,24 +10,16 @@ var tablize = require('sd-datatables');
 module.exports = {
 
   attributes: {
+    popcornId: {
+      type: 'string',
+      required: true
+		},
     name: {
       type: 'string',
       required: true
 		},
-    description: {
-      type: 'string',
-      required: true
-		},
-    category: {
-      type: 'string',
-      required: true
-		},
-    active: {
-      type: 'boolean',
-      required: true
-		},
-		months: {
-			type: 'array',
+		price: {
+			type: 'float',
 			required: true
 		}
   }

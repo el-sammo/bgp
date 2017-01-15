@@ -6,234 +6,486 @@
 	app.controller('OrderMgmtController', controller);
 	
 	controller.$inject = [
-		'$q', '$scope', '$modalInstance', '$http', '$rootScope', '$timeout',
-		'$window', 'customerMgmt', 'clientConfig', 'args', 'entityMgmt',
-		'reservationMgmt', 'signupPrompter', 'layoutMgmt',
-		'payMethodMgmt', 'orderMgmt', 'promoMgmt'
+		'$q', 'args', '$scope', '$modalInstance', '$http', '$rootScope',
+		'customerMgmt', 'clientConfig'
 	];
 
 	function controller(
-		$q, $scope, $modalInstance, $http, $rootScope, $timeout,
-		$window, customerMgmt, clientConfig, args, entityMgmt,
-		reservationMgmt, signupPrompter, layoutMgmt,
-		payMethodMgmt, orderMgmt, promoMgmt
+		$q, args, $scope, $modalInstance, $http, $rootScope,
+		customerMgmt, clientConfig
 	) {
 
-		$scope.showProcessing = false;
-		$scope.preventClick = false;
-		$scope.getMore = false;
-		$scope.validCode = true;
+		$scope.flavor = args.flavor;
+		$scope.thing = args.thing;
+		$scope.bev = args.bev;
+		$scope.bevThing = args.bevThing;
+		$scope.specInst = '';
+		$scope.quantity = 1;
+		$scope.selSize = '';
 
-		var getSessionPromise = customerMgmt.getSession();
-		getSessionPromise.then(function(sessionData) {
-
-			if(sessionData.customerId) {
-				var getCustomerPromise = customerMgmt.getCustomer(sessionData.customerId);
-				getCustomerPromise.then(function(customer) {
-					var foundCustomer = angular.copy(customer);
-					$scope.customer = foundCustomer;
-					if(
-						customer.fName && 
-						customer.lName && 
-						customer.phone &&
-						customer.address &&
-						customer.city &&
-						customer.state &&
-						customer.zip
-					) {
-						var paymentMethods = foundCustomer.paymentMethods || [];
-				
-						paymentMethods.forEach(function(payMethod) {
-							payMethod.lastFour = redactCC(payMethod.lastFour);
-						});
-				
-						paymentMethods.push({id: 'newCard', lastFour: 'New Credit Card'});
-				
-						$scope.checkoutPaymentMethods = paymentMethods;
-			
-					} else {
-						$scope.getMore = true;
-					}
-				});
-			} else {
-				$modalInstance.dismiss('done');
-				layoutMgmt.logIn();
-			}
-		});
-
-		if(args.poolId) {
-			$scope.poolId = args.poolId;
-		}
-
-		if(args.entityId) {
-			$scope.entityId = args.entityId;
-		}
-
-		if(args.quantity) {
-			$scope.quantity = args.quantity;
-		}
-
-		if(args.total) {
-			$scope.total = args.total;
-			$scope.currentTotal = args.total;
-		} 
-
-		if(args.entityName) {
-			$scope.entityName = args.entityName;
-		}
-
-		if(args.eOds) {
-			$scope.eOds = args.eOds;
-		}
-
-		if(args.eeCount) {
-			$scope.eeCount = args.eeCount;
-		}
-
-		$scope.showTerms = function() {
-console.log('$scope.showTerms() called');			
-		}
-
-		$scope.payMethod = {};
-
-		function redactCC(lastFour) {
-			return 'XXXX-XXXX-XXXX-' + lastFour;
-		}
-
-		$scope.addPM = function() {
-			var paymentData = {
-				cardNumber: $scope.payMethod.cardNumber.toString(),
-				expirationDate: $scope.payMethod.year + '-' + $scope.payMethod.month,
-				cvv2: $scope.payMethod.cvv2
-			};
-
-			payMethodMgmt.addPM(paymentData).then(function(customer) {
-				var payMethod = _.last(customer.paymentMethods);
-				var pos = $scope.checkoutPaymentMethods.length - 2;
-				$scope.checkoutPaymentMethods.splice(pos, 0, {
-					id: payMethod.id,
-					lastFour: redactCC(payMethod.lastFour)
-				});
-				$scope.selMethod = payMethod.id;
-			}).catch(function(err) {
-				if(err.duplicateCustomerProfile && err.duplicateCustomerProfileId > 0) {
-					$scope.customer.aNetProfileId = err.duplicateCustomerProfileId;
-					customerMgmt.updateCustomer($scope.customer).then($scope.addPM);
-				}
-				if(err.duplicatePaymentProfile) {
-					if($($window).width() > bigScreenWidth) {
-						console.log('showBig');
-						$window.location.href = '/app/';
-					} else {
-						console.log('showSmall');
-						$window.location.href = '/app/cart/';
-					}
-				}
-			});
-		};
-
-		if($scope.lastLookupId && $scope.entityId === $scope.lastLookupId) {
-		} else {
-			var getEntityPromise = entityMgmt.getEntity($scope.entityId);
-			getEntityPromise.then(function(entity) {
-				$scope.entity = entity;
-				$scope.lastLookupId = args.entityId;
-			});
-		}
-
+		$scope.currentlyAvailable = true;
 		$scope.currentlyAvailableReason = 'na';
+
+		$scope.holiday = false;
+
+		if(clientConfig.holiday) {
+			$scope.currentlyAvailable = false;
+			$scope.currentlyAvailableReason = 'holiday';
+			return;
+		}
 		
 		$scope.orderCompleted = false;
 
-		$scope.addBasics = function() {
-			var updateCustomerPromise = customerMgmt.updateCustomer($scope.customer);
-			updateCustomerPromise.then(function(response) {
-				$modalInstance.dismiss('done');
-				$scope.getMore = false;
-				orderMgmt.reserve(
-					$scope.poolId,
-					$scope.entityId,
-					$scope.quantity,
-					$scope.total,
-					$scope.entityName,
-					$scope.eOds,
-					$scope.eeCount
-				);
-			});
+		// If there's only one option, auto-choose it
+		if($scope.flavor && $scope.flavor.sizes && $scope.flavor.sizes.length === 1) {
+			$scope.selSize = _.first($scope.flavor.sizes);
 		}
 
-		$scope.updateCurrentTotal = function() {
-			if($scope.promo) {
-				var getPromoPromise = promoMgmt.getPromo($scope.promo);
-				getPromoPromise.then(function(response) {
-					if(response.amount) {
-						$scope.validCode = true;
-						$scope.currentTotal = (parseFloat($scope.total) - parseFloat(response.amount)).toFixed(2);
-					} else {
-						$scope.currentTotal = (parseFloat($scope.total)).toFixed(2);
+		$scope.addFlavorSize = function() {
+			var sessionPromise = customerMgmt.getSession();
+		
+			sessionPromise.then(function(sessionData) {
+
+				function mergeThings(existingThing, thingToMerge) {
+					existingThing.quantity = (
+						parseInt(existingThing.quantity) + parseInt(thingToMerge.quantity)
+					);
+
+					var specInst = [];
+					existingThing.specInst && specInst.push(existingThing.specInst);
+					thingToMerge.specInst && specInst.push(thingToMerge.specInst);
+					existingThing.specInst = specInst.join('; ');
+				}
+
+				function buildThings(existingThings) {
+					existingThings || (existingThings = []);
+
+					var selectedSize;
+					$scope.flavor.sizes.forEach(function(sizes) {
+						if($scope.selSize.localeCompare(size)) return;
+						selectedSize = size;
+					});
+
+					var deferred = $q.defer();
+
+					newThing(selectedSize).then(function(thingToAdd) {
+						var isDuplicate = false;
+						existingThings.forEach(function(existingThing) {
+							if(existingThing.optionId.localeCompare(thingToAdd.optionId)) return;
+							isDuplicate = true;
+							mergeThings(existingThing, thingToAdd);
+						});
+
+						if(! isDuplicate) {
+							existingThings.push(thingToAdd);
+						}
+
+						deferred.resolve(existingThings);
+					}).catch(deferred.reject);
+
+					return deferred.promise;
+				}
+
+				function newThing(option) {
+					var deferred = $q.defer();
+
+					var p = $scope.getRestaurant(option.id);
+					
+					p.then(function(data) {
+						var thing = {
+							name: $scope.flavor.name,
+							option: option.name,
+							optionId: option.id,
+							price: option.price,
+							quantity: $scope.quantity,
+							specInst: $scope.specInst,
+							restaurantName: data.name,
+							restaurantId: data.id
+						};
+
+						deferred.resolve(thing);
+					});
+
+					p.catch(deferred.reject);
+
+					return deferred.promise;
+				}
+
+				function buildOrder(order) {
+					var deferred = $q.defer();
+
+					if(! order.orderStatus) {
+						if(sessionData.customerId) {
+							order = {
+								customerId: sessionData.customerId,
+								areaId: $rootScope.areaId,
+								orderStatus: parseInt(1),
+								sessionId: sessionData.sid,
+								orphaned: false
+							};
+						} else {
+							order = {
+								areaId: $rootScope.areaId,
+								orderStatus: parseInt(1),
+								sessionId: sessionData.sid,
+								orphaned: false
+							};
+						}
 					}
-					if(response.result && (response.result === 'invalid' || response.result === 'expired')) {
-						$scope.validCode = false;
-						$scope.reason = response.result;
+
+					buildThings(order.things).then(function(things) {
+						order.things = things;
+						deferred.resolve(order);
+					}).catch(deferred.reject);
+
+					return deferred.promise;
+				}
+
+				var order;
+				if(sessionData.order) {
+					order	= sessionData.order;
+				} else {
+					order = {};
+				}
+
+				// Controls that prevent an flavor from being added to
+				// an order that has achieved order status 5 or more
+				if(order.orderStatus && (parseInt(order.orderStatus) > 4)) {
+					console.log('attempting to add flavor to completed order...');
+					$scope.orderCompleted = true;
+					return;
+				}
+
+				if(!order.customerId && sessionData.customerId) {
+					order.customerId = sessionData.customerId;
+				}
+
+				var method = 'post';
+				var url = '/orders/create';
+
+				if(order.orderStatus) {
+					method = 'put';
+					url = '/orders/' + order.id;
+				}
+
+				if(!order.sawBevTour) {
+					order.sawBevTour = false;
+				}
+
+				buildOrder(order).then(function(order) {
+					$http[method](url, order).then(function(res) {
+						$rootScope.$broadcast('orderChanged');
+						$modalInstance.dismiss('done');
+					}).catch(function(err) {
+						console.log('OrderMgmtController: Save order failed - ' + method + ' - ' + url);
+						console.error(err);
+						$modalInstance.dismiss('cancel');
+					});
+				});
+			});
+		};
+
+		// If there's only one bevOption, auto-choose it
+		if($scope.bev && $scope.bev.options && $scope.bev.options.length === 1) {
+			$scope.selOption = _.first($scope.bev.options).id;
+		}
+
+		$scope.addBevOption = function() {
+
+			var sessionPromise = customerMgmt.getSession();
+		
+			sessionPromise.then(function(sessionData) {
+
+				function mergeBevThings(existingBevThing, bevThingToMerge) {
+					existingBevThing.quantity = (
+						parseInt(existingBevThing.quantity) + parseInt(bevThingToMerge.quantity)
+					);
+				}
+
+				function buildBevThings(existingBevThings) {
+					existingBevThings || (existingBevThings = []);
+
+					var selectedBevOption;
+					$scope.bev.options.forEach(function(bevOption) {
+						if($scope.selOption.localeCompare(bevOption.id)) return;
+						selectedBevOption = bevOption;
+					});
+
+					var deferred = $q.defer();
+
+					newBevThing(selectedBevOption).then(function(bevThingToAdd) {
+						var isDuplicate = false;
+						existingBevThings.forEach(function(existingBevThing) {
+							if(existingBevThing.optionId.localeCompare(bevThingToAdd.optionId)) return;
+							isDuplicate = true;
+							mergeBevThings(existingBevThing, bevThingToAdd);
+						});
+
+						if(! isDuplicate) {
+							existingBevThings.push(bevThingToAdd);
+						}
+
+						deferred.resolve(existingBevThings);
+					}).catch(deferred.reject);
+
+					return deferred.promise;
+				}
+
+				function newBevThing(bevOption) {
+					var deferred = $q.defer();
+
+					var bevThing = {
+						name: $scope.bev.name,
+						option: bevOption.name,
+						optionId: bevOption.id,
+						price: bevOption.price,
+						quantity: $scope.quantity,
+					};
+
+					deferred.resolve(bevThing);
+
+					return deferred.promise;
+				}
+
+				function buildOrder(order) {
+					var deferred = $q.defer();
+
+					if(! order.orderStatus) {
+						if(sessionData.customerId) {
+							order = {
+								customerId: sessionData.customerId,
+								areaId: $rootScope.areaId,
+								orderStatus: parseInt(1),
+								sessionId: sessionData.sid,
+								orphaned: false
+							};
+						} else {
+							order = {
+								areaId: $rootScope.areaId,
+								orderStatus: parseInt(1),
+								sessionId: sessionData.sid,
+								orphaned: false
+							};
+						}
+					}
+
+					buildBevThings(order.bevThings).then(function(bevThings) {
+						order.bevThings = bevThings;
+						deferred.resolve(order);
+					}).catch(deferred.reject);
+
+					return deferred.promise;
+				}
+
+				var order;
+				if(sessionData.order) {
+					order	= sessionData.order;
+				} else {
+					order = {};
+				}
+
+				// Controls that prevent a bev from being added to
+				// an order that has achieved order status 5 or more
+				if(order.orderStatus && (parseInt(order.orderStatus) > 4)) {
+					console.log('attempting to add bev to completed order...');
+					$scope.orderCompleted = true;
+					return;
+				}
+
+				if(!order.customerId && sessionData.customerId) {
+					order.customerId = sessionData.customerId;
+				}
+
+				var method = 'post';
+				var url = '/orders/create';
+
+				if(order.orderStatus) {
+					method = 'put';
+					url = '/orders/' + order.id;
+				}
+
+				buildOrder(order).then(function(order) {
+					order.sawBevTour = true;
+
+					$http[method](url, order).then(function(res) {
+						$rootScope.$broadcast('orderChanged');
+						$modalInstance.dismiss('done');
+					}).catch(function(err) {
+						console.log('OrderMgmtController: Save order failed - ' + method + ' - ' + url);
+						console.error(err);
+						$modalInstance.dismiss('cancel');
+					});
+				});
+			});
+		};
+
+		$scope.removeThing = function() {
+			var sessionPromise = customerMgmt.getSession();
+		
+			sessionPromise.then(function(sessionData) {
+				sessionData || (sessionData = {});
+				sessionData.order || (sessionData.order = {});
+				sessionData.order.things || (sessionData.order.things = []);
+
+				var things = sessionData.order.things;
+
+				var holdingMap = [];
+
+				things.forEach(function(thing) {
+					if(!thing.optionId.localeCompare($scope.thing.optionId)) {
+						thing.quantity = (parseInt(thing.quantity) - parseInt($scope.quantity));
+						if(thing.quantity > 0) {
+							holdingMap.push({
+								'name': thing.name,
+								'option': thing.option,
+								'optionId': thing.optionId,
+								'price': thing.price,
+								'quantity': thing.quantity,
+								'specInst': thing.specInst,
+								'restaurantName': thing.restaurantName,
+								'restaurantId': thing.restaurantId
+							});
+						}
+					} else {
+						holdingMap.push({
+							'name': thing.name,
+							'option': thing.option,
+							'optionId': thing.optionId,
+							'price': thing.price,
+							'quantity': thing.quantity,
+							'specInst': thing.specInst,
+							'restaurantName': thing.restaurantName,
+							'restaurantId': thing.restaurantId
+						});
 					}
 				});
-			} else {
-				$scope.validCode = true;
-				$scope.currentTotal = (parseFloat($scope.total)).toFixed(2);
-			}
-		}
+		
+				sessionData.order.things = holdingMap;
+		
+				var r = $http.put('/orders/' + sessionData.order.id, sessionData.order);
+		
+				// if orders ajax fails...
+				r.catch(function(err) {
+					console.log('OrderMgmtController: removeOption-put ajax failed');
+					console.error(err);
+					$modalInstance.dismiss('cancel');
+				});
+							
+				// if orders ajax succeeds...
+				r.then(function(res) {
+					$rootScope.$broadcast('orderChanged');
+					$modalInstance.dismiss('done');
+				});
+			});
+		};
 
-		$scope.addThisReservation = function() {
-			var cost = ($scope.currentTotal / $scope.quantity).toFixed(2);
+		$scope.removeBevThing = function() {
 
-			var promo;
+			var sessionPromise = customerMgmt.getSession();
+		
+			sessionPromise.then(function(sessionData) {
+				sessionData || (sessionData = {});
+				sessionData.order || (sessionData.order = {});
+				sessionData.order.bevThings || (sessionData.order.bevThings = []);
 
-			if($scope.promo) {
-				promo = $scope.promo;
-			} else {
-				promo = 'nopromo';
-			}
+				var bevThings = sessionData.order.bevThings;
 
-			var reservation = {
-				poolId: $scope.poolId, 
-				entityId: $scope.entityId,
-				eOds: $scope.eOds,
-				eeCount: $scope.eeCount,
-				entityName: $scope.entityName, 
-				customerId: $scope.customer.id,
-				aNetProfileId: $scope.customer.aNetProfileId,
-				paymentMethodId: $scope.selMethod,
-				cost: parseFloat(cost), 
-				quantity: parseInt($scope.quantity), 
-				promo: promo,
-				total: parseFloat($scope.currentTotal)
-			};
+				var holdingMap = [];
 
-			var createReservationPromise = reservationMgmt.createReservation(reservation);
-			createReservationPromise.then(function(response) {
-console.log(' ');				
-console.log('response:');				
-console.log(response);				
-console.log(' ');				
-				$scope.showProcessing = true;
-				$scope.preventClick = true;
-				// this is a hack - we can do better
-				$timeout(function() {
-					if(response.statusText === 'OK') {
-						$window.location.href = location.origin + "/app/account";
-						console.log('reservation successful - '+response.data);
-						$modalInstance.dismiss('done');
+				bevThings.forEach(function(bevThing) {
+					if(!bevThing.optionId.localeCompare($scope.bevThing.optionId)) {
+						bevThing.quantity = (parseInt(bevThing.quantity) - parseInt($scope.quantity));
+						if(bevThing.quantity > 0) {
+							holdingMap.push({
+								'name': bevThing.name,
+								'option': bevThing.option,
+								'optionId': bevThing.optionId,
+								'price': bevThing.price,
+								'quantity': bevThing.quantity,
+								'specInst': bevThing.specInst,
+								'restaurantName': bevThing.restaurantName,
+								'restaurantId': bevThing.restaurantId
+							});
+						}
 					} else {
-						console.log('reservation NOT successful - '+response.data);
+						holdingMap.push({
+							'name': bevThing.name,
+							'option': bevThing.option,
+							'optionId': bevThing.optionId,
+							'price': bevThing.price,
+							'quantity': bevThing.quantity,
+							'specInst': bevThing.specInst,
+							'restaurantName': bevThing.restaurantName,
+							'restaurantId': bevThing.restaurantId
+						});
 					}
-				}, 10000)
+				});
+		
+				sessionData.order.bevThings = holdingMap;
+		
+				var r = $http.put('/orders/' + sessionData.order.id, sessionData.order);
+		
+				// if orders ajax fails...
+				r.catch(function(err) {
+					console.log('OrderMgmtController: removeOption-put ajax failed');
+					console.error(err);
+					$modalInstance.dismiss('cancel');
+				});
+							
+				// if orders ajax succeeds...
+				r.then(function(res) {
+					$rootScope.$broadcast('orderChanged');
+					$modalInstance.dismiss('done');
+				});
+			});
+		};
 
+		$scope.getRestaurant = function(optionId) {
+			return $q(function(resolve, reject) {
+				var r = $http.get('/options/' + optionId);
+					
+				r.error(function(err) {
+					console.log('OrderMgmtController: getRestaurantName-options ajax failed');
+					console.error(err);
+					reject(err);
+				});
+					
+				r.then(function(res) {
+					var s = $http.get('/flavor/' + res.data.flavor);
+						
+					s.error(function(err) {
+						console.log('OrderMgmtController: getRestaurantName-flavor ajax failed');
+						console.error(err);
+						reject(err);
+					});
+						
+					s.then(function(res) {
+						var t = $http.get('/menus/' + res.data.menuId);
+							
+						t.error(function(err) {
+							console.log('OrderMgmtController: getRestaurantName-menus ajax failed');
+							console.error(err);
+							reject(err);
+						});
+							
+						t.then(function(res) {
+							var u = $http.get('/restaurants/' + res.data.restaurantId);
+								
+							u.error(function(err) {
+								console.log('OrderMgmtController: getRestaurantName-restaurants ajax failed');
+								console.error(err);
+								reject(err);
+							});
+								
+							u.then(function(res) {
+								resolve(res.data);
+							});
+						});
+					});
+				});
 			});
 		}
 
-		$scope.closeReservation = function() {
-			$modalInstance.dismiss('done');
-		}
 	}
 
 }());

@@ -1,6 +1,6 @@
 <div class="modal-header" ng-show="currentlyAvailable">
   <h3 class="modal-title" id="nav-away-modal-title">
-		Add <strong>{{item.name}}</strong> to Your Order
+		Add <strong>{{flavor.name}}</strong> to Your Order
   </h3>
 </div>
 <div class="modal-header" ng-show="!currentlyAvailable">
@@ -12,19 +12,19 @@
 	<span class="errorBig">You have already completed this order.</span>
 </div>
 <div class="modal-body" ng-show="currentlyAvailable">
-	<form name="addItemForm">
-		<h4 class="breakbeat">Select Your Option</h4>
-		<div class="radio" ng-repeat="option in item.options">
+	<form name="addSizeForm">
+		<h4 class="breakbeat">Select Your Size</h4>
+		<div class="radio" ng-repeat="size in flavor.sizes">
 			<label>
-				<input type="radio" name="optionName" ng-value="option.id" ng-model="$parent.selOption">
-				{{option.name}} - {{option.price}}
+				<input type="radio" name="sizeName" ng-value="size.name" ng-model="$parent.selOption">
+				{{size.name}} - {{size.price | currency}}
 			</label>
 		</div>
 		<br/>
 		<label for="quantity">Quantity:</label>
 		<input type="number" name="quantity" class="form-control" min="1" required ng-model="quantity">
-		<span class="error" ng-show="addItemForm.quantity.$error.required">Quantity is required!</span>
-		<span class="error" ng-show="addItemForm.quantity.$error.number">Not a valid quantity!</span>
+		<span class="error" ng-show="addSizeForm.quantity.$error.required">Quantity is required!</span>
+		<span class="error" ng-show="addSizeForm.quantity.$error.number">Not a valid quantity!</span>
 		<br/>
 		<br/>
 		<label for="specInst">Special Instructions:</label>
@@ -44,7 +44,7 @@
   <button type="button" class="btn btn-primary pull-left" ng-click="$close('discard')">
     <i class="fa fa-reply"></i> &nbsp; Go Back
   </button>
-  <button type="button" class="btn btn-success pull-right" ng-click="addItemOption()" ng-disabled="!selOption">
+  <button type="button" class="btn btn-success pull-right" ng-click="addFlavorSize()" ng-disabled="!selOption">
     <i class="fa fa-plus"></i> &nbsp; Add to Order
   </button>
 </div>
