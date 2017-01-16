@@ -14,10 +14,10 @@
 <div class="modal-body" ng-show="currentlyAvailable">
 	<form name="addSizeForm">
 		<h4 class="breakbeat">Select Your Size</h4>
-		<div class="radio" ng-repeat="size in flavor.sizes">
+		<div class="radio" ng-repeat="option in flavor.options">
 			<label>
-				<input type="radio" name="sizeName" ng-value="size.name" ng-model="$parent.selOption">
-				{{size.name}} - {{size.price | currency}}
+				<input type="radio" name="optionName" ng-value="option.id" ng-model="$parent.selOption">
+				{{option.name}} - {{option.price | currency}}
 			</label>
 		</div>
 		<br/>
@@ -44,7 +44,7 @@
   <button type="button" class="btn btn-primary pull-left" ng-click="$close('discard')">
     <i class="fa fa-reply"></i> &nbsp; Go Back
   </button>
-  <button type="button" class="btn btn-success pull-right" ng-click="addFlavorSize()" ng-disabled="!selOption">
+  <button type="button" class="btn btn-success pull-right" ng-click="addFlavorOption()" ng-disabled="!selOption">
     <i class="fa fa-plus"></i> &nbsp; Add to Order
   </button>
 </div>

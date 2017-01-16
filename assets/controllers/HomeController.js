@@ -213,6 +213,7 @@ function controller(
 				$scope.activeFlavorName = categoryFlavors[0].name;
 				$scope.activeFlavorDesc = categoryFlavors[0].description;
 				optionsMgmt.getOptionsByPopcornId($scope.activeFlavorId).then(function(optionsData) {
+					$scope.activeFlavor.sizes = optionsData;
 					$scope.activeFlavorSizes = optionsData;
 				});
 				$scope.activeFlavorImgSrc = "/images/popcorn_images/" + categoryFlavors[0].name.toLowerCase().replace('\'', '').replace('&', 'and').replace(/ /g, '_') + ".jpg";
@@ -225,6 +226,7 @@ function controller(
 			$scope.activeFlavorName = flavor.name;
 			$scope.activeFlavorDesc = flavor.description;
 			optionsMgmt.getOptionsByPopcornId($scope.activeFlavorId).then(function(optionsData) {
+				$scope.activeFlavor.sizes = optionsData;
 				$scope.activeFlavorSizes = optionsData;
 			});
 			$scope.activeFlavorImgSrc = "/images/popcorn_images/" + flavor.name.toLowerCase().replace('\'', '').replace('&', 'and').replace(/ /g, '_') + ".jpg";

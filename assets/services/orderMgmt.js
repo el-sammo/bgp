@@ -60,7 +60,7 @@
 			},
 			add: function(flavor) {
 				$modal.open({
-					templateUrl: '/templates/addFlavorSizes.html',
+					templateUrl: '/templates/addFlavorOptions.html',
 					backdrop: true,
 					controller: 'OrderMgmtController',
 					resolve: {

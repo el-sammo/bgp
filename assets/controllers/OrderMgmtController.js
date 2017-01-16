@@ -7,21 +7,28 @@
 	
 	controller.$inject = [
 		'$q', 'args', '$scope', '$modalInstance', '$http', '$rootScope',
-		'customerMgmt', 'clientConfig'
+		'customerMgmt', 'popcornMgmt', 'optionsMgmt', 'clientConfig'
 	];
 
 	function controller(
 		$q, args, $scope, $modalInstance, $http, $rootScope,
-		customerMgmt, clientConfig
+		customerMgmt, popcornMgmt, optionsMgmt, clientConfig
 	) {
 
-		$scope.flavor = args.flavor;
+		popcornMgmt.getPopcornById(args.flavor.id).then(function(popcornData) {
+			$scope.flavor = popcornData[0];
+			optionsMgmt.getOptionsByPopcornId($scope.flavor.id).then(function(sizesData) {
+				$scope.flavor.options = sizesData;
+			});
+		});
+
+		$scope.item = args.item;
 		$scope.thing = args.thing;
 		$scope.bev = args.bev;
 		$scope.bevThing = args.bevThing;
 		$scope.specInst = '';
 		$scope.quantity = 1;
-		$scope.selSize = '';
+		$scope.selOption = '';
 
 		$scope.currentlyAvailable = true;
 		$scope.currentlyAvailableReason = 'na';
@@ -37,14 +44,16 @@
 		$scope.orderCompleted = false;
 
 		// If there's only one option, auto-choose it
-		if($scope.flavor && $scope.flavor.sizes && $scope.flavor.sizes.length === 1) {
-			$scope.selSize = _.first($scope.flavor.sizes);
+		if($scope.flavor && $scope.flavor.options && $scope.flavor.options.length === 1) {
+			$scope.selOption = _.first($scope.flavor.options).id;
 		}
 
-		$scope.addFlavorSize = function() {
+		$scope.addFlavorOption = function() {
 			var sessionPromise = customerMgmt.getSession();
 		
 			sessionPromise.then(function(sessionData) {
+console.log('sessionData:');
+console.log(sessionData);
 
 				function mergeThings(existingThing, thingToMerge) {
 					existingThing.quantity = (
@@ -60,15 +69,15 @@
 				function buildThings(existingThings) {
 					existingThings || (existingThings = []);
 
-					var selectedSize;
-					$scope.flavor.sizes.forEach(function(sizes) {
-						if($scope.selSize.localeCompare(size)) return;
-						selectedSize = size;
+					var selectedOption;
+					$scope.flavor.options.forEach(function(option) {
+						if($scope.selOption.localeCompare(option.id)) return;
+						selectedOption = option;
 					});
 
 					var deferred = $q.defer();
 
-					newThing(selectedSize).then(function(thingToAdd) {
+					newThing(selectedOption).then(function(thingToAdd) {
 						var isDuplicate = false;
 						existingThings.forEach(function(existingThing) {
 							if(existingThing.optionId.localeCompare(thingToAdd.optionId)) return;
@@ -89,7 +98,7 @@
 				function newThing(option) {
 					var deferred = $q.defer();
 
-					var p = $scope.getRestaurant(option.id);
+					var p = $scope.getCategory(option.id);
 					
 					p.then(function(data) {
 						var thing = {
@@ -99,8 +108,7 @@
 							price: option.price,
 							quantity: $scope.quantity,
 							specInst: $scope.specInst,
-							restaurantName: data.name,
-							restaurantId: data.id
+							category: data.name
 						};
 
 						deferred.resolve(thing);
@@ -118,14 +126,12 @@
 						if(sessionData.customerId) {
 							order = {
 								customerId: sessionData.customerId,
-								areaId: $rootScope.areaId,
 								orderStatus: parseInt(1),
 								sessionId: sessionData.sid,
 								orphaned: false
 							};
 						} else {
 							order = {
-								areaId: $rootScope.areaId,
 								orderStatus: parseInt(1),
 								sessionId: sessionData.sid,
 								orphaned: false
@@ -440,52 +446,41 @@
 			});
 		};
 
-		$scope.getRestaurant = function(optionId) {
+		$scope.getCategory = function(optionId) {
 			return $q(function(resolve, reject) {
 				var r = $http.get('/options/' + optionId);
 					
 				r.error(function(err) {
-					console.log('OrderMgmtController: getRestaurantName-options ajax failed');
+					console.log('OrderMgmtController: getCategory-options ajax failed');
 					console.error(err);
 					reject(err);
 				});
 					
 				r.then(function(res) {
-					var s = $http.get('/flavor/' + res.data.flavor);
+					var s = $http.get('/popcorn/' + res.data.popcornId);
 						
 					s.error(function(err) {
-						console.log('OrderMgmtController: getRestaurantName-flavor ajax failed');
+						console.log('OrderMgmtController: getCategory-popcorn ajax failed');
 						console.error(err);
 						reject(err);
 					});
 						
 					s.then(function(res) {
-						var t = $http.get('/menus/' + res.data.menuId);
+						var t = $http.get('/categories/' + res.data.category);
 							
 						t.error(function(err) {
-							console.log('OrderMgmtController: getRestaurantName-menus ajax failed');
+							console.log('OrderMgmtController: getCategory-category ajax failed');
 							console.error(err);
 							reject(err);
 						});
 							
 						t.then(function(res) {
-							var u = $http.get('/restaurants/' + res.data.restaurantId);
-								
-							u.error(function(err) {
-								console.log('OrderMgmtController: getRestaurantName-restaurants ajax failed');
-								console.error(err);
-								reject(err);
-							});
-								
-							u.then(function(res) {
-								resolve(res.data);
-							});
+							resolve(res.data);
 						});
 					});
 				});
 			});
 		}
-
 	}
 
 }());

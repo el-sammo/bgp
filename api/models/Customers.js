@@ -11,15 +11,19 @@ var tablize = require('sd-datatables');
 module.exports = {
 
   attributes: {
+    fName: {
+      type: 'string',
+      required: true
+		},
+    lName: {
+      type: 'string',
+      required: true
+		},
     email: {
       type: 'string',
       required: true
 		},
-    username: {
-      type: 'string',
-      required: true
-		},
-    password: {
+    phone: {
       type: 'string',
       required: true
 		},

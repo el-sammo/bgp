@@ -4,7 +4,7 @@
 	var app = angular.module('app');
 
 	///
-	// Customer Management
+	// Account Management
 	///
 
 	app.factory('customerMgmt', service);
@@ -21,9 +21,14 @@
 
 		var service = {
 			getCustomer: function(customerId) {
+				if(getCustomerPromise) {
+					return getCustomerPromise;
+				}
+
 				var url = '/customers/' + customerId;
 				getCustomerPromise = $http.get(url).then(function(res) {
-					return res.data;
+					mergeIntoCustomer(res.data);
+					return customer;
 				}).catch(function(err) {
 					console.log('GET ' + url + ': ajax failed');
 					console.error(err);
@@ -34,19 +39,32 @@
 			},
 
 			createCustomer: function(customerData) {
-				var url = '/customers/create';
-				return $http.post(url, customerData).success(
-					function(data, status, headers, config) {
-						if(status >= 400) {
-							return $q.reject(data);
+				var address = customerData.addresses.primary;
+	
+				var addressString = address.streetNumber+' '+address.streetName+' '+address.city+' '+address.state+' '+address.zip;
+				
+				return $http.get('/customers/getCoords/'+addressString).then(function(response) {
+					var geo = {};
+					geo.latitude = response.data.lat;
+					geo.longitude = response.data.long;
+					geo.googlePlaceId = response.data.gPID;
+
+					customerData.geo = geo;
+
+					var url = '/customers/create';
+					return $http.post(url, customerData).success(
+						function(data, status, headers, config) {
+							if(status >= 400) {
+								return $q.reject(data);
+							}
+							mergeIntoCustomer(data, true);
+							return customer;
 						}
-						mergeIntoCustomer(data, true);
-						return customer;
-					}
-				).catch(function(err) {
-					console.log('POST ' + url + ': ajax failed');
-					console.error(err);
-					return $q.reject(err);
+					).catch(function(err) {
+						console.log('POST ' + url + ': ajax failed');
+						console.error(err);
+						return $q.reject(err);
+					});
 				});
 			},
 
@@ -67,7 +85,6 @@
 				});
 			},
 
-			// TODO: This probably can be replaced with client-side only code
 			logout: function() {
 				var url = '/customers/logout';
 				return $http.get(url).success(
@@ -76,7 +93,6 @@
 							return $q.reject(data);
 						}
 						mergeIntoCustomer({}, true);
-						// TODO - Clear session also
 					}
 				).catch(function(err) {
 					console.log('GET ' + url + ': ajax failed');
@@ -98,27 +114,7 @@
 					console.error(err);
 					$q.reject(err);
 				});
-			},
-
-			setWelcomed: function(sessionData) {
-				sessionData.welcomed = true;
-				var url = '/customers/welcomed/' +sessionData.sid;
-				return $http.put(url, sessionData).success(
-					function(data, status, headers, config) {
-						if(status >= 400) {
-							return $q.reject(data);
-						}
-						return data;
-					}
-				).catch(function(err) {
-					console.log('PUT ' + url + ': ajax failed');
-					console.error(err);
-					return $q.reject(err);
-				});
 			}
-
-			// TODO - Get customer by username
-			// :split services/signup.js
 
 		};
 
