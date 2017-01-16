@@ -32,25 +32,31 @@
 			return 'error';
 		};
 
+		$scope.noAccount = function() {
+			$modalInstance.dismiss('cancel');
+			layoutMgmt.signUp();
+		};
+
 		$scope.submit = function(credentials) {
 			$http.post(
 				'/login', credentials
 			).success(function(data, status, headers, config) {
 				// if login ajax succeeds...
-				$rootScope.$broadcast('customerLoggedIn', data.customerId);
-				$rootScope.customerId = data.customerId;
-				$scope.customerId = data.customerId;
-				$modalInstance.dismiss('done');
+				if(status >= 400) {
+					$rootScope.$broadcast('customerLoggedIn', data.customerId);
+					$modalInstance.dismiss('done');
+				} else if(status == 200) {
+					$rootScope.$broadcast('customerLoggedIn', data.customerId);
+					$modalInstance.dismiss('done');
+				} else {
+					$rootScope.$broadcast('customerLoggedIn', data.customerId);
+					$modalInstance.dismiss('done');
+				}
 			}).error(function(err) {
 				console.log('we were NOT successful here - 1');
 				// if login ajax fails...
 				$scope.badCreds = true;
 			});
-		};
-
-		$scope.noAccount = function() {
-			$modalInstance.dismiss('cancel');
-			layoutMgmt.signUp($scope.areas);
 		};
 
 		$scope.cancel = function() {

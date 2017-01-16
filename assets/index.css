@@ -32,6 +32,10 @@ html {
 	text-decoration: none;
 }
 
+.nearTopDepth {
+	z-index: 80;
+}
+
 .topDepth {
 	z-index: 99;
 }
@@ -138,6 +142,10 @@ html {
 
 .imgCaption {
 	size: 12px;
+}
+
+.login {
+	color: #0000FF;
 }
 
 .alignLeft {

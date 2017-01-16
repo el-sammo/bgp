@@ -1,28 +1,57 @@
-<div ng-controller="MessageController" id="tt-messenger" ng-cloak>
-  <alert type="{{alertType}}" ng-show="userMessage" close="close()">
-    <strong ng-show="title">{{title}}&nbsp;</strong>
+<div 
+	ng-controller="MessageController" 
+	id="tt-messenger" 
+	ng-cloak
+>
+  <alert 
+  	type="{{alertType}}" 
+  	ng-show="userMessage" 
+  	close="close()"
+  >
+    <strong ng-show="title">
+    	{{title}}&nbsp;
+    </strong>
     {{userMessage}}
   </alert>
 </div>
 
-<div class="App" ng-cloak>
+<div 
+	class="App" 
+	ng-cloak
+>
 	<div class="App-header">
-		<div class="col-md-8 col-md-offset-2 offset15">
-			<div class="pull-right">
-				<span>
-					Already Have an Account? <a href="" class="no-deco">Sign In</a> to Access Your Account
+		<div 
+			class="col-md-8 col-md-offset-2 offset15"
+		>
+			<div 
+				class="pull-right"
+				ng-controller="LayoutController"
+			>
+				<span ng-show="!accessAccount">
+					Already Have an Account? <span class="login clickable topDepth" ng-click="logIn()">Log In</span> Need an Account? <span class="login clickable topDepth" ng-click="signUp()">Create Account</span>
+				</span>
+				<span ng-show="accessAccount">
+					<span class="login clickable topDepth" ng-click="showAccount()">My Account</span> <span class="login clickable topDepth" ng-click="logOut()">Log Out</span>
 				</span>
 			</div>
 		</div>
 	</div>
 	<div class="App-body">
 		<div class="App-diag-msg">
-			<img src="/images/new_flavors.png" class="App-diag-msg" alt="Check Out Our New Flavors!" />
+			<img 
+				src="/images/new_flavors.png" 
+				class="App-diag-msg" 
+				alt="Check Out Our New Flavors!" 
+			/>
 		</div>
 		<div class="col-md-8 col-md-offset-2">
 			<div class="row">
-				<div class="col-md-12 offsetNeg50 topDepth">
-					<img src="/images/logo_purple.png" class="pull-left topDepth" alt="Rebecca's Gourmet Popcorn" />
+				<div class="col-md-6 offsetNeg50 nearTopDepth">
+					<img 
+						src="/images/logo_purple.png" 
+						class="pull-left" 
+						alt="Rebecca's Gourmet Popcorn" 
+					/>
 				</div>
 			</div>
 			<div ng-view>
