@@ -15,7 +15,8 @@ controller.$inject = [
 
 	'signupPrompter', 'deviceMgr', 'layoutMgmt',
 	'customerMgmt', 'orderMgmt', 'popcornMgmt', 
-	'categoryMgmt', 'optionsMgmt',
+	'categoryMgmt', 'optionsMgmt', 'payMethodMgmt',
+	'accountMgmt',
 	'messenger', 
 	'lodash',
 ];
@@ -25,7 +26,8 @@ function controller(
 	$modal, $timeout, $window,
 	signupPrompter, deviceMgr, layoutMgmt, 
 	customerMgmt, orderMgmt, popcornMgmt,
-	categoryMgmt, optionsMgmt,
+	categoryMgmt, optionsMgmt, payMethodMgmt,
+	accountMgmt,
 	messenger, 
 	_
 ) {
@@ -51,6 +53,7 @@ function controller(
 	function init() {
 		initDate();
 		initCategories();
+		showPopcorn();
 
 		$scope.logIn = layoutMgmt.logIn;
 		$scope.signUp = layoutMgmt.signUp;
@@ -58,6 +61,10 @@ function controller(
 
 		$scope.showCategory = showCategory;
 		$scope.showFlavor = showFlavor;
+
+		$scope.showAccount = showAccount;
+		$scope.showPopcorn = showPopcorn;
+		$scope.showOrder = showOrder;
 
 		$scope.addFlavor = orderMgmt.add;
 
@@ -98,6 +105,22 @@ function controller(
 	// Event handlers
 	///
 	
+	$rootScope.$on('showAccount', function(evt, args) {
+		showAccount();
+	});
+
+	$rootScope.$on('showOrder', function(evt, args) {
+		showOrder();
+	});
+
+	$rootScope.$on('customerChanged', function(evt, customer) {
+		$scope.customer = customer;
+	});
+
+	$scope.addPM = payMethodMgmt.modals.add;
+	$scope.removePM = payMethodMgmt.modals.remove;
+	$scope.changeAddress = accountMgmt.modals.changeAddress;
+
 	function onCustomerLoggedIn(evt, args) {
 		$scope.customerId = args;
 		$scope.showLogin = false;
@@ -157,6 +180,90 @@ function controller(
 	///
 	// View methods
 	///
+
+	if(deviceMgr.isBigScreen()) {
+		$scope.bigScreen = true;
+	} else {
+		$scope.bigScreen = false;
+	}
+
+	function hideAll() {
+		$scope.accountShow = false;
+		$scope.popcornShow = false;
+		$scope.orderShow = false;
+	}
+
+	function showAccount() {
+		hideAll();
+		$scope.accountShow = true;
+
+		var sessionPromise = customerMgmt.getSession();
+
+		sessionPromise.then(function(sessionData) {
+			if(!sessionData.customerId) {
+				showPopcorn();
+				return;
+			}
+
+			var customerId = sessionData.customerId;
+
+			customerMgmt.getCustomer(customerId).then(function(customer) {
+				$scope.customer = customer;
+				var taxExempt = '';
+				if(customer.taxExempt) {
+					var taxExempt = 'Tax Exempt';
+				}
+				$scope.taxExempt = taxExempt;
+			});
+		
+			var r = $http.get('/orders/byCustomerId/' + customerId);
+		
+			r.error(function(err) {
+				console.log('AccountController: orders ajax failed');
+				console.error(err);
+			});
+		
+			r.then(function(res) {
+				var completedHistory = [];
+				res.data.forEach(function(order) {
+					if(order.orderStatus > 4) {
+
+						var d = new Date(order.paymentAcceptedAt);
+
+						var orderYear = d.getFullYear();
+						var orderMonth = d.getMonth() + 1;
+						var orderDate = d.getDate();
+
+						if(orderMonth < 10) {
+							orderMonth = '0'+orderMonth;
+						}
+
+						if(orderDate < 10) {
+							orderDate = '0'+orderDate;
+						}
+
+						var completedDate = orderYear+'-'+orderMonth+'-'+orderDate;
+
+						order.orderDate = completedDate;
+						order.total = parseFloat(order.total).toFixed(2);
+						completedHistory.push(order);
+					}
+				});
+		
+				$scope.orders = completedHistory;
+			});
+		});
+	}
+
+	function showPopcorn() {
+		hideAll();
+		$scope.popcornShow = true;
+	}
+
+	function showOrder() {
+		hideAll();
+		$scope.orderShow = true;
+	}
 
 
 	function hideCategories() {

@@ -24,6 +24,14 @@
 
 		$scope.accessAccount = false;
 
+		$scope.showAccount = function() {
+			$rootScope.$broadcast('showAccount');
+		}
+
+		$scope.showOrder = function() {
+			$rootScope.$broadcast('showOrder');
+		}
+
 		var sessionPromise = customerMgmt.getSession();
 
 		sessionPromise.then(function(sessionData) {
