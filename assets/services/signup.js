@@ -10,11 +10,11 @@
 	app.factory('signupPrompter', service);
 	
 	service.$inject = [
-		'$rootScope', 'customerMgmt', 'layoutMgmt'
+		'customerMgmt', 'layoutMgmt'
 	];
 	
 	function service(
-		$rootScope, customerMgmt, layoutMgmt
+		customerMgmt, layoutMgmt
 	) {
 		var hasPrompted = false;
 		var service = {
@@ -23,24 +23,9 @@
 				hasPrompted = true;
 
 				customerMgmt.getSession().then(function(sessionData) {
-					if(sessionData.customerId) {
-						$rootScope.$broadcast('customerLoggedIn');
-						return;
-					}
+					if(sessionData.customerId) return;
 					layoutMgmt.signUp();
 				});
-			},
-
-			welcome: function() {
-				customerMgmt.getSession().then(function(sessionData) {
-					customerMgmt.setWelcomed(sessionData).then(function(welcomeData) {
-						layoutMgmt.welcome();
-					});
-				});
-			},
-
-			disclosure: function() {
-				layoutMgmt.disclosure();
 			}
 		};
 		return service;
@@ -66,39 +51,130 @@
 			layoutMgmt.logIn();
 		};
 
-		$scope.validEmail = true;
+
+		$scope.dyk = "Popcorn is a healthy snack, low in fat and calories!";
+		$http.get('/dyk/').then(function(res) {
+			$scope.dyk = res.data[Math.floor((Math.random() * res.data.length))].dykContent;
+		});
+
 		$scope.validUsername = true;
 
-		$scope.emailSearch = function() {
-			if($scope.email === '') return;
+		$scope.state = clientConfig.defaultState || 'WY';
 
-			$http.get('/customers/byEmail/' + $scope.email).then(function(res) {
-				$scope.validEmail = ! (res.data.length > 0);
-			}).catch(function(err) {
-				console.log('layoutMgmt: emailSearch ajax failed');
-				console.error(err);
-			});
+		$scope.step = 0;
+		$scope.submitted = 0;
+
+		$scope.required = function(field, step) {
+			if($scope.submitted <= step || field) return;
+			return 'error';
+		};
+
+		$scope.requiredAddress = function(field, step) {
+			if($scope.submitted <= step) return '';
+			if(field && isValidAddress(field)) return '';
+			return 'error';
 		};
 
 		$scope.usernameSearch = function() {
 			if($scope.username === '') return;
 
-			$http.get('/customers/byUsername/' + $scope.username).then(function(res) {
+			var s = $http.get('/customers/byUsername/' + $scope.username);
+						
+			// if customers ajax fails...
+			s.error(function(err) {
+console.log('layoutMgmt: sut-customersGet ajax failed');
+console.error(err);
+			});
+		
+			s.then(function(res) {
 				$scope.validUsername = ! (res.data.length > 0);
-			}).catch(function(err) {
-				console.log('layoutMgmt: usernameSearch ajax failed');
-				console.error(err);
 			});
 		};
 
+		$scope.startAccount = function() {
+			$scope.submitted = 1;
+			if(! $scope.isFormComplete(0) || !$scope.validUsername) return;
+
+			var customer = {
+				email: $scope.email,
+				username: $scope.username
+			}
+
+			$http.post('/starterAccounts/create', customer).then(function(data) {
+				$scope.step = 1;
+			}).catch(function(err) {
+console.log('layoutMgmt: sut-customersGet ajax failed');
+console.error(err);
+			});
+		};
+
+		function splitAddress(address) {
+			var addrInfo = {
+				streetNumber: '',
+				streetName: ''
+			};
+			var matches = address.match(/^([0-9]+) (.+)/);
+			if(matches) {
+				addrInfo.streetNumber = matches[1];
+				addrInfo.streetName = matches[2];
+			}
+			return addrInfo;
+		}
+
+		function isValidAddress(address) {
+			if(! address) return false;
+
+			var addrInfo = splitAddress($scope.address);
+			return addrInfo.streetNumber && addrInfo.streetName;
+		};
+
+		$scope.isFormComplete = function(step) {
+			var reqFields = {
+				0: ['email', 'username', 'password'],
+				1: ['fName', 'lName', 'phone', 'address', 'city', 'state', 'zip']
+			};
+
+			if(! reqFields[step]) return true;
+
+			var isComplete = true;
+			reqFields[step].forEach(function(fieldName) {
+				isComplete = isComplete && $scope[fieldName];
+			});
+
+			if($scope.step > 0) {
+				isComplete = isComplete && isValidAddress($scope.address);
+			}
+
+			return isComplete;
+		};
+
 		$scope.createAccount = function() {
+			$scope.submitted = 2;
+
+			if(! $scope.isFormComplete(1)) {
+				return;
+			}
+
+			var addrInfo = splitAddress($scope.address);
+
 			var customer = {
 				fName: $scope.fName,
 				lName: $scope.lName,
-				city: $scope.city,
-				email: $scope.email,
+				addresses: {
+					primary: {
+						streetNumber: addrInfo.streetNumber,
+						streetName: addrInfo.streetName,
+						apt: $scope.apt,
+						city: $scope.city,
+						state: $scope.state,
+						zip: $scope.zip
+					}
+				},
 				username: $scope.username,
-				password: $scope.password
+				password: $scope.password,
+				phone: $scope.phone,
+				email: $scope.email,
+				sawBevTour: false
 			}
 
 			customerMgmt.createCustomer(customer).then(function(customerData) {
@@ -109,15 +185,11 @@
 					password: customer.password,
 					customerId: customerData.id
 				});
-console.log('preparing to send email to customer with id: '+customerData.id);				
-				$http.get('/mail/sendConfirmationToCustomer/' + customerData.id).then(function(mailResponse) {
-console.log('mailResponse:');
-console.log(mailResponse);
-				});
+				$http.post('/mail/sendConfirmationToCustomer/' + customerData.id);
 			}).catch(function(err) {
 				// if customers ajax fails...
-				console.log('LayoutMgmtController: customer-create ajax failed');
-				console.error(err);
+console.log('LayoutMgmtController: customer-create ajax failed');
+console.error(err);
 				$modalInstance.dismiss('cancel');
 			});
 		};
@@ -139,8 +211,8 @@ console.log(mailResponse);
 				}
 			}).error(function(err) {
 				// if login ajax fails...
-				console.log('LayoutMgmtController: logIn ajax failed');
-				console.error(err);
+console.log('LayoutMgmtController: logIn ajax failed');
+console.error(err);
 				$modalInstance.dismiss('cancel');
 			});
 		};

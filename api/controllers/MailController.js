@@ -58,7 +58,7 @@ console.log('sendConfirmationToCustomer() called');
 	
 			return promise.then(function(customer) {
 				var customer = customer[0];
-				return sendMail(customer.email, 'Thanks for Joining Fantasy Horse Daily!', 'signup', customer).then(function(sendMailResponse) {
+				return sendMail(customer.email, 'Thanks for Creating an Account at Becca\'s Gourmet Popcorn!', 'signup', customer).then(function(sendMailResponse) {
 console.log(' ');
 console.log('sendMailResponse:');
 console.log(sendMailResponse);
@@ -111,7 +111,7 @@ console.log('sendMail() called');
 	var transporter = nodemailer.createTransport(directTransport());
 
 	var mailOptions = {
-			from: 'Fantasy Horse Daily <info@fantasyhorsedaily.com>',
+			from: 'Becca\'s Gourmet Popcorn <sales@beccaspopcorn.com>',
 			to: email,
 			subject: subject,
 			text: '',
@@ -120,17 +120,17 @@ console.log('sendMail() called');
 
 	if(template === 'apply') {
 		mailOptions = {
-			from: 'Grub2You <info@grub2you.com>',
+			from: 'Becca\'s Gourmet Popcorn <info@beccaspopcorn.com>',
 			to: email,
 			subject: subject,
-			text: 'Thanks for applying for the role of '+data.position+', '+data.fName+'.  A Grub2You team member will contact you soon!',
-			html: 'Thanks for applying for the role of <b>'+data.position+'</b>, '+data.fName+'.  A Grub2You team member will contact you soon!'
+			text: 'Thanks for applying for the role of '+data.position+', '+data.fName+'.  A Becca\'s Gourmet Popcorn team member will contact you soon!',
+			html: 'Thanks for applying for the role of <b>'+data.position+'</b>, '+data.fName+'.  A Becca\'s Gourmet Popcorn team member will contact you soon!'
 		};
 	}
 
 	if(template === 'placed') {
 		mailOptions = {
-			from: 'Grub2You <info@grub2you.com>',
+			from: 'Becca\'s Gourmet Popcorn <sales@beccaspopcorn.com>',
 			to: email,
 			subject: subject,
 			text: 'A new order has been placed!'
@@ -139,34 +139,34 @@ console.log('sendMail() called');
 
 	if(template === 'order') {
 		mailOptions = {
-			from: 'Grub2You <info@grub2you.com>',
+			from: 'Becca\'s Gourmet Popcorn <sales@beccaspopcorn.com>',
 			to: email,
 			subject: subject,
-			text: 'Thanks for ordering with Grub2You!, '+data.fName+'.  A Grub2You team member will deliver your order very soon!',
-			html: 'Thanks for ordering with <b>Grub2You</b>, '+data.fName+'.  A Grub2You team member will deliver your order very soon!'
+			text: 'Thanks for ordering with Becca\'s Gourmet Popcorn!, '+data.fName+'.  A Becca\'s Gourmet Popcorn team member will deliver your order very soon!',
+			html: 'Thanks for ordering with <b>Becca\'s Gourmet Popcorn</b>, '+data.fName+'.  A Becca\'s Gourmet Popcorn team member will deliver your order very soon!'
 		};
 	}
 
 	if(template === 'feedback') {
 		mailOptions = {
-			from: 'Grub2You <info@grub2you.com>',
+			from: 'Becca\'s Gourmet Popcorn <info@beccaspopcorn.com>',
 			to: email,
 			subject: subject,
 			text: 'Feedback has been received: '+data,
-			html: 'Feedback has been received. <a href="http://grub2you.com:3001/#/feedback/'+data+'">Click here to review the feedback</a>.'
+			html: 'Feedback has been received. <a href="http://beccaspopcorn.com:3001/#/feedback/'+data+'">Click here to review the feedback</a>.'
 		};
 	}
 
 	if(template === 'signup') {
 		mailOptions = {
-			from: 'Fantasy Horse Daily <info@fantasyhorsedaily.com>',
+			from: 'Becca\'s Gourmet Popcorn <sales@beccaspopcorn.com>',
 			to: email,
 			subject: subject,
 			text: (
-				'Thanks for joining Fantasy Horse Daily, '+data.fName+'.  We\'re glad you found us!'
+				'Thanks for joining Becca\'s Gourmet Popcorn, '+data.fName+'.  We\'re glad you found us!'
 			),
 			html: (
-				'Thanks for joining <b>Fantasy Horse Daily</b>, '+data.fName+'.  We\'re glad you ' +
+				'Thanks for joining <b>Becca\'s Gourmet Popcorn</b>, '+data.fName+'.  We\'re glad you ' +
 				'found us!'
 			),
 		};
@@ -174,7 +174,7 @@ console.log('sendMail() called');
 
 	if(template === 'update') {
 		mailOptions = {
-			from: 'Grub2You <info@grub2you.com>',
+			from: 'Becca\'s Gourmet Popcorn <sales@beccaspopcorn.com>',
 			to: email,
 			subject: subject,
 			text: 'Your order has been collected from the restaurant and is on the way!'
@@ -183,7 +183,7 @@ console.log('sendMail() called');
 
 	if(template === 'failed') {
 		mailOptions = {
-			from: 'Tickets Tycoon <info@ticketstycoon.com>',
+			from: 'Becca\'s Gourmet Popcorn <info@beccaspopcorn.com>',
 			to: email,
 			subject: subject,
 			text: 'Payment for the following order failed:  '+data
