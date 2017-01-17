@@ -1529,13 +1529,13 @@ td {
 }
 
 #accountHead {
-	color: #FFFFFF;
+	color: #000000;
 	text-align: center;
-	border-bottom: 1px solid #FFFFFF;
+	border-bottom: 1px solid #000000;
 }
 
 #accountBody {
-	color: #FFFFFF;
+	color: #000000;
 	padding-top: 4px;
 	padding-left: 12px;
 	padding-right: 12px;
@@ -1543,17 +1543,17 @@ td {
 }
 
 .accountBody {
-	color: #FFFFFF;
+	color: #000000;
 }
 
 #historyHead {
-	color: #FFFFFF;
+	color: #000000;
 	text-align: center;
-	border-bottom: 1px solid #FFFFFF;
+	border-bottom: 1px solid #000000;
 }
 
 #historyBody {
-	color: #FFFFFF;
+	color: #000000;
 	padding-top: 4px;
 	padding-left: 12px;
 	padding-right: 12px;
@@ -1561,17 +1561,17 @@ td {
 }
 
 .historyBody {
-	color: #FFFFFF;
+	color: #000000;
 }
 
 #managementHead {
-	color: #FFFFFF;
+	color: #000000;
 	text-align: center;
-	border-bottom: 1px solid #FFFFFF;
+	border-bottom: 1px solid #000000;
 }
 
 #managementBody {
-	color: #FFFFFF;
+	color: #000000;
 	padding-top: 4px;
 	padding-left: 12px;
 	padding-right: 12px;
@@ -1579,7 +1579,7 @@ td {
 }
 
 .managementBody {
-	color: #FFFFFF;
+	color: #000000;
 }
 
 .accountPayMethsHead {

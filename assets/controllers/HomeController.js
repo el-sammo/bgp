@@ -187,15 +187,19 @@ function controller(
 		$scope.bigScreen = false;
 	}
 
+	$("#logo").click(function() {
+		showPopcorn();
+	});
+
 	function hideAll() {
-		$scope.accountShow = false;
-		$scope.popcornShow = false;
-		$scope.orderShow = false;
+		$('#accountShow').hide();
+		$('#popcornShow').hide();
+		$('#orderShow').hide();
 	}
 
 	function showAccount() {
 		hideAll();
-		$scope.accountShow = true;
+		$('#accountShow').show();
 
 		var sessionPromise = customerMgmt.getSession();
 
@@ -257,12 +261,12 @@ function controller(
 
 	function showPopcorn() {
 		hideAll();
-		$scope.popcornShow = true;
+		$('#popcornShow').show();
 	}
 
 	function showOrder() {
 		hideAll();
-		$scope.orderShow = true;
+		$('#orderShow').show();
 	}
 
 
