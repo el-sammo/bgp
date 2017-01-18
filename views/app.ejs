@@ -27,17 +27,52 @@
 				class="pull-right"
 				ng-controller="LayoutController"
 			>
+				<span ng-show="activeCart">
+					<span 
+						class="login clickable topDepth" 
+						ng-click="showOrder()"
+					>
+						View Cart({{cartItemsCount}} Items)
+					</span>
+				</span>
 				<span ng-show="!accessAccount">
-					Already Have an Account? <span class="login clickable topDepth" ng-click="logIn()">Log In</span> Need an Account? <span class="login clickable topDepth" ng-click="signUp()">Create Account</span>
+					Already Have an Account? 
+					<span 
+						class="login clickable topDepth" 
+						ng-click="logIn()"
+					>
+						Log In
+					</span> 
+					Need an Account? 
+					<span 
+						class="login clickable topDepth" 
+						ng-click="signUp()"
+					>
+						Create Account
+					</span>
 				</span>
 				<span ng-show="accessAccount">
-					<span class="login clickable topDepth" ng-click="showAccount()">My Account</span> <span class="login clickable topDepth" ng-click="logOut()">Log Out</span>
+					<span 
+						class="login clickable topDepth" 
+						ng-click="showAccount()"
+					>
+						My Account
+					</span> 
+					<span 
+						class="login clickable topDepth" 
+						ng-click="logOut()"
+					>
+						Log Out
+					</span>
 				</span>
 			</div>
 		</div>
 	</div>
 	<div class="App-body">
-		<div class="App-diag-msg">
+		<div 
+			class="App-diag-msg"
+			ng-show="bigScreen"
+		>
 			<img 
 				src="/images/new_flavors.png" 
 				class="App-diag-msg" 
@@ -46,7 +81,7 @@
 		</div>
 		<div class="col-md-8 col-md-offset-2">
 			<div class="row">
-				<div class="col-md-6 offsetNeg50 nearTopDepth">
+				<div class="col-md-1 offsetNeg50 nearTopDepth">
 					<span 
 						class="clickable"
 						id="logo"

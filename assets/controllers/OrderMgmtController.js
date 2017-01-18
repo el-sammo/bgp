@@ -180,6 +180,7 @@ console.log(sessionData);
 
 				buildOrder(order).then(function(order) {
 					$http[method](url, order).then(function(res) {
+						$rootScope.$broadcast('itemAdded');
 						$rootScope.$broadcast('orderChanged');
 						$modalInstance.dismiss('done');
 					}).catch(function(err) {

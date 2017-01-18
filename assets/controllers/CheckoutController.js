@@ -9,7 +9,7 @@
 		'$scope', '$modalInstance', '$http', '$rootScope', '$location',
 		'$timeout', 'args', 'messenger', 'layoutMgmt',
 		'clientConfig', 'payMethodMgmt', 'delFeeMgmt', '$window',
-		'deviceMgr', 'hoursMgr', 'bigScreenWidth', 'promoMgmt',
+		'deviceMgr', 'bigScreenWidth', 'promoMgmt',
 		'orderMgmt', 'customerMgmt'
 	];
 
@@ -17,7 +17,7 @@
 		$scope, $modalInstance, $http, $rootScope, $location,
 		$timeout, args, messenger, layoutMgmt,
 		clientConfig, payMethodMgmt, delFeeMgmt, $window,
-		deviceMgr, hoursMgr, bigScreenWidth, promoMgmt,
+		deviceMgr, bigScreenWidth, promoMgmt,
 		orderMgmt, customerMgmt
 	) {
 
@@ -25,41 +25,7 @@
 	//		$modalInstance.dismiss('cancel');
 	//	}
 
-		var delHoursPromise = hoursMgr.getDeliveryHours();
-
-		delHoursPromise.then(function(delHours) {
-			var now = new Date().getHours();
-			$scope.currentlyAvailable = false;
-
-			delHours.forEach(function(hours) {
-				if(hours.start > 11) {
-					var todayStart = (parseInt(hours.start) - 12) + 'pm';
-					var todayEnd = (parseInt(hours.end) - 12) + 'pm';
-				} else {
-					var todayStart = parseInt(hours.start) + 'am';
-					var todayEnd = parseInt(hours.end) + 'am';
-				}
-			
-				$scope.todayStart = todayStart;
-				$scope.todayEnd = todayEnd;
-				
-				if(hours.end > 11) {
-					var todayEnd = (parseInt(hours.end) - 12) + 'pm';
-				} else {
-					var todayEnd = parseInt(hours.end) + 'am';
-				}
-				
-				$scope.todayEnd = todayEnd;
-
-				var starting = (parseInt(hours.start) - 1);
-				var ending = parseInt(hours.end);
-				
-				if(now >= starting && now <= ending) {
-					$scope.currentlyAvailable = true;
-				}
-			});
-
-		});
+		$scope.currentlyAvailable = true;
 
 		$scope.addBev = orderMgmt.addBev;
 				
