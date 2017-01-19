@@ -15,7 +15,7 @@ var extra = {};
 
 module.exports = {
 	allPopcorn: function(req, res) {
-		Popcorn.find({active: true}).sort({category: 1, name: 1}).then(function(results) {
+		Popcorn.find({}).sort({category: 1, name: 1}).then(function(results) {
 			res.send(JSON.stringify(results));
 		}).catch(function(err) {
       res.json({error: 'Server error'}, 500);

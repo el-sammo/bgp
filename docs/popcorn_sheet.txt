@@ -1,0 +1,470 @@
+'Token','Item Name','Description','Category','SKU','Variation Name','Price'
+'587516b11cdb18bf17b4ff44','Banana Cream','Smooth and silky banana cream flavored gourmet popcorn','Candy','','Mini','3.50'
+'587516b11cdb18bf17b4ff44','Banana Cream','Smooth and silky banana cream
+flavored gourmet popcorn','Candy','','Small','6.50'
+'587516b11cdb18bf17b4ff44','Banana Cream','Smooth and silky banana cream
+flavored gourmet popcorn','Candy','','Medium','9.75'
+'587516b11cdb18bf17b4ff44','Banana Cream','Smooth and silky banana cream
+flavored gourmet popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d56790','Blazin\' Blackberry','Flavorful blackberry flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d56790','Blazin\' Blackberry','Flavorful blackberry flavored
+gourmet popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d56790','Blazin\' Blackberry','Flavorful blackberry flavored
+gourmet popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d56790','Blazin\' Blackberry','Flavorful blackberry flavored
+gourmet popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d56791','Blue Coconut','Tropical cocount flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d56791','Blue Coconut','Tropical cocount flavored gourmet
+popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d56791','Blue Coconut','Tropical cocount flavored gourmet
+popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d56791','Blue Coconut','Tropical cocount flavored gourmet
+popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d56792','Bubblicious','Bubblegum flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d56792','Bubblicious','Bubblegum flavored gourmet
+popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d56792','Bubblicious','Bubblegum flavored gourmet
+popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d56792','Bubblicious','Bubblegum flavored gourmet
+popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d56793','Crazy Cornfetti','Crazy mix of all the candy-floavored gourmet popcorn flavors','Candy','','Mini','3.50'
+'58753e09e0590ce402d56793','Crazy Cornfetti','Crazy mix of all the
+candy-floavored gourmet popcorn flavors','Candy','','Small','6.50'
+'58753e09e0590ce402d56793','Crazy Cornfetti','Crazy mix of all the
+candy-floavored gourmet popcorn flavors','Candy','','Medium','9.75'
+'58753e09e0590ce402d56793','Crazy Cornfetti','Crazy mix of all the
+candy-floavored gourmet popcorn flavors','Candy','','Large','22.50'
+'58753e09e0590ce402d56794','Creamy Cheesecake','Rich, creamy cheesecake flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d56794','Creamy Cheesecake','Rich, creamy cheesecake
+flavored gourmet popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d56794','Creamy Cheesecake','Rich, creamy cheesecake
+flavored gourmet popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d56794','Creamy Cheesecake','Rich, creamy cheesecake
+flavored gourmet popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d56795','Gonzo Grape','Juicy purple grape flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d56795','Gonzo Grape','Juicy purple grape flavored gourmet
+popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d56795','Gonzo Grape','Juicy purple grape flavored gourmet
+popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d56795','Gonzo Grape','Juicy purple grape flavored gourmet
+popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d56796','Green Applicious','Crisp green apple flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d56796','Green Applicious','Crisp green apple flavored
+gourmet popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d56796','Green Applicious','Crisp green apple flavored
+gourmet popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d56796','Green Applicious','Crisp green apple flavored
+gourmet popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d56797','Old Fashioned Vanilla','Classic vanilla flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d56797','Old Fashioned Vanilla','Classic vanilla flavored
+gourmet popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d56797','Old Fashioned Vanilla','Classic vanilla flavored
+gourmet popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d56797','Old Fashioned Vanilla','Classic vanilla flavored
+gourmet popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d56798','Orange Crush','Citrus orange flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d56798','Orange Crush','Citrus orange flavored gourmet
+popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d56798','Orange Crush','Citrus orange flavored gourmet
+popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d56798','Orange Crush','Citrus orange flavored gourmet
+popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d56799','Pink Cotton Candy','Fun cotton candy flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d56799','Pink Cotton Candy','Fun cotton candy flavored
+gourmet popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d56799','Pink Cotton Candy','Fun cotton candy flavored
+gourmet popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d56799','Pink Cotton Candy','Fun cotton candy flavored
+gourmet popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d5679a','Red Hot Cinnamon','Fiery cinnamon flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d5679a','Red Hot Cinnamon','Fiery cinnamon flavored gourmet
+popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d5679a','Red Hot Cinnamon','Fiery cinnamon flavored gourmet
+popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d5679a','Red Hot Cinnamon','Fiery cinnamon flavored gourmet
+popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d5679b','Rockin\' Raspberry','Tart raspberry flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d5679b','Rockin\' Raspberry','Tart raspberry flavored
+gourmet popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d5679b','Rockin\' Raspberry','Tart raspberry flavored
+gourmet popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d5679b','Rockin\' Raspberry','Tart raspberry flavored
+gourmet popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d5679c','Strawberry Patch','Cool strawberry flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d5679c','Strawberry Patch','Cool strawberry flavored
+gourmet popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d5679c','Strawberry Patch','Cool strawberry flavored
+gourmet popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d5679c','Strawberry Patch','Cool strawberry flavored
+gourmet popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d5679d','Very Cherry','Sweet cherry flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d5679d','Very Cherry','Sweet cherry flavored gourmet
+popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d5679d','Very Cherry','Sweet cherry flavored gourmet
+popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d5679d','Very Cherry','Sweet cherry flavored gourmet
+popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d5679e','Wacky Watermelon','Electric watermelon flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d5679e','Wacky Watermelon','Electric watermelon flavored
+gourmet popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d5679e','Wacky Watermelon','Electric watermelon flavored
+gourmet popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d5679e','Wacky Watermelon','Electric watermelon flavored
+gourmet popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d5679f','Wild Blueberry','Scrumptious blueberry flavored gourmet popcorn','Candy','','Mini','3.50'
+'58753e09e0590ce402d5679f','Wild Blueberry','Scrumptious blueberry flavored
+gourmet popcorn','Candy','','Small','6.50'
+'58753e09e0590ce402d5679f','Wild Blueberry','Scrumptious blueberry flavored
+gourmet popcorn','Candy','','Medium','9.75'
+'58753e09e0590ce402d5679f','Wild Blueberry','Scrumptious blueberry flavored
+gourmet popcorn','Candy','','Large','22.50'
+'58753e09e0590ce402d567a0','Caramel','Authentic caramel flavored gourmet popcorn','Caramel','','Mini','3.50'
+'58753e09e0590ce402d567a0','Caramel','Authentic caramel flavored gourmet
+popcorn','Caramel','','Small','6.50'
+'58753e09e0590ce402d567a0','Caramel','Authentic caramel flavored gourmet
+popcorn','Caramel','','Medium','9.75'
+'58753e09e0590ce402d567a0','Caramel','Authentic caramel flavored gourmet
+popcorn','Caramel','','Large','22.50'
+'58753e09e0590ce402d567a1','Chicago','A mix of cheese and caramel flavored gourmet popcorn','Caramel','','Mini','3.50'
+'58753e09e0590ce402d567a1','Chicago','A mix of cheese and caramel flavored
+gourmet popcorn','Caramel','','Small','6.50'
+'58753e09e0590ce402d567a1','Chicago','A mix of cheese and caramel flavored
+gourmet popcorn','Caramel','','Medium','9.75'
+'58753e09e0590ce402d567a1','Chicago','A mix of cheese and caramel flavored
+gourmet popcorn','Caramel','','Large','22.50'
+'58753e09e0590ce402d567a2','Denver','A mix of white cheddar and caramel flavored gourmet popcorn','Caramel','','Mini','3.50'
+'58753e09e0590ce402d567a2','Denver','A mix of white cheddar and caramel
+flavored gourmet popcorn','Caramel','','Small','6.50'
+'58753e09e0590ce402d567a2','Denver','A mix of white cheddar and caramel
+flavored gourmet popcorn','Caramel','','Medium','9.75'
+'58753e09e0590ce402d567a2','Denver','A mix of white cheddar and caramel
+flavored gourmet popcorn','Caramel','','Large','22.50'
+'58753e09e0590ce402d567a3','Lite Caramel','Low-calorie caramel flavored gourmet popcorn','Caramel','','Mini','3.50'
+'58753e09e0590ce402d567a3','Lite Caramel','Low-calorie caramel flavored
+gourmet popcorn','Caramel','','Small','6.50'
+'58753e09e0590ce402d567a3','Lite Caramel','Low-calorie caramel flavored
+gourmet popcorn','Caramel','','Medium','9.75'
+'58753e09e0590ce402d567a3','Lite Caramel','Low-calorie caramel flavored
+gourmet popcorn','Caramel','','Large','22.50'
+'58753e09e0590ce402d567a4','Sea Salt & Caramel','Tasty blend of sea salt and caramel flavored gourmet popcorn','Caramel','','Mini','3.50'
+'58753e09e0590ce402d567a4','Sea Salt & Caramel','Tasty blend of sea salt and
+caramel flavored gourmet popcorn','Caramel','','Small','6.50'
+'58753e09e0590ce402d567a4','Sea Salt & Caramel','Tasty blend of sea salt and
+caramel flavored gourmet popcorn','Caramel','','Medium','9.75'
+'58753e09e0590ce402d567a4','Sea Salt & Caramel','Tasty blend of sea salt and
+caramel flavored gourmet popcorn','Caramel','','Large','22.50'
+'58753e09e0590ce402d567a5','Vegas','A mix of butter, cheese & caramel flavored gourmet popcorn','Caramel','','Mini','3.50'
+'58753e09e0590ce402d567a5','Vegas','A mix of butter, cheese & caramel flavored
+gourmet popcorn','Caramel','','Small','6.50'
+'58753e09e0590ce402d567a5','Vegas','A mix of butter, cheese & caramel flavored
+gourmet popcorn','Caramel','','Medium','9.75'
+'58753e09e0590ce402d567a5','Vegas','A mix of butter, cheese & caramel flavored
+gourmet popcorn','Caramel','','Large','22.50'
+'58753e09e0590ce402d567a6','Cheese','A fabulous cheese flavored gourmet popcorn','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567a6','Cheese','A fabulous cheese flavored gourmet
+popcorn','Cheese','','Small','5.75'
+'58753e09e0590ce402d567a6','Cheese','A fabulous cheese flavored gourmet
+popcorn','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567a6','Cheese','A fabulous cheese flavored gourmet
+popcorn','Cheese','','Large','19.50'
+'58753e09e0590ce402d567a7','Cinnamon Toast','A flavorful cinnamon toast flavored gourmet popcorn','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567a7','Cinnamon Toast','A flavorful cinnamon toast
+flavored gourmet popcorn','Cheese','','Small','5.75'
+'58753e09e0590ce402d567a7','Cinnamon Toast','A flavorful cinnamon toast
+flavored gourmet popcorn','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567a7','Cinnamon Toast','A flavorful cinnamon toast
+flavored gourmet popcorn','Cheese','','Large','19.50'
+'58753e09e0590ce402d567a8','Dill Pickle','A dill flavored gourmet popcorn','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567a8','Dill Pickle','A dill flavored gourmet
+popcorn','Cheese','','Small','5.75'
+'58753e09e0590ce402d567a8','Dill Pickle','A dill flavored gourmet
+popcorn','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567a8','Dill Pickle','A dill flavored gourmet
+popcorn','Cheese','','Large','19.50'
+'58753e09e0590ce402d567a9','Jalapeno Ranch','A delightful blend of spicy jalapeno and cool ranch flavored gourmet popcorn','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567a9','Jalapeno Ranch','A delightful blend of spicy
+jalapeno and cool ranch flavored gourmet popcorn','Cheese','','Small','5.75'
+'58753e09e0590ce402d567a9','Jalapeno Ranch','A delightful blend of spicy
+jalapeno and cool ranch flavored gourmet popcorn','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567a9','Jalapeno Ranch','A delightful blend of spicy
+jalapeno and cool ranch flavored gourmet popcorn','Cheese','','Large','19.50'
+'58753e09e0590ce402d567aa','Kettle Corn','A traditional kettle corn gourmet popcorn','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567aa','Kettle Corn','A traditional kettle corn gourmet
+popcorn','Cheese','','Small','5.75'
+'58753e09e0590ce402d567aa','Kettle Corn','A traditional kettle corn gourmet
+popcorn','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567aa','Kettle Corn','A traditional kettle corn gourmet
+popcorn','Cheese','','Large','19.50'
+'58753e09e0590ce402d567ab','Lite Cheese','A low-calorie cheese flavored gourmet popcorn','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567ab','Lite Cheese','A low-calorie cheese flavored
+gourmet popcorn','Cheese','','Small','5.75'
+'58753e09e0590ce402d567ab','Lite Cheese','A low-calorie cheese flavored
+gourmet popcorn','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567ab','Lite Cheese','A low-calorie cheese flavored
+gourmet popcorn','Cheese','','Large','19.50'
+'58753e09e0590ce402d567ac','Loaded Baked Potato','A crwod-pleasing gourmet popcorn featuring cheese, sour cream, chives and bacon','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567ac','Loaded Baked Potato','A crwod-pleasing gourmet
+popcorn featuring cheese, sour cream, chives and
+bacon','Cheese','','Small','5.75'
+'58753e09e0590ce402d567ac','Loaded Baked Potato','A crwod-pleasing gourmet
+popcorn featuring cheese, sour cream, chives and
+bacon','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567ac','Loaded Baked Potato','A crwod-pleasing gourmet
+popcorn featuring cheese, sour cream, chives and
+bacon','Cheese','','Large','19.50'
+'58753e09e0590ce402d567ad','Mac & Cheese','A creamy cheese flavored gourmet popcorn','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567ad','Mac & Cheese','A creamy cheese flavored gourmet
+popcorn','Cheese','','Small','5.75'
+'58753e09e0590ce402d567ad','Mac & Cheese','A creamy cheese flavored gourmet
+popcorn','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567ad','Mac & Cheese','A creamy cheese flavored gourmet
+popcorn','Cheese','','Large','19.50'
+'58753e09e0590ce402d567ae','Movie Kettle','A theater-style kettle gourmet popcorn','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567ae','Movie Kettle','A theater-style kettle gourmet
+popcorn','Cheese','','Small','5.75'
+'58753e09e0590ce402d567ae','Movie Kettle','A theater-style kettle gourmet
+popcorn','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567ae','Movie Kettle','A theater-style kettle gourmet
+popcorn','Cheese','','Large','19.50'
+'58753e09e0590ce402d567af','Movie Theater Butter','A buttery favorite gourmet popcorn inspired by theater-style flavor','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567af','Movie Theater Butter','A buttery favorite gourmet
+popcorn inspired by theater-style flavor','Cheese','','Small','5.75'
+'58753e09e0590ce402d567af','Movie Theater Butter','A buttery favorite gourmet
+popcorn inspired by theater-style flavor','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567af','Movie Theater Butter','A buttery favorite gourmet
+popcorn inspired by theater-style flavor','Cheese','','Large','19.50'
+'58753e09e0590ce402d567b0','Nacho Cheese','A slightly-spicy cheese flavored gourmet popcorn','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567b0','Nacho Cheese','A slightly-spicy cheese flavored
+gourmet popcorn','Cheese','','Small','5.75'
+'58753e09e0590ce402d567b0','Nacho Cheese','A slightly-spicy cheese flavored
+gourmet popcorn','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567b0','Nacho Cheese','A slightly-spicy cheese flavored
+gourmet popcorn','Cheese','','Large','19.50'
+'58753e09e0590ce402d567b1','Parmesan & Garlic','An artisanal gourmet popcorn with parmesan and garlic highlights','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567b1','Parmesan & Garlic','An artisanal gourmet popcorn
+with parmesan and garlic highlights','Cheese','','Small','5.75'
+'58753e09e0590ce402d567b1','Parmesan & Garlic','An artisanal gourmet popcorn
+with parmesan and garlic highlights','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567b1','Parmesan & Garlic','An artisanal gourmet popcorn
+with parmesan and garlic highlights','Cheese','','Large','19.50'
+'58753e09e0590ce402d567b2','Pizza','A pizza flavored gourmet popcorn','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567b2','Pizza','A pizza flavored gourmet
+popcorn','Cheese','','Small','5.75'
+'58753e09e0590ce402d567b2','Pizza','A pizza flavored gourmet
+popcorn','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567b2','Pizza','A pizza flavored gourmet
+popcorn','Cheese','','Large','19.50'
+'58753e09e0590ce402d567b3','Ranch','A gourmet popcorn with cool and creamy ranch flavor','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567b3','Ranch','A gourmet popcorn with cool and creamy
+ranch flavor','Cheese','','Small','5.75'
+'58753e09e0590ce402d567b3','Ranch','A gourmet popcorn with cool and creamy
+ranch flavor','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567b3','Ranch','A gourmet popcorn with cool and creamy
+ranch flavor','Cheese','','Large','19.50'
+'58753e09e0590ce402d567b4','Salt & Vinegar','Excite your palate with this slightly exotic gourmet popcorn','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567b4','Salt & Vinegar','Excite your palate with this
+slightly exotic gourmet popcorn','Cheese','','Small','5.75'
+'58753e09e0590ce402d567b4','Salt & Vinegar','Excite your palate with this
+slightly exotic gourmet popcorn','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567b4','Salt & Vinegar','Excite your palate with this
+slightly exotic gourmet popcorn','Cheese','','Large','19.50'
+'58753e09e0590ce402d567b5','Sour Cream & Chives','A down home favorite gourmet popcorn','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567b5','Sour Cream & Chives','A down home favorite gourmet
+popcorn','Cheese','','Small','5.75'
+'58753e09e0590ce402d567b5','Sour Cream & Chives','A down home favorite gourmet
+popcorn','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567b5','Sour Cream & Chives','A down home favorite gourmet
+popcorn','Cheese','','Large','19.50'
+'58753e09e0590ce402d567b6','Southwest Hot Wings','Hotwing flavored gourmet popcorn with a kick','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567b6','Southwest Hot Wings','Hotwing flavored gourmet
+popcorn with a kick','Cheese','','Small','5.75'
+'58753e09e0590ce402d567b6','Southwest Hot Wings','Hotwing flavored gourmet
+popcorn with a kick','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567b6','Southwest Hot Wings','Hotwing flavored gourmet
+popcorn with a kick','Cheese','','Large','19.50'
+'58753e09e0590ce402d567b7','Southwest Jalapeno','Spicy gourmet popcorn with a hint of west-mex flavor','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567b7','Southwest Jalapeno','Spicy gourmet popcorn with a
+hint of west-mex flavor','Cheese','','Small','5.75'
+'58753e09e0590ce402d567b7','Southwest Jalapeno','Spicy gourmet popcorn with a
+hint of west-mex flavor','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567b7','Southwest Jalapeno','Spicy gourmet popcorn with a
+hint of west-mex flavor','Cheese','','Large','19.50'
+'58753e09e0590ce402d567b8','Spicy & Hot Cheese','A very spicy cheese flavored gourmet popcorn','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567b8','Spicy & Hot Cheese','A very spicy cheese flavored
+gourmet popcorn','Cheese','','Small','5.75'
+'58753e09e0590ce402d567b8','Spicy & Hot Cheese','A very spicy cheese flavored
+gourmet popcorn','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567b8','Spicy & Hot Cheese','A very spicy cheese flavored
+gourmet popcorn','Cheese','','Large','19.50'
+'58753e09e0590ce402d567b9','White Cheddar','The original cheese flavored gourmet popcorn','Cheese','','Mini','2.95'
+'58753e09e0590ce402d567b9','White Cheddar','The original cheese flavored
+gourmet popcorn','Cheese','','Small','5.75'
+'58753e09e0590ce402d567b9','White Cheddar','The original cheese flavored
+gourmet popcorn','Cheese','','Medium','7.25'
+'58753e09e0590ce402d567b9','White Cheddar','The original cheese flavored
+gourmet popcorn','Cheese','','Large','19.50'
+'58753e09e0590ce402d567ba','Banana Pudding','A creamy banana flavored gourmet popcorn','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567ba','Banana Pudding','A creamy banana flavored gourmet
+popcorn','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567ba','Banana Pudding','A creamy banana flavored gourmet
+popcorn','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567ba','Banana Pudding','A creamy banana flavored gourmet
+popcorn','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567bb','Birthday Cake','A fun and festive gourmet popcorn','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567bb','Birthday Cake','A fun and festive gourmet
+popcorn','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567bb','Birthday Cake','A fun and festive gourmet
+popcorn','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567bb','Birthday Cake','A fun and festive gourmet
+popcorn','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567bc','Butterfinger','A chocolate gourmet popcorn flavored with hints of butterfinger','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567bc','Butterfinger','A chocolate gourmet popcorn
+flavored with hints of butterfinger','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567bc','Butterfinger','A chocolate gourmet popcorn
+flavored with hints of butterfinger','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567bc','Butterfinger','A chocolate gourmet popcorn
+flavored with hints of butterfinger','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567bd','Chocolate','A light and sweet chocolate flavored gourmet popcorn','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567bd','Chocolate','A light and sweet chocolate flavored
+gourmet popcorn','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567bd','Chocolate','A light and sweet chocolate flavored
+gourmet popcorn','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567bd','Chocolate','A light and sweet chocolate flavored
+gourmet popcorn','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567be','Cinnabun','A sweet gourmet popcorn that reminds you of hot, fresh-baked cinnamon rolls','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567be','Cinnabun','A sweet gourmet popcorn that reminds
+you of hot, fresh-baked cinnamon rolls','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567be','Cinnabun','A sweet gourmet popcorn that reminds
+you of hot, fresh-baked cinnamon rolls','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567be','Cinnabun','A sweet gourmet popcorn that reminds
+you of hot, fresh-baked cinnamon rolls','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567bf','Dark Chocolate','A less sweet dark chocolate flavored gourmet popcorn','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567bf','Dark Chocolate','A less sweet dark chocolate
+flavored gourmet popcorn','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567bf','Dark Chocolate','A less sweet dark chocolate
+flavored gourmet popcorn','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567bf','Dark Chocolate','A less sweet dark chocolate
+flavored gourmet popcorn','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567c0','Heath Toffee Almond','An exquisite gourmet popcorn flavored with heath toffee and almond','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567c0','Heath Toffee Almond','An exquisite gourmet popcorn
+flavored with heath toffee and almond','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567c0','Heath Toffee Almond','An exquisite gourmet popcorn
+flavored with heath toffee and almond','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567c0','Heath Toffee Almond','An exquisite gourmet popcorn
+flavored with heath toffee and almond','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567c1','Lemon Meringue Pie','A not-too-tart lemon flavored gourmet popcorn','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567c1','Lemon Meringue Pie','A not-too-tart lemon flavored
+gourmet popcorn','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567c1','Lemon Meringue Pie','A not-too-tart lemon flavored
+gourmet popcorn','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567c1','Lemon Meringue Pie','A not-too-tart lemon flavored
+gourmet popcorn','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567c2','Oreo','An oreo-inspired gourmet popcorn','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567c2','Oreo','An oreo-inspired gourmet
+popcorn','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567c2','Oreo','An oreo-inspired gourmet
+popcorn','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567c2','Oreo','An oreo-inspired gourmet
+popcorn','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567c3','Peanut Butter Chocolate','A wonderful blend of peanut butter and chocolate flavored gourmet popcorn','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567c3','Peanut Butter Chocolate','A wonderful blend of
+peanut butter and chocolate flavored gourmet
+popcorn','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567c3','Peanut Butter Chocolate','A wonderful blend of
+peanut butter and chocolate flavored gourmet
+popcorn','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567c3','Peanut Butter Chocolate','A wonderful blend of
+peanut butter and chocolate flavored gourmet
+popcorn','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567c4','Puppy Chow','A powdered-sugar coated chocolate flavored gourmet popcorn','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567c4','Puppy Chow','A powdered-sugar coated chocolate
+flavored gourmet popcorn','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567c4','Puppy Chow','A powdered-sugar coated chocolate
+flavored gourmet popcorn','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567c4','Puppy Chow','A powdered-sugar coated chocolate
+flavored gourmet popcorn','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567c5','S\'mores','This gourmet popcorn is a campfire-inspired homage','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567c5','S\'mores','This gourmet popcorn is a
+campfire-inspired homage','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567c5','S\'mores','This gourmet popcorn is a
+campfire-inspired homage','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567c5','S\'mores','This gourmet popcorn is a
+campfire-inspired homage','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567c6','Strawberry Cheesecake','A sweet strawberry flavor highlights this cheesecake-infused gourmet popcorn','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567c6','Strawberry Cheesecake','A sweet strawberry flavor
+highlights this cheesecake-infused gourmet
+popcorn','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567c6','Strawberry Cheesecake','A sweet strawberry flavor
+highlights this cheesecake-infused gourmet
+popcorn','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567c6','Strawberry Cheesecake','A sweet strawberry flavor
+highlights this cheesecake-infused gourmet
+popcorn','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567c7','Tuxedo','A tasteful drizzle of white and milk chocolates renders this gourmet popcorn obscenely good','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567c7','Tuxedo','A tasteful drizzle of white and milk
+chocolates renders this gourmet popcorn obscenely
+good','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567c7','Tuxedo','A tasteful drizzle of white and milk
+chocolates renders this gourmet popcorn obscenely
+good','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567c7','Tuxedo','A tasteful drizzle of white and milk
+chocolates renders this gourmet popcorn obscenely
+good','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567c8','White Chocolate','Becca's take on this original gourmet popcorn','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567c8','White Chocolate','Becca's take on this original
+gourmet popcorn','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567c8','White Chocolate','Becca's take on this original
+gourmet popcorn','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567c8','White Chocolate','Becca's take on this original
+gourmet popcorn','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567c9','White Chocolate Peppermint','Peppermint accents added to our signature white chocolate flavored gourmet popcorn','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567c9','White Chocolate Peppermint','Peppermint accents
+added to our signature white chocolate flavored gourmet
+popcorn','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567c9','White Chocolate Peppermint','Peppermint accents
+added to our signature white chocolate flavored gourmet
+popcorn','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567c9','White Chocolate Peppermint','Peppermint accents
+added to our signature white chocolate flavored gourmet
+popcorn','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567ca','White Chocolate Pretzel','This gourmet popcorn combines ptezel bits with our signature white chocolate','Chocolate','','Mini','5.95'
+'58753e09e0590ce402d567ca','White Chocolate Pretzel','This gourmet popcorn
+combines ptezel bits with our signature white
+chocolate','Chocolate','','Small','11.75'
+'58753e09e0590ce402d567ca','White Chocolate Pretzel','This gourmet popcorn
+combines ptezel bits with our signature white
+chocolate','Chocolate','','Medium','18.25'
+'58753e09e0590ce402d567ca','White Chocolate Pretzel','This gourmet popcorn
+combines ptezel bits with our signature white
+chocolate','Chocolate','','Large','45.50'
+'58753e09e0590ce402d567cb','Becca\'s Special','A mix of chocolate, caramel and nuts compose this symphony of gourmet popcorn','Specialty','','Mini','4.95'
+'58753e09e0590ce402d567cb','Becca\'s Special','A mix of chocolate, caramel and
+nuts compose this symphony of gourmet popcorn','Specialty','','Small','9.25'
+'58753e09e0590ce402d567cb','Becca\'s Special','A mix of chocolate, caramel and
+nuts compose this symphony of gourmet popcorn','Specialty','','Medium','12.25'
+'58753e09e0590ce402d567cb','Becca\'s Special','A mix of chocolate, caramel and
+nuts compose this symphony of gourmet popcorn','Specialty','','Large','32.50'
+'58753e09e0590ce402d567cc','Caramel with Nuts','Caramel and nuts make this gourmet popcorn incredibly snack-worthy','Specialty','','Mini','4.95'
+'58753e09e0590ce402d567cc','Caramel with Nuts','Caramel and nuts make this
+gourmet popcorn incredibly snack-worthy','Specialty','','Small','9.25'
+'58753e09e0590ce402d567cc','Caramel with Nuts','Caramel and nuts make this
+gourmet popcorn incredibly snack-worthy','Specialty','','Medium','12.25'
+'58753e09e0590ce402d567cc','Caramel with Nuts','Caramel and nuts make this
+gourmet popcorn incredibly snack-worthy','Specialty','','Large','32.50'
+'58753e09e0590ce402d567cd','Buttery','This original buttery gourmet popcorn will have you wanting more','Original','','Mini','2.00'
+'58753e09e0590ce402d567cd','Buttery','This original buttery gourmet popcorn
+will have you wanting more','Original','','Small','3.50'
+'58753e09e0590ce402d567cd','Buttery','This original buttery gourmet popcorn
+will have you wanting more','Original','','Medium','4.50'
+'58753e09e0590ce402d567cd','Buttery','This original buttery gourmet popcorn
+will have you wanting more','Original','','Large','10.25'
+'58753e09e0590ce402d567ce','Low Salt','This original gourmet popcorn satisfies the most discerning while honoring a low-sodium diet','Original','','Mini','2.00'
+'58753e09e0590ce402d567ce','Low Salt','This original gourmet popcorn satisfies
+the most discerning while honoring a low-sodium
+diet','Original','','Small','3.50'
+'58753e09e0590ce402d567ce','Low Salt','This original gourmet popcorn satisfies
+the most discerning while honoring a low-sodium
+diet','Original','','Medium','4.50'
+'58753e09e0590ce402d567ce','Low Salt','This original gourmet popcorn satisfies
+the most discerning while honoring a low-sodium
+diet','Original','','Large','10.25'

@@ -142,7 +142,6 @@ function controller(
 	}
 
 	function onGetCategories(allCategoriesData) {
-		$scope.popcornCategories = allCategoriesData;
 		customerMgmt.getSession().then(function(sessionData) {
 
 			if(sessionData.customerId) {
