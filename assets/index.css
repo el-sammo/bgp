@@ -55,6 +55,11 @@ html {
 	position: relative;
 }
 
+.offset40 {
+	top: 40px;
+	position: relative;
+}
+
 .offsetNeg15 {
 	top: -15px;
 }
