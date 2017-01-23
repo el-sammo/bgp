@@ -50,23 +50,24 @@ module.exports = {
 	},
 
 	sendConfirmationToCustomer: function(req, res) {
-console.log('sendConfirmationToCustomer() called');
-		if(env && env === 'production') {
-			var customerId = req.params.id;
-	
-			promise = Customers.find(customerId);
-	
-			return promise.then(function(customer) {
-				var customer = customer[0];
-				return sendMail(customer.email, 'Thanks for Creating an Account at Becca\'s Gourmet Popcorn!', 'signup', customer).then(function(sendMailResponse) {
-console.log(' ');
-console.log('sendMailResponse:');
-console.log(sendMailResponse);
-// TODO: not properly returning to caller
-					return sendMailResponse;
-				});
-			});
+		if(! (env && env === 'production')) {
+			return;
 		}
+
+		var customerId = req.params.id;
+
+		promise = Customers.find(customerId);
+
+		return promise.then(function(customer) {
+			var customer = customer[0];
+			return sendMail(
+				customer.email,
+				'Thanks for Creating an Account at Becca\'s Gourmet Popcorn!', 
+				'signup', customer
+			);
+		}).then(function(sendMailResponse) {
+			res.send(sendMailResponse);
+		});
 	},
 
 	sendFeedbackToManagement: function(req, res) {
