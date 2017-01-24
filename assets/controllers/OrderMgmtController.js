@@ -52,8 +52,6 @@
 			var sessionPromise = customerMgmt.getSession();
 		
 			sessionPromise.then(function(sessionData) {
-console.log('sessionData:');
-console.log(sessionData);
 
 				function mergeThings(existingThing, thingToMerge) {
 					existingThing.quantity = (
@@ -263,6 +261,9 @@ console.log(sessionData);
 								customerId: sessionData.customerId,
 								areaId: $rootScope.areaId,
 								orderStatus: parseInt(1),
+// TODO: add bevs at some point and delete the 
+// sawBevTour attribute here
+								sawBevTour: parseInt(1),
 								sessionId: sessionData.sid,
 								orphaned: false
 							};
@@ -270,6 +271,9 @@ console.log(sessionData);
 							order = {
 								areaId: $rootScope.areaId,
 								orderStatus: parseInt(1),
+// TODO: add bevs at some point and delete the 
+// sawBevTour attribute here
+								sawBevTour: parseInt(1),
 								sessionId: sessionData.sid,
 								orphaned: false
 							};

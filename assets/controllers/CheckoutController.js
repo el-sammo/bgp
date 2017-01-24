@@ -7,16 +7,16 @@
 	
 	controller.$inject = [
 		'$scope', '$modalInstance', '$http', '$rootScope', '$location',
-		'$timeout', 'args', 'messenger', 'layoutMgmt',
-		'clientConfig', 'payMethodMgmt', 'delFeeMgmt', '$window',
+		'$timeout', '$window', 'args', 'messenger',
+		'layoutMgmt', 'clientConfig', 'payMethodMgmt',
 		'deviceMgr', 'bigScreenWidth', 'promoMgmt',
 		'orderMgmt', 'customerMgmt'
 	];
 
 	function controller(
 		$scope, $modalInstance, $http, $rootScope, $location,
-		$timeout, args, messenger, layoutMgmt,
-		clientConfig, payMethodMgmt, delFeeMgmt, $window,
+		$timeout, $window, args, messenger,
+		layoutMgmt, clientConfig, payMethodMgmt,
 		deviceMgr, bigScreenWidth, promoMgmt,
 		orderMgmt, customerMgmt
 	) {
@@ -26,20 +26,70 @@
 	//	}
 
 		$scope.currentlyAvailable = true;
-
 		$scope.addBev = orderMgmt.addBev;
-				
+		$scope.clientConfig = clientConfig;
+		$scope.validCode = true;
+		$scope.effect;
+		$scope.payMethod = {};
+
 		// this exists to not process further if checkout is prohibited
 		if(!args.order) {
 			$modalInstance.dismiss('cancel');
 			return;
-		}
+		} else {
 
-		$scope.clientConfig = clientConfig;
-		$scope.order = args.order;
-		$scope.validCode = true;
-		$scope.effect;
-		$scope.payMethod = {};
+			$http.get('/orders/' +args.order.id).then(function(res) {
+				$scope.order = res.data;
+
+				$scope.currentTotal = parseFloat($scope.order.total);
+
+				customerMgmt.getCustomer($scope.order.customerId).then(function(customer) {
+					var foundCustomer = angular.copy(customer);
+					var paymentMethods = foundCustomer.paymentMethods || [];
+
+					paymentMethods.forEach(function(payMethod) {
+						payMethod.lastFour = redactCC(payMethod.lastFour);
+					});
+
+					paymentMethods.push({id: 'cash', lastFour: 'Cash'});
+					paymentMethods.push({id: 'newCard', lastFour: 'New Credit Card'});
+
+					$scope.checkoutPaymentMethods = paymentMethods;
+
+					$scope.customer = foundCustomer;
+// TODO: when we start offering bevs, uncomment the
+			// following line and delete the next line
+//			$scope.sawBevTour = $scope.order.sawBevTour;
+					$scope.sawBevTour = true;
+
+// TODO: Add bevs at some point, generate a bevs api
+// and uncomment the following block of code
+//			var bevs = [];
+//			$http.get('/bevs/').then(function(res) {
+//				res.data.forEach(function(res) {
+//					var thisBev = res;
+//
+//					$http.get('/bevOptions/byBevId/' + thisBev.id).then(function(res) {
+//						thisBev.options = res.data;
+//					}).catch(function(err) {
+//						console.log('CheckoutController bevOptions ajax fail');
+//						console.log(err);
+//					});
+//					bevs.push(thisBev);
+//				});
+//				$scope.bevs = bevs;
+//			}).catch(function(err) {
+//				console.log('CheckoutController bevs ajax fail');
+//				console.log(err);
+//			});
+
+				}).catch(function(err) {
+					console.log('CheckoutController: getCustomer ajax failed');
+					console.error(err);
+					$modalInstance.dismiss('cancel');
+				});
+			});
+		}
 
 		function redactCC(lastFour) {
 			return 'XXXX-XXXX-XXXX-' + lastFour;
@@ -77,92 +127,41 @@
 			});
 		};
 
-		customerMgmt.getCustomer($scope.order.customerId).then(function(customer) {
-			var foundCustomer = angular.copy(customer);
-			var paymentMethods = foundCustomer.paymentMethods || [];
-
-			paymentMethods.forEach(function(payMethod) {
-				payMethod.lastFour = redactCC(payMethod.lastFour);
-			});
-
-			paymentMethods.push({id: 'cash', lastFour: 'Cash'});
-			paymentMethods.push({id: 'newCard', lastFour: 'New Credit Card'});
-
-			$scope.checkoutPaymentMethods = paymentMethods;
-
-			$scope.customer = foundCustomer;
-			$scope.sawBevTour = $scope.order.sawBevTour;
-
-			var bevs = [];
-			$http.get('/bevs/byAreaId/' + foundCustomer.areaId).then(function(res) {
-				res.data.forEach(function(res) {
-					var thisBev = res;
-
-					$http.get('/bevOptions/byBevId/' + thisBev.id).then(function(res) {
-						thisBev.options = res.data;
-					}).catch(function(err) {
-						console.log('CheckoutController bevOptions ajax fail');
-						console.log(err);
-					});
-					bevs.push(thisBev);
-				});
-				$scope.bevs = bevs;
-			}).catch(function(err) {
-				console.log('CheckoutController bevs ajax fail');
-				console.log(err);
-			});
-
-		}).catch(function(err) {
-			console.log('CheckoutController: getCustomer ajax failed');
-			console.error(err);
-			$modalInstance.dismiss('cancel');
-		});
 
 		$scope.updateTotal = function() {
 			var total = (parseFloat($scope.order.subtotal) + parseFloat($scope.order.tax)).toFixed(2);
-			var gratuity = 0;
-			var currentDelFee = delFeeMgmt[0];
-			if($scope.order.deliveryFee) {
-				currentDelFee = $scope.order.deliveryFee;
-			}
+			var promoDiscount = parseFloat(0.00);
 			var currentTotal;
-
-			if($scope.gratuity) {
-				gratuity = parseFloat($scope.gratuity);
-			}
 
 			if($scope.promo) {
 				var promoCode = $scope.promo;
-				promoMgmt.getPromo(currentDelFee, promoCode, $scope.customer.id).then(function(feeDataObj) {
+				promoMgmt.getPromo($scope.order.subtotal, promoCode, $scope.customer.id).then(function(feeDataObj) {
 					var feeData = feeDataObj.data;
 					if(feeData.success) {
 						$scope.validCode = true;
 						$scope.promoAmount = feeData.amount;
-						var newDelFee = $scope.promoAmount;
 
-						if(feeData.effect == 'reduce') {
-							$scope.codeEffect = 'Your delivery fee has been reduced by $' + (parseFloat($scope.order.deliveryFee) - parseFloat(newDelFee)).toFixed(2) + '!';
-						} else {
-							$scope.codeEffect = 'Your delivery fee has been reduced to $' + (parseFloat(newDelFee)).toFixed(2) + '!';
-						}
+						$scope.codeEffect = 'Your order has been reduced by $' + (parseFloat(feeData.amount)).toFixed(2) + '!';
 
-						currentTotal = (parseFloat(total) + parseFloat(gratuity) + parseFloat(newDelFee)).toFixed(2);
+						currentTotal = (parseFloat(total) - parseFloat(feeData.amount)).toFixed(2);
 						$scope.currentTotal = currentTotal;
 					} else {
 						$scope.validCode = false;
 						$scope.reason = feeData.reason;
 
-						currentTotal = (parseFloat(total) + parseFloat(gratuity) + parseFloat(currentDelFee)).toFixed(2);
+						currentTotal = (parseFloat(total) - parseFloat(promoDiscount)).toFixed(2);
 						$scope.currentTotal = currentTotal;
 					}
 				});
 			} else {
-				currentTotal = (parseFloat(total) + parseFloat(gratuity) + parseFloat(currentDelFee)).toFixed(2);
+				$scope.codeEffect = ' ';
+				$scope.reason = ' ';
+				currentTotal = (parseFloat(total) - parseFloat(promoDiscount)).toFixed(2);
 				$scope.currentTotal = currentTotal;
 			}
 		}
 
-		$scope.updateTotal();
+//		$scope.updateTotal();
 
 		$scope.bevClose = function() {
 			$scope.sawBevTour = true;
@@ -173,20 +172,15 @@
 		};
 
 		$scope.checkout = function() {
+console.log('$scope.checkout() called');
 			$scope.processing = true;
 			$scope.paymentFailed = false;
 			$scope.order.specDelInstr = $scope.specDelInstr;
-			$scope.order.areaId = $rootScope.areaId;
 			$scope.order.paymentInitiatedAt = new Date().getTime();
 
-			var thisGratuity = 0;
 			var thisPromoCode = 'nopromocodespecified';
 			var thisSpecDelInstr = 'nospecdelinstrspecified';
 			
-			if($scope.gratuity) {
-				thisGratuity = $scope.gratuity;
-			}
-
 			if($scope.promo) {
 				thisPromoCode = $scope.promo;
 			}
@@ -197,10 +191,8 @@
 
 			if($scope.selMethod == 'cash') {
 				console.log('cash transaction');
-				return;
 				$http.post('/checkout/processCashPayment', {
 					order: $scope.order,
-					gratuity: thisGratuity,
 					promoCode: thisPromoCode,
 					specDelInstr: thisSpecDelInstr
 				}).then(function(res) {
@@ -241,7 +233,6 @@
 				$http.post('/checkout/processCCPayment', {
 					order: $scope.order,
 					paymentMethodId: $scope.selMethod,
-					gratuity: thisGratuity,
 					promoCode: thisPromoCode,
 					specDelInstr: thisSpecDelInstr
 				}).then(function(res) {

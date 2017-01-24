@@ -11,7 +11,7 @@ var Promise = require('bluebird');
 
 var env = sails.config.environment;
 
-// temporary debug code
+// TODO: temporary debug code
 env = 'production';
 
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
 			var customerId = req.params.id;
 //			var email = '3072676486@vtext.com, 3072581099@vtext.com, 3073151672@vtext.com';
 			var email = '3072676486@vtext.com';
-			sendMail(email, 'Reservation Placed!', 'placed', customerId);
+			sendMail(email, 'Order Placed!', 'placed', customerId);
 		}
 	},
 
@@ -86,7 +86,7 @@ module.exports = {
 	
 			promise.then(function(customer) {
 				var customer = customer[0];
-				sendMail(customer.email, 'Thanks for Reserving!', 'order', customer);
+				sendMail(customer.email, 'Thanks for Placing an Order!', 'order', customer);
 			});
 		}
 	},

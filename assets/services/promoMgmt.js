@@ -10,20 +10,11 @@
 	];
 	
 	function service($rootScope, $http) {
-		var getPromoPromise;
-
 		var service = {
-			getPromo: function(promoCode) {
-				var url = '/promos/byName/' + promoCode;
-				getPromoPromise = $http.get(url).then(function(res) {
-					if(res.data.length > 0) {
-						return res.data[0];
-					} else {
-						return {result: 'invalid'};
-					}
+			getPromo: function(subTotal, promoCode, customerId) {
+				return $http.post('/promos/getPromo', {
+					subTotal: subTotal, promoCode: promoCode, customerId: customerId
 				});
-
-				return getPromoPromise;
 			}
 		}
 

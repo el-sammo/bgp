@@ -20,16 +20,6 @@ module.exports = {
     });
   },
 
-	byAreaId: function(req, res) {
-		Promos.findByAreaId(req.params.id).sort({name: 'asc'}).then(function(results) {
-			res.send(JSON.stringify(results));
-		}).catch(function(err) {
-      res.json({error: 'Server error'}, 500);
-      console.error(err);
-      throw err;
-		});
-	},
-	
 	byName: function(req, res) {
 		Promos.findByName(req.params.id).sort({name: 'asc'}).then(function(results) {
 			res.send(JSON.stringify(results));
@@ -41,7 +31,7 @@ module.exports = {
 	},
 	
 	getPromo: function(req, res) {
-		if(!(req.body && req.body.currentDelFee && req.body.promoCode && req.body.customerId)) {
+		if(!(req.body && req.body.subTotal && req.body.promoCode && req.body.customerId)) {
 			return res.json({success: false, reason: 'invalid'});
 		}
 
@@ -96,13 +86,7 @@ module.exports = {
 					return res.json({success: false, reason: 'expired'});
 				}
 
-				if(thisPromo.effect == 'reduce') {
-					changeAmount = parseFloat(req.body.currentDelFee) - parseFloat(thisPromo.amount);
-				}
-			
-				if(thisPromo.effect == 'replace') {
-					changeAmount = thisPromo.amount;
-				}
+				changeAmount = parseFloat(thisPromo.amount);
 		
 				res.json({success: true, effect: thisPromo.effect, amount: changeAmount});
 			}).catch(function(err) {

@@ -67,6 +67,7 @@ function controller(
 		$scope.showAccount = showAccount;
 		$scope.showPopcorn = showPopcorn;
 		$scope.showOrder = showOrder;
+		$scope.updateOrder = updateOrder;
 
 		$scope.addFlavor = orderMgmt.add;
 		$scope.removeItem = orderMgmt.remove;
@@ -186,7 +187,7 @@ function controller(
 		orderMgmt.checkout(order);
 	};
 
-	$scope.updateOrder = function() {
+	function updateOrder() {
 		var sessionPromise = customerMgmt.getSession();
 	
 		sessionPromise.then(function(sessionData) {
@@ -226,7 +227,6 @@ function controller(
 				// TODO this should be configged on the area level
 				var taxRate = .05;
 				var multiplier = 100;
-				var deliveryFee = 8.95;
 				var discount = 0;
 				var gratuity = 0;
 				var total = 0;
@@ -276,21 +276,18 @@ function controller(
 				sessionPromise.then(function(sessionData) {
 					if(sessionData.order && sessionData.order.things) {
 						if(sessionData.customerId) {
-							total = (Math.round((subtotal + tax + deliveryFee - discount + gratuity) * 100)/100);
+							total = (Math.round((subtotal + tax - discount + gratuity) * 100)/100);
 						
 							$scope.subtotal = subtotal.toFixed(2);
 							$scope.tax = tax.toFixed(2);
-							$scope.deliveryFee = deliveryFee.toFixed(2);
 							$scope.discount = discount.toFixed(2);
 							$scope.gratuity = gratuity.toFixed(2);
 							$scope.total = total.toFixed(2);
 						
 							order.subtotal = subtotal;
 							order.tax = tax;
-							order.deliveryFee = $scope.deliveryFee;
 							order.discount = discount;
 							order.total = total;
-						
 							var p = $http.put('/orders/' + order.id, order);
 								
 							// if orders ajax fails...
@@ -299,18 +296,16 @@ function controller(
 								console.error(err);
 							});
 						} else {
-							total = (Math.round((subtotal + tax + deliveryFee - discount + gratuity) * 100)/100);
+							total = (Math.round((subtotal + tax - discount + gratuity) * 100)/100);
 						
 							$scope.subtotal = subtotal.toFixed(2);
 							$scope.tax = tax.toFixed(2);
-							$scope.deliveryFee = deliveryFee.toFixed(2);
 							$scope.discount = discount.toFixed(2);
 							$scope.gratuity = gratuity.toFixed(2);
 							$scope.total = total.toFixed(2);
 						
 							order.subtotal = subtotal;
 							order.tax = tax;
-							order.deliveryFee = $scope.deliveryFee;
 							order.discount = discount;
 							order.total = total;
 						
@@ -347,7 +342,6 @@ function controller(
 			// TODO this should be configged on the area level
 			var taxRate = .05;
 			var multiplier = 100;
-			var deliveryFee = 8.95;
 			var discount = 0;
 			var gratuity = 0;
 			var total = 0;
@@ -396,18 +390,16 @@ function controller(
 			sessionPromise.then(function(sessionData) {
 				if(sessionData.order && sessionData.order.things) {
 					if(sessionData.customerId) {
-						total = (Math.round((subtotal + tax + deliveryFee - discount + gratuity) * 100)/100);
+						total = (Math.round((subtotal + tax - discount + gratuity) * 100)/100);
 					
 						$scope.subtotal = subtotal.toFixed(2);
 						$scope.tax = tax.toFixed(2);
-						$scope.deliveryFee = deliveryFee.toFixed(2);
 						$scope.discount = discount.toFixed(2);
 						$scope.gratuity = gratuity.toFixed(2);
 						$scope.total = total.toFixed(2);
 					
 						order.subtotal = subtotal;
 						order.tax = tax;
-						order.deliveryFee = $scope.deliveryFee;
 						order.discount = discount;
 						order.total = total;
 					
@@ -419,18 +411,16 @@ function controller(
 							console.error(err);
 						});
 					} else {
-						total = (Math.round((subtotal + tax + deliveryFee - discount + gratuity) * 100)/100);
+						total = (Math.round((subtotal + tax - discount + gratuity) * 100)/100);
 					
 						$scope.subtotal = subtotal.toFixed(2);
 						$scope.tax = tax.toFixed(2);
-						$scope.deliveryFee = deliveryFee.toFixed(2);
 						$scope.discount = discount.toFixed(2);
 						$scope.gratuity = gratuity.toFixed(2);
 						$scope.total = total.toFixed(2);
 					
 						order.subtotal = subtotal;
 						order.tax = tax;
-						order.deliveryFee = $scope.deliveryFee;
 						order.discount = discount;
 						order.total = total;
 					
@@ -554,6 +544,7 @@ function controller(
 	}
 
 	function showOrder() {
+		updateOrder();
 		hideAll();
 		$('#orderShow').show();
 

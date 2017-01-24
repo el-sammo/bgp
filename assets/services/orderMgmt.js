@@ -16,7 +16,6 @@
 	function service($modal, $rootScope, $http) {
 		var service = {
 			checkout: function(order) {
-console.log('checkout called');
 				$modal.open({
 					templateUrl: '/templates/checkout.html',
 					backdrop: true,
