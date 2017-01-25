@@ -48,6 +48,10 @@
 			});
 		});
 
+		$rootScope.$on('cartEmptied', function(evt, customer) {
+			$scope.activeCart = false;
+		});
+
 		var sessionPromise = customerMgmt.getSession();
 
 		sessionPromise.then(function(sessionData) {

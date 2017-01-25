@@ -126,6 +126,10 @@ function controller(
 		$scope.activeCart = true;
 	});
 
+	$rootScope.$on('cartEmptied', function(evt, customer) {
+		$scope.activeCart = false;
+	});
+
 	$scope.addPM = payMethodMgmt.modals.add;
 	$scope.removePM = payMethodMgmt.modals.remove;
 	$scope.changeAddress = accountMgmt.modals.changeAddress;

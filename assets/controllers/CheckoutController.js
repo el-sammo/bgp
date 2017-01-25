@@ -41,7 +41,7 @@
 			$http.get('/orders/' +args.order.id).then(function(res) {
 				$scope.order = res.data;
 
-				$scope.currentTotal = parseFloat($scope.order.total);
+				$scope.currentTotal = parseFloat($scope.order.total).toFixed(2);
 
 				customerMgmt.getCustomer($scope.order.customerId).then(function(customer) {
 					var foundCustomer = angular.copy(customer);
@@ -221,6 +221,7 @@ console.log('$scope.checkout() called');
 						} else {
 							$window.location.href = '/app/orderSmall/' + $scope.order.id;
 						}
+						$rootScope.$broadcast('cartEmptied');
 					} else {
 						$scope.paymentFailed = true;
 						var failMsg = 'Application error.';
@@ -229,7 +230,6 @@ console.log('$scope.checkout() called');
 				});
 			} else {
 				console.log('cc transaction');
-				return;
 				$http.post('/checkout/processCCPayment', {
 					order: $scope.order,
 					paymentMethodId: $scope.selMethod,
@@ -264,15 +264,7 @@ console.log('$scope.checkout() called');
 						$location.path(redirectTo);
 						messenger.show('Your order has been received.', 'Success!');
 					} else {
-						console.log('   ');
-						console.log('   ');
-						console.log('   ');
-						console.log('paymentFailure:');
-						console.log('   ');
-						console.log(res.data.msg+' for order '+res.data.orderId);
-						console.log('   ');
-						console.log('   ');
-						console.log('   ');
+						console.log(res.data.msg+' The order is '+res.data.orderId);
 						$scope.paymentFailed = true;
 						var failMsg = 'Payment error.';
 						if(res.data.msg === 'order-put-with-failure') {

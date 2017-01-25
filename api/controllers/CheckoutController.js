@@ -44,7 +44,7 @@ function captureCashTransaction(req, res, self) {
 	order.paymentAcceptedAt = new Date().getTime();
 
 	if(promoCode === 'nopromocodespecified') {
-		var newTotal = parseFloat(currentTotal);
+		newTotal = parseFloat(currentTotal);
 		order.total = newTotal;
 	
 		return Orders.update(order.id, order).then(function(data) {
@@ -56,14 +56,13 @@ function captureCashTransaction(req, res, self) {
 		});
 	}
 
-	PromosService.getPromo(req.body.order.subtotal, promoCode, customerId).then(function(feeDataObj) {
+	PromosService.getPromo(currentTotal, promoCode, customerId).then(function(feeDataObj) {
 		var feeData = feeDataObj;
 		if(feeData.success) {
-			discount = parseFloat(feeData.amount);
-			order.discount = discount;
+			order.discount = (parseFloat(currentTotal) - parseFloat(feeData.amount));
 			order.promo = promoCode;
 
-			newTotal = (parseFloat(currentTotal) - parseFloat(discount));
+			newTotal = parseFloat(feeData.amount);
 			order.total = newTotal;
 			
 			return Orders.update(order.id, order).then(function(data) {
@@ -84,7 +83,6 @@ function captureCCTransaction(req, res, self) {
 	var promoCode = req.body.promoCode;
 	var newTotal = 0;
 	var currentTotal = parseFloat(order.total);
-	var currentDelFee = order.deliveryFee;
 	var paymentMethodId = req.body.paymentMethodId;
 
 	order.orderStatus = 2;
@@ -120,7 +118,6 @@ function captureCCTransaction(req, res, self) {
 				var orderId = secs.substr( (secs.length - 11), 8 );
 		
 				if(promoCode === 'nopromocodespecified') {
-					console.log('there is no promo code');
 					var newTotal = parseFloat(currentTotal);
 					order.total = newTotal;
 				
@@ -135,13 +132,10 @@ function captureCCTransaction(req, res, self) {
 						}
 					};
 
-					console.log('   ');
-					console.log('order:');
-					console.log(order);
-					console.log('   ');
-					console.log('transaction:');
-					console.log(transaction);
-					console.log('   ');
+console.log(' ');
+console.log('transaction:');
+console.log(transaction);
+console.log(' ');
 
 					return AuthorizeCIM.createCustomerProfileTransaction(
 						// transaction types:
@@ -153,18 +147,10 @@ function captureCCTransaction(req, res, self) {
 							console.log('err:');
 							console.log(err.message);
 							
-							console.log('   ');
-							console.log('about to send fail (a)');
-							console.log('   ');
-
-							// TODO: fix this
+							// TODO: handle this in checkout controller
 							// send an aggressive alert to op/mngr notifying of payment failure
 							// $http.post('/mail/sendFailToOperator/'+$scope.order.id);
-							Mail.sendFailToOperator;
-
-							console.log('   ');
-							console.log('just sent fail (a)');
-							console.log('   ');
+							// Mail.sendFailToOperator;
 
 							order.orderStatus = 4;
 
@@ -176,137 +162,131 @@ function captureCCTransaction(req, res, self) {
 
 								return res.json({success: false, msg: 'order-put-with-failure', orderId: order.id});
 							});
-						}
-						var dirResPcs = response.directResponse.split(',');
-						if(dirResPcs[3] == 'This transaction has been approved.') {
-							order.paymentAcceptedAt = new Date().getTime();
-							order.orderStatus = 5;
-
-							Orders.update(order.id, order).then(function(data) {
-								return res.json({success: true, msg: 'complete', orderId: order.id});
-							}).catch(function(err) {
-								console.log('captureCCTransaction orders-put with approval failed');
-								console.log('err');
-								return res.json({success: true, msg: 'order-put-with-approval', orderId: order.id});
-							});
 						} else {
-							console.log('   ');
-							console.log('This transaction has NOT been processed');
-							console.log(dirResPcs[3]);
-							console.log('   ');
+							var dirResPcs = response.directResponse.split(',');
+							if(dirResPcs[3] == 'This transaction has been approved.') {
+								order.paymentAcceptedAt = new Date().getTime();
+								order.orderStatus = 5;
+	
+								Orders.update(order.id, order).then(function(data) {
+									return res.json({success: true, msg: 'complete', orderId: order.id});
+								}).catch(function(err) {
+									console.log('captureCCTransaction orders-put with approval failed');
+									console.log('err');
+									return res.json({success: true, msg: 'order-put-with-approval', orderId: order.id});
+								});
+							} else {
+								console.log('   ');
+								console.log('This transaction has NOT been processed');
+								console.log(dirResPcs[3]);
+								console.log('   ');
+	
+								order.orderStatus = 3;
+	
+								Orders.update(order.id, order).then(function(data) {
+									return res.json({success: false, msg: dirResPcs[3], orderId: order.id});
+								}).catch(function(err) {
+									console.log('captureCCTransaction orders-put with no processing failed');
+									console.log('err');
+									return res.json({success: false, msg: 'order-put-with-no-processing', orderId: order.id});
+								});
+							}
+						}
+					});
+				} else {
 
-							order.orderStatus = 3;
-
-							Orders.update(order.id, order).then(function(data) {
-								return res.json({success: false, msg: dirResPcs[3], orderId: order.id});
-							}).catch(function(err) {
-								console.log('captureCCTransaction orders-put with no processing failed');
-								console.log('err');
-								return res.json({success: false, msg: 'order-put-with-no-processing', orderId: order.id});
+					return PromosService.getPromo(currentTotal, promoCode, customerId).then(function(feeDataObj) {
+						var feeData = feeDataObj;
+						if(feeData.success) {
+							discount = (parseFloat(currentTotal) - parseFloat(feeData.amount));
+							order.discount = discount;
+							order.promo = promoCode;
+				
+							newTotal = parseFloat(feeData.amount);
+							order.total = newTotal;
+							
+							return Orders.update(order.id, order).then(function(data) {
+								var transaction = {
+									amount: newTotal,
+									tax: {},
+									shipping: {},
+									customerProfileId: customerProfileId,
+									customerPaymentProfileId: paymentMethodId,
+									order: {
+										invoiceNumber: orderId
+									}
+								};
+			
+console.log(' ');
+console.log('transaction:');
+console.log(transaction);
+console.log(' ');
+	
+								return AuthorizeCIM.createCustomerProfileTransaction(
+									// transaction types:
+									// AuthCapture, AuthOnly, CaptureOnly, PriorAuthCapture
+									'AuthCapture',
+									 transaction,
+								function(err, response) {
+									if(err) {
+										console.log('err:');
+										console.log(err.message);
+										
+										// TODO: handle this in checkout controller
+										// send an aggressive alert to op/mngr notifying of payment failure
+										// $http.post('/mail/sendFailToOperator/'+$scope.order.id);
+										// Mail.sendFailToOperator;
+			
+										order.orderStatus = 4;
+										order.promo = '';
+										order.discount = 0;
+										order.total = currentTotal;
+			
+										Orders.update(order.id, order).then(function(data) {
+											return res.json({success: false, msg: err.message, orderId: order.id});
+										}).catch(function(err) {
+											console.log('captureCCTransaction orders-put failed');
+											console.log('err');
+			
+											return res.json({success: false, msg: 'order-put-with-failure', orderId: order.id});
+										});
+									} else {
+										var dirResPcs = response.directResponse.split(',');
+										if(dirResPcs[3] == 'This transaction has been approved.') {
+											order.paymentAcceptedAt = new Date().getTime();
+											order.orderStatus = 5;
+				
+											Orders.update(order.id, order).then(function(data) {
+												return res.json({success: true, msg: 'complete', orderId: order.id});
+											}).catch(function(err) {
+												console.log('captureCCTransaction orders-put with approval failed');
+												console.log('err');
+												return res.json({success: true, msg: 'order-put-with-approval', orderId: order.id});
+											});
+										} else {
+											console.log('   ');
+											console.log('This transaction has NOT been processed');
+											console.log(dirResPcs[3]);
+											console.log('   ');
+				
+											order.orderStatus = 3;
+				
+											Orders.update(order.id, order).then(function(data) {
+												return res.json({success: false, msg: dirResPcs[3], orderId: order.id});
+											}).catch(function(err) {
+												console.log('captureCCTransaction orders-put with no processing failed');
+												console.log('err');
+												return res.json({success: false, msg: 'order-put-with-no-processing', orderId: order.id});
+											});
+										}
+									}
+								});
 							});
 						}
 					});
 				}
-
-				console.log('there is a promo code');
-			
-				return PromosService.getPromo(currentDelFee, promoCode, customerId).then(function(feeDataObj) {
-					var feeData = feeDataObj;
-					if(feeData.success) {
-						discount = (parseFloat(order.deliveryFee) - parseFloat(feeData.amount));
-						order.discount = discount;
-						order.promo = promoCode;
-			
-						newTotal = (parseFloat(currentTotal) - parseFloat(discount));
-						order.total = newTotal;
-						
-						return Orders.update(order.id, order).then(function(data) {
-							var transaction = {
-								amount: newTotal,
-								tax: {},
-								shipping: {},
-								customerProfileId: customerProfileId,
-								customerPaymentProfileId: paymentMethodId,
-								order: {
-									invoiceNumber: orderId
-								}
-							};
-		
-							console.log('   ');
-							console.log('order:');
-							console.log(order);
-							console.log('   ');
-							console.log('transaction:');
-							console.log(transaction);
-							console.log('   ');
-
-							return AuthorizeCIM.createCustomerProfileTransaction(
-								// transaction types:
-								// AuthCapture, AuthOnly, CaptureOnly, PriorAuthCapture
-								'AuthCapture',
-								 transaction,
-							function(err, response) {
-								if(err) {
-									console.log('err:');
-									console.log(err.message);
-									
-									console.log('   ');
-									console.log('about to send fail (b)');
-									console.log('   ');
-
-									// TODO: fix this
-									// send an aggressive alert to op/mngr notifying of payment failure
-									// $http.post('/mail/sendFailToOperator/'+$scope.order.id);
-									Mail.sendFailToOperator;
-		
-									console.log('   ');
-									console.log('just sent fail (b)');
-									console.log('   ');
-
-									order.orderStatus = 4;
-		
-									Orders.update(order.id, order).then(function(data) {
-										return res.json({success: false, msg: err.message, orderId: order.id});
-									}).catch(function(err) {
-										console.log('captureCCTransaction orders-put failed');
-										console.log('err');
-		
-										return res.json({success: false, msg: 'order-put-with-failure', orderId: order.id});
-									});
-								}
-								var dirResPcs = response.directResponse.split(',');
-								if(dirResPcs[3] == 'This transaction has been approved.') {
-									order.paymentAcceptedAt = new Date().getTime();
-									order.orderStatus = 5;
-		
-									Orders.update(order.id, order).then(function(data) {
-										return res.json({success: true, msg: 'complete', orderId: order.id});
-									}).catch(function(err) {
-										console.log('captureCCTransaction orders-put with approval failed');
-										console.log('err');
-										return res.json({success: true, msg: 'order-put-with-approval', orderId: order.id});
-									});
-								} else {
-									console.log('   ');
-									console.log('This transaction has NOT been processed');
-									console.log(dirResPcs[3]);
-									console.log('   ');
-		
-									order.orderStatus = 3;
-		
-									Orders.update(order.id, order).then(function(data) {
-										return res.json({success: false, msg: dirResPcs[3], orderId: order.id});
-									}).catch(function(err) {
-										console.log('captureCCTransaction orders-put with no processing failed');
-										console.log('err');
-										return res.json({success: false, msg: 'order-put-with-no-processing', orderId: order.id});
-									});
-								}
-							});
-						});
-					}
-				});
 			} else {
+console.log('INvalidPM');
 				// not a valid payment method
 				return res.json({success: false, msg: 'invalid-payment-method', orderId: order.id});
 			}
