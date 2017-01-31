@@ -19,8 +19,17 @@ module.exports = {
 		if(env && env === 'production') {
 			var customerId = req.params.id;
 //			var email = '3072676486@vtext.com, 3072581099@vtext.com, 3073151672@vtext.com';
-			var email = '3072676486@vtext.com';
+			var email = '3072676486@vtext.com, 3072514153@vtext.com';
 			sendMail(email, 'Order Placed!', 'placed', customerId);
+		}
+	},
+
+	sendPhoneNotifyToOperator: function(req, res) {
+		if(env && env === 'production') {
+			var customerId = req.params.id;
+//			var email = '3072676486@vtext.com, 3072581099@vtext.com, 3073151672@vtext.com';
+			var email = '3072676486@vtext.com, 3072514153@vtext.com';
+			sendMail(email, 'Order Placed!', 'placedPhone', customerId);
 		}
 	},
 
@@ -91,6 +100,19 @@ module.exports = {
 		}
 	},
 
+	sendPhoneOrderToCustomer: function(req, res) {
+		if(env && env === 'production') {
+			var customerId = req.params.id;
+	
+			promise = Customers.find(customerId);
+	
+			promise.then(function(customer) {
+				var customer = customer[0];
+				sendMail(customer.email, 'Thanks for Placing an Order!', 'orderPhone', customer);
+			});
+		}
+	},
+
 	sendToApplicant: function(req, res) {
 		if(env && env === 'production') {
 			var applicantId = req.params.id;
@@ -138,6 +160,15 @@ console.log('sendMail() called');
 		};
 	}
 
+	if(template === 'placedPhone') {
+		mailOptions = {
+			from: 'Becca\'s Gourmet Popcorn <sales@beccaspopcorn.com>',
+			to: email,
+			subject: subject,
+			text: 'A new PHONE order has been placed!' // TODO: get orderId nd customerInformation
+		};
+	}
+
 	if(template === 'order') {
 		mailOptions = {
 			from: 'Becca\'s Gourmet Popcorn <sales@beccaspopcorn.com>',
@@ -145,6 +176,16 @@ console.log('sendMail() called');
 			subject: subject,
 			text: 'Thanks for ordering with Becca\'s Gourmet Popcorn!, '+data.fName+'.  A Becca\'s Gourmet Popcorn team member will deliver your order very soon!',
 			html: 'Thanks for ordering with <b>Becca\'s Gourmet Popcorn</b>, '+data.fName+'.  A Becca\'s Gourmet Popcorn team member will deliver your order very soon!'
+		};
+	}
+
+	if(template === 'orderPhone') {
+		mailOptions = {
+			from: 'Becca\'s Gourmet Popcorn <sales@beccaspopcorn.com>',
+			to: email,
+			subject: subject,
+			text: 'Thanks for ordering with Becca\'s Gourmet Popcorn!, '+data.fName+'.  A Becca\'s Gourmet Popcorn team member will call you soon to process payment for your order!',
+			html: 'Thanks for ordering with <b>Becca\'s Gourmet Popcorn</b>, '+data.fName+'.  A Becca\'s Gourmet Popcorn team member will call you soon to process payment for your order!'
 		};
 	}
 

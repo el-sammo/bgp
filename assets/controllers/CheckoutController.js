@@ -52,6 +52,7 @@
 					});
 
 					paymentMethods.push({id: 'cash', lastFour: 'Cash'});
+					paymentMethods.push({id: 'phone', lastFour: 'CC by Phone'});
 					paymentMethods.push({id: 'newCard', lastFour: 'New Credit Card'});
 
 					$scope.checkoutPaymentMethods = paymentMethods;
@@ -189,8 +190,8 @@ console.log('$scope.checkout() called');
 				thisSpecDelInstr = $scope.specDelInstr;
 			}
 
-			if($scope.selMethod == 'cash') {
-				console.log('cash transaction');
+			if($scope.selMethod === 'cash') {
+console.log('cash transaction');
 				$http.post('/checkout/processCashPayment', {
 					order: $scope.order,
 					promoCode: thisPromoCode,
@@ -228,8 +229,47 @@ console.log('$scope.checkout() called');
 						$scope.failMsg = failMsg;
 					}
 				});
+			} else if($scope.selMethod === 'phone') {
+console.log('phone transaction');
+				$http.post('/checkout/processPhonePayment', {
+					order: $scope.order,
+					promoCode: thisPromoCode,
+					specDelInstr: thisSpecDelInstr
+				}).then(function(res) {
+					$scope.processing = false;
+					if(res.data.success) {
+						if(res.data.msg === 'order-put-phone') {
+							if(order) {
+								order.orderStatus = 5;
+								order.paymentAcceptedAt = new Date().getTime();
+								console.log('backup order update for order: '+res.data.orderId);
+								console.log(order);
+								$http.put('/orders/' + order.id, order);
+							} else {
+								console.log('backup order update failed');
+							}
+						}
+						$rootScope.$broadcast('orderChanged');
+						// notify operator
+						$http.post('/mail/sendPhoneNotifyToOperator/'+$scope.order.customerId);
+						// notify customer
+						$http.post('/mail/sendPhoneOrderToCustomer/'+$scope.order.customerId);
+						$modalInstance.dismiss('done');
+						if(deviceMgr.isBigScreen()) {
+							$window.location.href = '/app/order/' + $scope.order.id;
+							messenger.show('Your order has been received.', 'Success!');
+						} else {
+							$window.location.href = '/app/orderSmall/' + $scope.order.id;
+						}
+						$rootScope.$broadcast('cartEmptied');
+					} else {
+						$scope.paymentFailed = true;
+						var failMsg = 'Application error.';
+						$scope.failMsg = failMsg;
+					}
+				});
 			} else {
-				console.log('cc transaction');
+console.log('cc transaction');
 				$http.post('/checkout/processCCPayment', {
 					order: $scope.order,
 					paymentMethodId: $scope.selMethod,
@@ -264,6 +304,7 @@ console.log('$scope.checkout() called');
 						$location.path(redirectTo);
 						messenger.show('Your order has been received.', 'Success!');
 					} else {
+						$http.post('/mail/sendFailToOperator/'+res.data.orderId);
 						console.log(res.data.msg+' The order is '+res.data.orderId);
 						$scope.paymentFailed = true;
 						var failMsg = 'Payment error.';
