@@ -6,8 +6,10 @@
 	app.controller('OrderMgmtController', controller);
 	
 	controller.$inject = [
-		'$q', 'args', '$scope', '$modalInstance', '$http', '$rootScope',
-		'customerMgmt', 'popcornMgmt', 'optionsMgmt', 'clientConfig'
+		'$q', 'args', '$scope', '$modalInstance',
+		'$http', '$rootScope',
+		'customerMgmt', 'popcornMgmt', 'optionsMgmt',
+		'clientConfig'
 	];
 
 	function controller(

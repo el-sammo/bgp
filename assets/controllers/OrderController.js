@@ -94,7 +94,7 @@
 				}
 
 				if(! (order && order.customerId)) {
-					return layoutMgmt.logIn();
+					return layoutMgmt.logIn('no next');
 				}
 
 				orderMgmt.checkout(order);

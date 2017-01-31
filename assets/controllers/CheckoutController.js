@@ -3,6 +3,10 @@
 
 	var app = angular.module('app');
 
+	///
+	// Checkout Management
+	///
+
 	app.controller('CheckoutController', controller);
 	
 	controller.$inject = [

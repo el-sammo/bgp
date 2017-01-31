@@ -48,7 +48,7 @@
 
 		$scope.haveAccount = function() {
 			$modalInstance.dismiss('cancel');
-			layoutMgmt.logIn();
+			layoutMgmt.logIn('no next');
 		};
 
 

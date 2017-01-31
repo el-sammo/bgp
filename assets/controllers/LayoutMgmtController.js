@@ -11,14 +11,14 @@
 	
 	controller.$inject = [
 		'$scope', '$modalInstance',	'$http',
-		'$rootScope', '$window', 'layoutMgmt',
-		'messenger', 'deviceMgr', 'customerMgmt'
+		'$rootScope', '$window', 'args', 'messenger',
+		'layoutMgmt', 'deviceMgr', 'customerMgmt'
 	];
 
 	function controller(
 		$scope, $modalInstance,	$http,
-		$rootScope, $window, layoutMgmt,
-		messenger, deviceMgr, customerMgmt
+		$rootScope, $window, args, messenger,
+		layoutMgmt, deviceMgr, customerMgmt
 	) {
 
 		$scope.badCreds = false;
@@ -43,12 +43,21 @@
 			).success(function(data, status, headers, config) {
 				// if login ajax succeeds...
 				if(status >= 400) {
+					if(args && args.next && args.next === 'checkout') {
+						$rootScope.$broadcast('loggedInCustomerCheckout', data.customerId);
+					}
 					$rootScope.$broadcast('customerLoggedIn', data.customerId);
 					$modalInstance.dismiss('done');
 				} else if(status == 200) {
+					if(args && args.next && args.next === 'checkout') {
+						$rootScope.$broadcast('loggedInCustomerCheckout', data.customerId);
+					}
 					$rootScope.$broadcast('customerLoggedIn', data.customerId);
 					$modalInstance.dismiss('done');
 				} else {
+					if(args && args.next && args.next === 'checkout') {
+						$rootScope.$broadcast('loggedInCustomerCheckout', data.customerId);
+					}
 					$rootScope.$broadcast('customerLoggedIn', data.customerId);
 					$modalInstance.dismiss('done');
 				}

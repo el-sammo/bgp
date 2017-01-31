@@ -73,6 +73,8 @@ function controller(
 		$scope.removeItem = orderMgmt.remove;
 		$scope.removeBevItem = orderMgmt.removeBev;
 
+		$scope.checkout = checkout;
+
 		$scope.account = account;
 
 		// For debugging
@@ -130,6 +132,14 @@ function controller(
 		$scope.activeCart = false;
 	});
 
+	$rootScope.$on('loggedInCustomerCheckout', function(evt, args) {
+		var order = $scope.order;
+		order.customerId = args;
+		$http.put('/orders/' + order.id, order).then(function(res) {
+			checkout(order);
+		});
+	});
+
 	$scope.addPM = payMethodMgmt.modals.add;
 	$scope.removePM = payMethodMgmt.modals.remove;
 	$scope.changeAddress = accountMgmt.modals.changeAddress;
@@ -173,7 +183,7 @@ function controller(
 		});
 	}
 
-	$scope.checkout = function(order) {
+	function checkout(order) {
 		var isProhibited = true;
 
 		if(clientConfig.showCheckout) {
@@ -185,7 +195,7 @@ function controller(
 		}
 
 		if(! (order && order.customerId)) {
-			return layoutMgmt.logIn();
+			return layoutMgmt.logIn('checkout');
 		}
 
 		orderMgmt.checkout(order);
@@ -795,7 +805,7 @@ function controller(
 
 	function account() {
 		if(!$scope.customerId) {
-			layoutMgmt.logIn();
+			layoutMgmt.logIn('no next');
 		} else {
 			$location.path('/account');
 		}

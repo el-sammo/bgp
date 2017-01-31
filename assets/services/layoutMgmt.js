@@ -13,22 +13,34 @@
 		'$modal', '$rootScope', '$http'
 	];
 	
-	function service(
-		$modal, $rootScope, $http
-	) {
+	function service($modal, $rootScope, $http) {
 		var service = {
-			logIn: function() {
+			logIn: function(next) {
 				$modal.open({
 					templateUrl: '/templates/login.html',
 					backdrop: true,
-					controller: 'LayoutMgmtController'
+					controller: 'LayoutMgmtController',
+					resolve: {
+						args: function() {
+							return {
+								next: next
+							}
+						}
+					}
 				});
 			},
 			logOut: function() {
 				$modal.open({
 					templateUrl: '/templates/logout.html',
 					backdrop: true,
-					controller: 'LayoutMgmtController'
+					controller: 'LayoutMgmtController',
+					resolve: {
+						args: function() {
+							return {
+								next: 'no next'
+							}
+						}
+					}
 				});
 			},
 			signUp: function() {
