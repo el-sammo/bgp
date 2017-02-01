@@ -216,9 +216,9 @@ console.log('cash transaction');
 						}
 						$rootScope.$broadcast('orderChanged');
 						// notify operator
-						$http.post('/mail/sendNotifyToOperator/'+$scope.order.customerId);
+						$http.post('/mail/sendNotifyToOperator/'+$scope.order.id);
 						// notify customer
-						$http.post('/mail/sendOrderToCustomer/'+$scope.order.customerId);
+						$http.post('/mail/sendOrderToCustomer/'+$scope.order.id);
 						$modalInstance.dismiss('done');
 						if(deviceMgr.isBigScreen()) {
 							$window.location.href = '/app/order/' + $scope.order.id;
@@ -255,9 +255,9 @@ console.log('phone transaction');
 						}
 						$rootScope.$broadcast('orderChanged');
 						// notify operator
-						$http.post('/mail/sendPhoneNotifyToOperator/'+$scope.order.customerId);
+						$http.post('/mail/sendPhoneNotifyToOperator/'+$scope.order.id);
 						// notify customer
-						$http.post('/mail/sendPhoneOrderToCustomer/'+$scope.order.customerId);
+						$http.post('/mail/sendPhoneOrderToCustomer/'+$scope.order.id);
 						$modalInstance.dismiss('done');
 						if(deviceMgr.isBigScreen()) {
 							$window.location.href = '/app/order/' + $scope.order.id;
@@ -295,9 +295,9 @@ console.log('cc transaction');
 						}
 						$rootScope.$broadcast('orderChanged');
 						// notify operator
-						$http.post('/mail/sendNotifyToOperator/'+$scope.order.customerId);
+						$http.post('/mail/sendNotifyToOperator/'+$scope.order.id);
 						// notify customer
-						$http.post('/mail/sendOrderToCustomer/'+$scope.order.customerId);
+						$http.post('/mail/sendOrderToCustomer/'+$scope.order.id);
 						$modalInstance.dismiss('done');
 
 						var redirectTo = '/orderSmall/' + $scope.order.id;
