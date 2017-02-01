@@ -1,0 +1,3 @@
+lrwxrwxrwx  1 sbarrett sbarrett   33 Jan 23 15:24 ssl.crt -> ../../certs/beccaspopcorn_com.crt
+lrwxrwxrwx  1 sbarrett sbarrett   25 Jan 23 15:25 ssl.key -> ../../certs/files.bgp.key
+
