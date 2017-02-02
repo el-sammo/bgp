@@ -178,7 +178,7 @@ console.log('sendMail() called');
 		if(data.paymentMethods === 'cash') {
 			paidVia = 'This order will be paid for in cash at time of delivery';
 		} else if(data.paymentMethods === 'phone') {
-			paidVia = 'This order was paid for using a credit card over the phone';
+			paidVia = 'This order will be paid for using a credit card over the phone';
 		} else {
 			paidVia = 'This order was paid for using a credit card online';
 		}
@@ -215,7 +215,7 @@ console.log('sendMail() called');
 		if(data.paymentMethods === 'cash') {
 			paidVia = 'This order will be paid for in cash at time of delivery';
 		} else if(data.paymentMethods === 'phone') {
-			paidVia = 'This order was paid for using a credit card over the phone';
+			paidVia = 'This order will be paid for using a credit card over the phone';
 		} else {
 			paidVia = 'This order was paid for using a credit card online';
 		}
@@ -252,7 +252,7 @@ console.log('sendMail() called');
 		if(data.paymentMethods === 'cash') {
 			paidVia = 'This order will be paid for in cash at time of delivery';
 		} else if(data.paymentMethods === 'phone') {
-			paidVia = 'This order was paid for using a credit card over the phone';
+			paidVia = 'This order will be paid for using a credit card over the phone';
 		} else {
 			paidVia = 'This order was paid for using a credit card online';
 		}
@@ -289,7 +289,7 @@ console.log('sendMail() called');
 		if(data.paymentMethods === 'cash') {
 			paidVia = 'This order will be paid for in cash at time of delivery';
 		} else if(data.paymentMethods === 'phone') {
-			paidVia = 'This order was paid for using a credit card over the phone';
+			paidVia = 'This order will be paid for using a credit card over the phone';
 		} else {
 			paidVia = 'This order was paid for using a credit card online';
 		}
