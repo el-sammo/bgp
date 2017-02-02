@@ -24,6 +24,16 @@ module.exports = {
 		});
 	},
 	
+	activePopcorn: function(req, res) {
+		Popcorn.find({active: true}).then(function(results) {
+			res.send(JSON.stringify(results));
+		}).catch(function(err) {
+      res.json({error: 'Server error'}, 500);
+      console.error(err);
+      throw err;
+		});
+	},
+	
 	byId: function(req, res) {
 		Popcorn.find({id: req.params.id}).then(function(results) {
 			res.send(JSON.stringify(results));

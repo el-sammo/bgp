@@ -57,6 +57,13 @@
 			$scope.dyk = res.data[Math.floor((Math.random() * res.data.length))].dykContent;
 		});
 
+		$http.get('/popcorn/activePopcorn/').then(function(res) {
+			var thisRando = Math.floor((Math.random() * res.data.length));
+			$scope.featured = res.data[thisRando];
+			$scope.featuredImgSrc = "/images/popcorn_images/" + 
+				$scope.featured.name.toLowerCase().replace('\'', '').replace('&', 'and').replace(/ /g, '_') + ".jpg";
+		});
+
 		$scope.validUsername = true;
 
 		$scope.state = clientConfig.defaultState || 'WY';

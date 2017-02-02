@@ -65,6 +65,7 @@ function controller(
 		$scope.showFlavor = showFlavor;
 
 		$scope.showAccount = showAccount;
+		$scope.showPrivacy = showPrivacy;
 		$scope.showPopcorn = showPopcorn;
 		$scope.showOrder = showOrder;
 		$scope.updateOrder = updateOrder;
@@ -114,6 +115,10 @@ function controller(
 	
 	$rootScope.$on('showAccount', function(evt, args) {
 		showAccount();
+	});
+
+	$rootScope.$on('showPrivacy', function(evt, args) {
+		showPrivacy();
 	});
 
 	$rootScope.$on('showOrder', function(evt, args) {
@@ -486,6 +491,7 @@ function controller(
 
 	function hideAll() {
 		$('#accountShow').hide();
+		$('#privacyShow').hide();
 		$('#popcornShow').hide();
 		$('#orderShow').hide();
 	}
@@ -550,6 +556,11 @@ function controller(
 				$scope.orders = completedHistory;
 			});
 		});
+	}
+
+	function showPrivacy() {
+		hideAll();
+		$('#privacyShow').show();
 	}
 
 	function showPopcorn() {

@@ -161,6 +161,11 @@ html {
 	margin-bottom: 15px;
 }
 
+#privacyShow {
+	height: 540px;
+	overflow: auto;
+}
+
 body {
 	font-family: 'Open Sans', sans-serif;
 	height: 100%;
@@ -371,10 +376,8 @@ td {
 }
 
 .footerLink {
-	margin-right: 10px;
-	color: #FFF;
+	color: #000;
 	font-size: 14px;
-	text-align: left;
 	line-height: 20pt;
 	font-weight: 500;
 	font-style: normal;
@@ -383,9 +386,8 @@ td {
 }
 
 .footerLinkSmaller {
-	color: #FFF;
+	color: #000;
 	font-size: 10px;
-	text-align: left;
 	line-height: 20pt;
 	font-weight: 300;
 	font-style: normal;
@@ -394,10 +396,8 @@ td {
 }
 
 .footerLinkRed {
-	margin-right: 20px;
 	color: #FF0000!important;
 	font-size: 14px;
-	text-align: left;
 	line-height: 20pt;
 	font-weight: 500;
 	font-style: normal;

@@ -13,14 +13,23 @@
 </div>
 <div class="modal-body" ng-show="currentlyAvailable">
 	<form name="addSizeForm">
-		<h4 class="breakbeat">Select Your Size</h4>
-		<div class="radio" ng-repeat="option in flavor.options">
-			<label>
-				<input type="radio" name="optionName" ng-value="option.id" ng-model="$parent.selOption">
-				{{option.name}} - {{option.price | currency}}
-			</label>
+		<div class="row">
+			<div class="col-md-8">
+				<h4>Select Your Size</h4>
+				<div class="radio" ng-repeat="option in flavor.options">
+					<label>
+						<input type="radio" name="optionName" ng-value="option.id" ng-model="$parent.selOption">
+						{{option.name}} - {{option.price | currency}}
+					</label>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<img 
+					class="img-responsive popcornImgBorder"
+					src="{{flavorImgSrc}}"
+				>
+			</div>
 		</div>
-		<br/>
 		<label for="quantity">Quantity:</label>
 		<input type="number" name="quantity" class="form-control" min="1" required ng-model="quantity">
 		<span class="error" ng-show="addSizeForm.quantity.$error.required">Quantity is required!</span>

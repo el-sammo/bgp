@@ -19,6 +19,7 @@
 
 		popcornMgmt.getPopcornById(args.flavor.id).then(function(popcornData) {
 			$scope.flavor = popcornData[0];
+			$scope.flavorImgSrc = "/images/popcorn_images/" + popcornData[0].name.toLowerCase().replace('\'', '').replace('&', 'and').replace(/ /g, '_') + ".jpg";
 			optionsMgmt.getOptionsByPopcornId($scope.flavor.id).then(function(sizesData) {
 				$scope.flavor.options = sizesData;
 			});
