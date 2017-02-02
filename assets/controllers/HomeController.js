@@ -137,6 +137,10 @@ function controller(
 		$scope.activeCart = false;
 	});
 
+	$rootScope.$on('itemRemoved', function(evt, args) {
+		showOrder();
+	});
+
 	$rootScope.$on('loggedInCustomerCheckout', function(evt, args) {
 		var order = $scope.order;
 		order.customerId = args;

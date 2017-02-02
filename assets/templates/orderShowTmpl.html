@@ -3,12 +3,17 @@
 							class="col-md-12" 
 							ng-show="(things.length > 0 || bevThings.length > 0) && orderStatus < 5"
 						>
+							<div class="row">
+								<div class="col-md-12 offsetNeg25">
+									<h3>Your Shopping Cart</h3>
+								</div>
+							</div>
 							<div 
 								class="row" 
 								id="thingRow" 
 								ng-repeat="thing in things"
 							>
-								<div class="col-md-9">
+								<div class="col-md-5 col-md-offset-2 pull-left">
 									{{thing.name}}
 									<span ng-show="thing.quantity > 1"><strong>({{thing.quantity}})</strong></span>
 									<br>
@@ -16,10 +21,10 @@
 									<span ng-show="thing.specInst.length > 0"> - {{thing.specInst}}</span>)
 								</div>
 								<div 
-									class="col-md-3" 
+									class="col-md-3"
 									id="thingPrice"
 								>
-									<span ng-show="thing.quantity < 2 || !thing.quantity">{{thing.price}}</span>
+									<span ng-show="thing.quantity < 2 || !thing.quantity">{{(thing.price).toFixed(2)}}</span>
 									<span ng-show="thing.quantity > 1">{{(thing.quantity * thing.price).toFixed(2)}}</span>
 									<br>
 									<div class="priceOptionRemove">
@@ -38,7 +43,7 @@
 								id="thingRow" 
 								ng-repeat="bevThing in bevThings"
 							>
-								<div class="col-md-9">
+								<div class="col-md-5 col-md-offset-2 pull-left">
 									{{bevThing.name}}
 									<span ng-show="bevThing.quantity > 1"><strong>({{bevThing.quantity}})</strong></span>
 									<br>
@@ -48,7 +53,7 @@
 									class="col-md-3" 
 									id="thingPrice"
 								>
-									<span ng-show="bevThing.quantity < 2 || !bevThing.quantity">{{bevThing.price}}</span>
+									<span ng-show="bevThing.quantity < 2 || !bevThing.quantity">{{(bevThing.price).toFixed(2)}}</span>
 									<span ng-show="bevThing.quantity > 1">{{(bevThing.quantity * bevThing.price).toFixed(2)}}</span>
 									<br>
 									<div class="priceOptionRemove">
@@ -66,7 +71,7 @@
 								class="row" 
 								id="subtotalRow"
 							>
-								<div class="col-md-9">
+								<div class="col-md-5 col-md-offset-2">
 									Subtotal
 								</div>
 								<div 
@@ -80,7 +85,7 @@
 								class="row" 
 								id="taxRow"
 							>
-								<div class="col-md-9">
+								<div class="col-md-5 col-md-offset-2">
 									Sales Tax
 								</div>
 								<div class="col-md-3" id="tax">
@@ -89,21 +94,9 @@
 							</div>
 							<div 
 								class="row" 
-								id="deliveryFeeRow" 
-								ng-show="deliveryFee"
-							>
-								<div class="col-md-9">
-									Delivery Fee <span class="helpInfo" ng-click="delFeeExp(things, deliveryFee)">(?)</span>
-								</div>
-								<div class="col-md-3" id="deliveryFee">
-									{{deliveryFee}}
-								</div>
-							</div>
-							<div 
-								class="row" 
 								id="totalRow"
 							>
-								<div class="col-md-9">
+								<div class="col-md-5 col-md-offset-2">
 									Total
 								</div>
 								<div class="col-md-3" id="total">
@@ -140,7 +133,7 @@
 								id="thingRow" 
 								ng-repeat="thing in things"
 							>
-								<div class="col-md-9">
+								<div class="col-md-5 col-md-offset-2">
 									{{thing.name}}
 									<span ng-show="thing.quantity > 1"><strong>({{thing.quantity}})</strong></span>
 									<br>
@@ -148,7 +141,7 @@
 									<span ng-show="thing.specInst.length > 0"> - {{thing.specInst}}</span>)
 								</div>
 								<div 
-									class="col-md-3" 
+									class="col-md-3">
 									id="thingPrice"
 								>
 									<span ng-show="thing.quantity < 2 || !thing.quantity">{{thing.price}}</span>
@@ -159,11 +152,11 @@
 								class="row" 
 								id="subtotalRow"
 							>
-								<div class="col-md-9">
+								<div class="col-md-5 col-md-offset-2">
 									Subtotal
 								</div>
 								<div 
-									class="col-md-3" 
+									class="col-md-3">
 									id="subtotal"
 								>
 									{{subtotal}}
@@ -173,39 +166,23 @@
 								class="row" 
 								id="taxRow"
 							>
-								<div class="col-md-9">
+								<div class="col-md-5 col-md-offset-2">
 									Sales Tax
 								</div>
 								<div class="col-md-3" id="tax">
 									{{tax}}
 								</div>
 							</div>
-							<div class="row" id="deliveryFeeRow">
-								<div class="col-md-9">
-									Delivery Fee
-								</div>
-								<div class="col-md-3" id="deliveryFee">
-									{{deliveryFee}}
-								</div>
-							</div>
 							<div class="row" id="discountRow" ng-show="discount > 0">
-								<div class="col-md-9">
+								<div class="col-md-5 col-md-offset-2">
 									Discount
 								</div>
 								<div class="col-md-3" id="discount">
 									<font style="color: red;">-{{discount}}</font>
 								</div>
 							</div>
-							<div class="row" id="gratuityRow" ng-show="gratuity > 0">
-								<div class="col-md-9">
-									Driver Gratuity
-								</div>
-								<div class="col-md-3" id="gratuity">
-									{{gratuity}}
-								</div>
-							</div>
 							<div class="row" id="totalRow">
-								<div class="col-md-9">
+								<div class="col-md-5 col-md-offset-2">
 									Total
 								</div>
 								<div class="col-md-3" id="total">

@@ -17,13 +17,15 @@
 		customerMgmt, popcornMgmt, optionsMgmt, clientConfig
 	) {
 
-		popcornMgmt.getPopcornById(args.flavor.id).then(function(popcornData) {
-			$scope.flavor = popcornData[0];
-			$scope.flavorImgSrc = "/images/popcorn_images/" + popcornData[0].name.toLowerCase().replace('\'', '').replace('&', 'and').replace(/ /g, '_') + ".jpg";
-			optionsMgmt.getOptionsByPopcornId($scope.flavor.id).then(function(sizesData) {
-				$scope.flavor.options = sizesData;
+		if(args && args.flavor && args.flavor.id) {
+			popcornMgmt.getPopcornById(args.flavor.id).then(function(popcornData) {
+				$scope.flavor = popcornData[0];
+				$scope.flavorImgSrc = "/images/popcorn_images/" + popcornData[0].name.toLowerCase().replace('\'', '').replace('&', 'and').replace(/ /g, '_') + ".jpg";
+				optionsMgmt.getOptionsByPopcornId($scope.flavor.id).then(function(sizesData) {
+					$scope.flavor.options = sizesData;
+				});
 			});
-		});
+		}
 
 		$scope.item = args.item;
 		$scope.thing = args.thing;
@@ -388,6 +390,7 @@
 				// if orders ajax succeeds...
 				r.then(function(res) {
 					$rootScope.$broadcast('orderChanged');
+					$rootScope.$broadcast('itemRemoved');
 					$modalInstance.dismiss('done');
 				});
 			});

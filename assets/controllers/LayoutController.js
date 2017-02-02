@@ -48,6 +48,18 @@
 			});
 		});
 
+		$rootScope.$on('orderChanged', function(evt, customer) {
+			var sessionPromise = customerMgmt.getSession();
+			sessionPromise.then(function(sessionData) {
+				if(sessionData.order.things.length > 0) {
+					$scope.activeCart = true;
+				} else {
+					$scope.activeCart = false;
+				}
+				$scope.cartItemsCount = sessionData.order.things.length;
+			});
+		});
+
 		$rootScope.$on('cartEmptied', function(evt, customer) {
 			$scope.activeCart = false;
 		});
