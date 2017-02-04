@@ -22,21 +22,51 @@
 		$rootScope, customerMgmt, deviceMgr
 	) {
 
-		$scope.accessAccount = false;
-		$scope.activeCart = false;
-
 		if(deviceMgr.isBigScreen()) {
 			$scope.bigScreen = true;
 		} else {
 			$scope.bigScreen = false;
 		}
 
+		$scope.showMenu = false;
+
+		$scope.menuClicked = function(forceValue) {
+			if(! _.isUndefined(forceValue)) {
+				$scope.showMenu = forceValue;
+				return;
+			}
+			$scope.showMenu = !$scope.showMenu;
+		}
+
+		$scope.accessAccount = false;
+		$scope.activeCart = false;
+
 		$scope.showAccount = function() {
 			$rootScope.$broadcast('showAccount');
 		}
 
+		$scope.showCareers = function() {
+			$rootScope.$broadcast('showCareers');
+		}
+
+		$scope.showContact = function() {
+			$rootScope.$broadcast('showContact');
+		}
+
+		$scope.showPrivacy = function() {
+			$rootScope.$broadcast('showPrivacy');
+		}
+
+		$scope.showPopcorn = function() {
+			$rootScope.$broadcast('showPopcorn');
+		}
+
 		$scope.showOrder = function() {
 			$rootScope.$broadcast('showOrder');
+		}
+
+		$scope.showStory = function() {
+			$rootScope.$broadcast('showStory');
 		}
 
 
@@ -80,7 +110,6 @@
 			$scope.logIn = layoutMgmt.logIn;
 			$scope.logOut = layoutMgmt.logOut;
 			$scope.signUp = layoutMgmt.signUp;
-			$scope.feedback = layoutMgmt.feedback;
 		});
 
 		$rootScope.$on('customerLoggedIn', function(evt, args) {

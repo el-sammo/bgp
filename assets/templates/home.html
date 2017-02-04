@@ -1,7 +1,16 @@
-				<div class="softBack offsetNeg75">
+				<div 
+					class="softBack offsetNeg75"
+					ng-show="bigScreen"
+				>
 					<br/>
 					<div id="accountShow">
 						<ng-include src="'/templates/accountShowTmpl.html'"></ng-include>
+					</div>
+					<div id="careerShow">
+						<ng-include src="'/templates/careerShowTmpl.html'"></ng-include>
+					</div>
+					<div id="contactShow">
+						<ng-include src="'/templates/contactShowTmpl.html'"></ng-include>
 					</div>
 					<div id="privacyShow">
 						<ng-include src="'/templates/privacyShowTmpl.html'"></ng-include>
@@ -12,16 +21,34 @@
 					<div id="orderShow">
 						<ng-include src="'/templates/orderShowTmpl.html'"></ng-include>
 					</div>
+					<div id="storyShow">
+						<ng-include src="'/templates/storyShowTmpl.html'"></ng-include>
+					</div>
 				</div>
 				<div 
-					class="row offsetNeg50"
+					class="softBack offsetNeg100"
+					ng-show="!bigScreen"
 				>
-					<div class="col-md-12">
-						<span 
-							class="footerLink"
-							ng-click="showPrivacy()"
-						>
-							Privacy Policy
-						</span>
+					<br/>
+					<div id="accountShow" style="display: none;">
+						<ng-include src="'/templates/accountShowTmpl.html'"></ng-include>
+					</div>
+					<div id="careerShow" style="display: none;">
+						<ng-include src="'/templates/careerShowTmpl.html'"></ng-include>
+					</div>
+					<div id="contactShow" style="display: none;">
+						<ng-include src="'/templates/contactShowTmpl.html'"></ng-include>
+					</div>
+					<div id="privacyShow" style="display: none;">
+						<ng-include src="'/templates/privacyShowTmpl.html'"></ng-include>
+					</div>
+					<div id="popcornShow">
+						<ng-include src="'/templates/popcornShowSmallTmpl.html'"></ng-include>
+					</div>
+					<div id="orderShow" style="display: none;">
+						<ng-include src="'/templates/orderShowTmpl.html'"></ng-include>
+					</div>
+					<div id="storyShow" style="display: none;">
+						<ng-include src="'/templates/storyShowTmpl.html'"></ng-include>
 					</div>
 				</div>

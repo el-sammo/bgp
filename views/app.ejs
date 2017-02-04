@@ -1,3 +1,112 @@
+<div ng-cloak ng-controller="LayoutController">
+	<!-- Big Navbar -->
+	<div 
+		class="App"
+	>
+		<div 
+			class="App-header"
+		>
+			<div class="col-md-8 col-md-offset-2 offset15">
+				<div 
+					class="pull-right"
+					ng-show="bigScreen"
+				>
+					<span ng-show="activeCart">
+						<span 
+							class="login clickable topDepth" 
+							ng-click="showOrder()"
+						>
+							View Cart({{cartItemsCount}} Items)
+						</span>
+					</span>
+					<span ng-show="!accessAccount">
+						Already Have an Account? 
+						<span 
+							class="login clickable topDepth" 
+							ng-click="logIn()"
+						>
+							Log In
+						</span> 
+						Need an Account? 
+						<span 
+							class="login clickable topDepth" 
+							ng-click="signUp()"
+						>
+							Create Account
+						</span>
+					</span>
+					<span ng-show="accessAccount">
+						<span 
+							class="login clickable topDepth" 
+							ng-click="showAccount()"
+						>
+							My Account
+						</span> 
+						<span 
+							class="login clickable topDepth" 
+							ng-click="logOut()"
+						>
+							Log Out
+						</span>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="App-body">
+			<div 
+				class="App-diag-msg"
+				ng-show="bigScreen"
+			>
+				<img 
+					src="/images/new_flavors.png" 
+					class="App-diag-msg" 
+					alt="Check Out Our New Flavors!" 
+				/>
+			</div>
+			<div
+				class="col-md-8 col-md-offset-2"
+			>
+				<div 
+					class="row"
+					ng-show="bigScreen"
+				>
+					<div class="col-md-1 offsetNeg50 nearTopDepth">
+						<span 
+							class="clickable"
+							id="logo"
+						>
+							<img 
+								src="/images/logo_purple.png" 
+								class="pull-left" 
+								alt="Rebecca's Gourmet Popcorn" 
+							/>
+						</span>
+					</div>
+				</div>
+				<div 
+					class="row"
+					ng-show="!bigScreen"
+				>
+					<div class="col-md-12 offsetNeg50 nearTopDepth">
+						<span 
+							class="clickable"
+							id="logo"
+						>
+							<img 
+								src="/images/logo_purple.png" 
+								alt="Rebecca's Gourmet Popcorn" 
+							/>
+						</span>
+					</div>
+				</div>
+				<div ng-view>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Big Navbar -->
+</div>
+		
 <div 
 	ng-controller="MessageController" 
 	id="tt-messenger" 
@@ -15,94 +124,22 @@
   </alert>
 </div>
 
-<div 
-	class="App" 
-	ng-cloak
+<!-- Footer -->
+<nav 
+	class="navbar navbar-default navbar-fixed-bottom" 
+	ng-controller="HomeController"
+	ng-show="bigScreen"
 >
-	<div class="App-header">
-		<div 
-			class="col-md-8 col-md-offset-2 offset15"
-		>
-			<div 
-				class="pull-right"
-				ng-controller="LayoutController"
-			>
-				<span ng-show="activeCart">
-					<span 
-						class="login clickable topDepth" 
-						ng-click="showOrder()"
-					>
-						View Cart({{cartItemsCount}} Items)
-					</span>
-				</span>
-				<span ng-show="!accessAccount">
-					Already Have an Account? 
-					<span 
-						class="login clickable topDepth" 
-						ng-click="logIn()"
-					>
-						Log In
-					</span> 
-					Need an Account? 
-					<span 
-						class="login clickable topDepth" 
-						ng-click="signUp()"
-					>
-						Create Account
-					</span>
-				</span>
-				<span ng-show="accessAccount">
-					<span 
-						class="login clickable topDepth" 
-						ng-click="showAccount()"
-					>
-						My Account
-					</span> 
-					<span 
-						class="login clickable topDepth" 
-						ng-click="logOut()"
-					>
-						Log Out
-					</span>
-				</span>
-			</div>
-		</div>
+	<div class="container">
+		<span class="footerLink" style="cursor: pointer;" ng-click="showPopcorn()">Home</span>
+		<span class="footerLink" style="cursor: pointer;" ng-click="showStory()">Our Story</span>
+		<span class="footerLink" style="cursor: pointer;" ng-click="showFeedback()">Feedback</span>
+		<span class="footerLink" style="cursor: pointer;" ng-click="showCareers()">Careers</span>
+		<span class="footerLink" style="cursor: pointer;" ng-click="showPrivacy()">Privacy Policy</span>
+		<span class="footerLink" style="cursor: pointer;" ng-click="showContact()">Contact Us</span>
 	</div>
-	<div class="App-body">
-		<div 
-			class="App-diag-msg"
-			ng-controller="LayoutController"
-			ng-show="bigScreen"
-		>
-			<img 
-				src="/images/new_flavors.png" 
-				class="App-diag-msg" 
-				alt="Check Out Our New Flavors!" 
-			/>
-		</div>
-		<div class="col-md-8 col-md-offset-2">
-			<div class="row">
-				<div class="col-md-1 offsetNeg50 nearTopDepth">
-					<span 
-						class="clickable"
-						id="logo"
-					>
-						<img 
-							src="/images/logo_purple.png" 
-							class="pull-left" 
-							alt="Rebecca's Gourmet Popcorn" 
-						/>
-					</span>
-				</div>
-			</div>
-			<div ng-view>
-			</div>
-		</div>
-	</div>
-</div>
-		
-
-
+</nav>
+<!-- /Footer -->
 
 
 <!-- Hack for ensuring event-based services are instantiated -->

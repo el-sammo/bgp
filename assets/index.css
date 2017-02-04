@@ -50,13 +50,33 @@ html {
 	position: relative;
 }
 
+.offset40 {
+	top: 40px;
+	position: relative;
+}
+
 .offset50 {
 	top: 50px;
 	position: relative;
 }
 
-.offset40 {
-	top: 40px;
+.offset60 {
+	top: 60px;
+	position: relative;
+}
+
+.offset75 {
+	top: 75px;
+	position: relative;
+}
+
+.offset100 {
+	top: 100px;
+	position: relative;
+}
+
+.offset125 {
+	top: 125px;
 	position: relative;
 }
 
@@ -79,6 +99,11 @@ html {
 }
 
 .offsetNeg75 {
+	top: -75px;
+	position: relative;
+}
+
+.offsetNeg100 {
 	top: -75px;
 	position: relative;
 }
@@ -164,6 +189,12 @@ html {
 #privacyShow {
 	height: 540px;
 	overflow: auto;
+}
+
+.smScrnName {
+	size: 24px;
+	font-weight: 600;
+	color: #8252A1;
 }
 
 body {
@@ -329,10 +360,10 @@ footer {
 .navbar.navbar-fixed-bottom .footerLink {
 	margin-right: 20px;
 	color: #FFFFFF;
-	font-size: 12pt;
+	font-size: 14px;
 	text-align: left;
-	line-height: 20pt;
-	font-weight: 600;
+	line-height: 20px;
+	font-weight: 400;
 	font-style: normal;
 	text-decoration: none!important;
 	cursor: pointer;
@@ -922,19 +953,19 @@ td {
 }
 
 .aboutHead {
-	color: #FFFFFF;
+	color: #000000;
 	font-size: 24px;
 	font-weight: 900;
 }
 
 .aboutSubHead {
-	color: #FFFFFF;
+	color: #000000;
 	font-size: 18px;
 	font-weight: 700;
 }
 
 .aboutBasic {
-	color: #FFFFFF;
+	color: #000000;
 	font-size: 14px;
 	font-weight: 500;
 }

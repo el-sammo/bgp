@@ -1,0 +1,118 @@
+						<br/>
+						<div class="row">
+							<div 
+								class="col-md-2" 
+								ng-repeat="category in popcornCategories"
+							>
+								<span 
+									class="catHead clickable" 
+									ng-click="showCategory(category)"
+								>
+									{{category.name}}
+								</span>
+							</div>
+						</div>
+						<div 
+							class="row offset15" 
+							ng-repeat="category in popcornCategories" 
+							ng-show="{{category.name}}Show"
+							id="{{category}}Flavors"
+						>
+							<div class="col-md-12">
+								<div class="row offset15">
+									<div class="col-md-12">
+										<span class="candyFlavorDescription">
+											Gourmet {{category.name}} Popcorn Flavors
+										</span>
+									</div>
+								</div>
+								<div class="row offset15">
+									<div class="col-md-6">
+										<div 
+											class="row offset15 spaceBottom"
+											ng-repeat="flavor in categoryFlavors"
+											ng-show="flavor.active"
+											ng-init="showId = 'flavor'+$index+'Show'"
+											track by $index
+										>
+											<div class="col-md-8 col-md-offset-2">
+												<div class="row pull-left">
+													<div class="col-md-12 alignLeft">
+														<span 
+															class="popcornFlavor clickable"
+															ng-click="showFlavor(flavor, $index)"
+														>
+															{{flavor.name}}
+														</span>
+													</div>
+												</div>
+												<br/>
+												<div 
+													class="row pull-left"
+													ng-show="showId === showFlavorDescId"
+												>
+													<div class="col-md-12 alignLeft">
+														<span 
+															class="popcornDescription clickable"
+															ng-click="showFlavor(flavor)"
+														>
+															{{flavor.description}}
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4 col-md-offset-1">
+										<div class="row offset15">
+											<div class="col-md-12">
+												<img 
+													src="{{activeFlavorImgSrc}}" 
+													class="img-responsive popcornImgBorder"
+												>
+											</div>
+										</div>
+										<div class="row offset15">
+											<div class="col-md-12">
+												<span class="imgCaption">
+													{{activeFlavorName}}
+												</span>
+											</div>
+										</div>
+										<div class="row offset25">
+											<div class="col-md-12">
+												<span class="sizePriceHead">
+													Available in:
+												</span>
+											</div>
+										</div>
+										<br/><br/>
+										<div 
+											class="row"
+											ng-repeat="size in activeFlavorSizes"
+										>
+											<div class="col-md-3 col-md-offset-2">
+												<span class="sizePrice pull-left">
+													{{size.name}}
+												</span>
+											</div>
+											<div class="col-md-3 col-md-offset-2">
+												<span class="sizePrice pull-right">
+													{{size.price | currency}}
+												</span>
+											</div>
+										</div>
+										<div class="row offset25">
+											<div class="col-md-12">
+												<span 
+													class="orderFlavor clickable"
+													ng-click="addFlavor(activeFlavor)"
+												>
+													Click here to add {{activeFlavorName}} to your cart
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>

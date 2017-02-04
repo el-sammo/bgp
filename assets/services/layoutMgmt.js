@@ -54,7 +54,14 @@
 				$modal.open({
 					templateUrl: '/templates/feedback.html',
 					backdrop: true,
-					controller: 'LayoutMgmtController'
+					controller: 'LayoutMgmtController',
+					resolve: {
+						args: function() {
+							return {
+								fBack: 'no fBack'
+							}
+						}
+					}
 				});
 			}
 		};

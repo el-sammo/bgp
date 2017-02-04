@@ -50,16 +50,6 @@
 
 
 		///
-		// Championship
-		///
-
-		$routeProvider.when('/championship/:id', {
-			controller: 'ChampionshipViewController',
-			templateUrl: '/templates/championshipView.html'
-		});
-
-
-		///
 		// Contact
 		///
 
@@ -100,26 +90,6 @@
 
 
 		///
-		// Reservation
-		///
-
-		$routeProvider.when('/reservation/:id', {
-			controller: 'ReservationDetailsController',
-			templateUrl: '/templates/reservationDetails.html'
-		});
-
-
-		///
-		// Score
-		///
-
-		$routeProvider.when('/scoreRace/:id', {
-			controller: 'ScoreController',
-			templateUrl: '/templates/score.html'
-		});
-
-
-		///
 		// Story
 		///
 
@@ -136,16 +106,6 @@
 		$routeProvider.when('/tos', {
 			controller: 'TosController',
 			templateUrl: '/templates/tos.html'
-		});
-
-
-		///
-		// Tournament
-		///
-
-		$routeProvider.when('/tournament/:id', {
-			controller: 'TournamentController',
-			templateUrl: '/templates/tournament.html'
 		});
 
 

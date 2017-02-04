@@ -308,8 +308,8 @@ console.log('cc transaction');
 						$location.path(redirectTo);
 						messenger.show('Your order has been received.', 'Success!');
 					} else {
-						$http.post('/mail/sendFailToOperator/'+res.data.orderId);
-						console.log(res.data.msg+' The order is '+res.data.orderId);
+						$http.post('/mail/sendFailToOperator/'+$scope.order.id);
+						console.log(res.data.msg+' The order is '+$scope.order.id);
 						$scope.paymentFailed = true;
 						var failMsg = 'Payment error.';
 						if(res.data.msg === 'order-put-with-failure') {

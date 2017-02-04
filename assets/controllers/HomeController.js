@@ -53,6 +53,7 @@ function controller(
 	function init() {
 		initDate();
 		initCategories();
+		hideAll();
 		showPopcorn();
 
 		$scope.activeCart = false;
@@ -65,9 +66,13 @@ function controller(
 		$scope.showFlavor = showFlavor;
 
 		$scope.showAccount = showAccount;
+		$scope.showCareers = showCareers;
+		$scope.showContact = showContact;
+		$scope.showFeedback = layoutMgmt.feedback;
 		$scope.showPrivacy = showPrivacy;
 		$scope.showPopcorn = showPopcorn;
 		$scope.showOrder = showOrder;
+		$scope.showStory = showStory;
 		$scope.updateOrder = updateOrder;
 
 		$scope.addFlavor = orderMgmt.add;
@@ -117,12 +122,28 @@ function controller(
 		showAccount();
 	});
 
+	$rootScope.$on('showCareers', function(evt, args) {
+		showCareers();
+	});
+
+	$rootScope.$on('showContact', function(evt, args) {
+		showContact();
+	});
+
+	$rootScope.$on('showPopcorn', function(evt, args) {
+		showPopcorn();
+	});
+
 	$rootScope.$on('showPrivacy', function(evt, args) {
 		showPrivacy();
 	});
 
 	$rootScope.$on('showOrder', function(evt, args) {
 		showOrder();
+	});
+
+	$rootScope.$on('showStory', function(evt, args) {
+		showStory();
 	});
 
 	$rootScope.$on('customerChanged', function(evt, customer) {
@@ -495,9 +516,12 @@ function controller(
 
 	function hideAll() {
 		$('#accountShow').hide();
+		$('#careerShow').hide();
+		$('#contactShow').hide();
 		$('#privacyShow').hide();
 		$('#popcornShow').hide();
 		$('#orderShow').hide();
+		$('#storyShow').hide();
 	}
 
 	function showAccount() {
@@ -562,6 +586,16 @@ function controller(
 		});
 	}
 
+	function showCareers() {
+		hideAll();
+		$('#careerShow').show();
+	}
+
+	function showContact() {
+		hideAll();
+		$('#contactShow').show();
+	}
+
 	function showPrivacy() {
 		hideAll();
 		$('#privacyShow').show();
@@ -582,6 +616,11 @@ function controller(
 			$scope.order = sessionData.order;
 			$scope.things = sessionData.order.things;
 		});
+	}
+
+	function showStory() {
+		hideAll();
+		$('#storyShow').show();
 	}
 
 
