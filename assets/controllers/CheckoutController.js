@@ -33,8 +33,31 @@
 		$scope.addBev = orderMgmt.addBev;
 		$scope.clientConfig = clientConfig;
 		$scope.validCode = true;
+		$scope.shippingCost = 0;
 		$scope.effect;
 		$scope.payMethod = {};
+
+		var freeDeliveryPossible = function(zipCode) {
+			if(
+				zipCode == 82601 || 
+				zipCode == 82602 || 
+				zipCode == 82604 || 
+				zipCode == 82605 || 
+				zipCode == 82609 || 
+				zipCode == 82636 || 
+				zipCode == 82644
+			) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		$scope.updateShippingCost = function() {
+			var cost = $scope.selDelAddress.fee;
+			$scope.shippingCost = cost;
+			$scope.updateTotal();
+		}
 
 		// this exists to not process further if checkout is prohibited
 		if(!args.order) {
@@ -50,6 +73,8 @@
 				customerMgmt.getCustomer($scope.order.customerId).then(function(customer) {
 					var foundCustomer = angular.copy(customer);
 					var paymentMethods = foundCustomer.paymentMethods || [];
+					var addresses = foundCustomer.addresses.secondary;
+					var deliveryAddresses = [];
 
 					paymentMethods.forEach(function(payMethod) {
 						payMethod.lastFour = redactCC(payMethod.lastFour);
@@ -61,7 +86,34 @@
 
 					$scope.checkoutPaymentMethods = paymentMethods;
 
+					// TODO: better way of managing delivery areas
+					var pZipCode = foundCustomer.addresses.primary.zip;
+					if(freeDeliveryPossible(pZipCode)) {
+						foundCustomer.addresses.primary.fee = 0;
+						deliveryAddresses.push(foundCustomer.addresses.primary);
+					} else {
+						// TODO: implement actual shipping costs
+						foundCustomer.addresses.primary.fee = 15;
+						deliveryAddresses.push(foundCustomer.addresses.primary);
+					}
+
+
+					addresses.forEach(function(address) {
+						if(freeDeliveryPossible(address.zip)) {
+							address.fee = 0;
+							deliveryAddresses.push(address);
+						} else {
+							// TODO: implement actual shipping costs
+							address.fee = 15;
+							deliveryAddresses.push(address);
+						}
+					});
+
 					$scope.customer = foundCustomer;
+					$scope.deliveryAddresses = deliveryAddresses;
+console.log('deliveryAddresses:');
+console.log(deliveryAddresses);
+
 // TODO: when we start offering bevs, uncomment the
 			// following line and delete the next line
 //			$scope.sawBevTour = $scope.order.sawBevTour;
@@ -134,7 +186,7 @@
 
 
 		$scope.updateTotal = function() {
-			var total = (parseFloat($scope.order.subtotal) + parseFloat($scope.order.tax)).toFixed(2);
+			var total = (parseFloat($scope.order.subtotal) + parseFloat($scope.order.tax) + parseFloat($scope.shippingCost)).toFixed(2);
 			var promoDiscount = parseFloat(0.00);
 			var currentTotal;
 
@@ -180,6 +232,8 @@
 console.log('$scope.checkout() called');
 			$scope.processing = true;
 			$scope.paymentFailed = false;
+			$scope.order.delAddress = $scope.selDelAddress;
+			$scope.order.shippingCost = parseFloat($scope.selDelAddress.fee);
 			$scope.order.specDelInstr = $scope.specDelInstr;
 			$scope.order.paymentInitiatedAt = new Date().getTime();
 

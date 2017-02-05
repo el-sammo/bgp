@@ -39,7 +39,7 @@ function captureCashTransaction(req, res, self) {
 	var discount = 0;
 	var promoCode = req.body.promoCode;
 	var newTotal = 0;
-	var currentTotal = parseFloat(order.total);
+	var currentTotal = parseFloat(order.total + order.shippingCost);
 
 	if(req.body && req.body.specDelInstr && !req.body.specDelInstr === 'nospecdelinstrspecified') {
 		order.specDelInstr = req.body.specDelInstr;
@@ -89,7 +89,7 @@ function capturePhoneTransaction(req, res, self) {
 	var discount = 0;
 	var promoCode = req.body.promoCode;
 	var newTotal = 0;
-	var currentTotal = parseFloat(order.total);
+	var currentTotal = parseFloat(order.total + order.shippingCost);
 
 	if(req.body && req.body.specDelInstr && !req.body.specDelInstr === 'nospecdelinstrspecified') {
 		order.specDelInstr = req.body.specDelInstr;
@@ -139,7 +139,7 @@ function captureCCTransaction(req, res, self) {
 	var discount = 0;
 	var promoCode = req.body.promoCode;
 	var newTotal = 0;
-	var currentTotal = parseFloat(order.total);
+	var currentTotal = parseFloat(order.total + order.shippingCost);
 	var paymentMethodId = req.body.paymentMethodId;
 
 	order.orderStatus = 2;
