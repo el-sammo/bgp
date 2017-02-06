@@ -48,8 +48,6 @@
 				}
 				*/
 
-				$scope.orderRestaurants = [];
-
 				var r = $http.get('/orders/' + $routeParams.id);
 			
 				r.error(function(err) {
@@ -72,8 +70,8 @@
 						'',
 						'',
 						'Payment Accepted',
-						'Placed with Restaurant(s)',
-						'Collected from Restaurant(s)',
+						'Preparation Started',
+						'Preparation Completed',
 						'En Route to Destination',
 						'Delivered to Destination'
 					];
@@ -93,25 +91,10 @@
 					$scope.paymentMethod = $scope.order.paymentMethods;
 					$scope.subtotal = parseFloat($scope.order.subtotal).toFixed(2);
 					$scope.tax = parseFloat($scope.order.tax).toFixed(2);
-					$scope.deliveryFee = parseFloat($scope.order.deliveryFee).toFixed(2);
-					$scope.gratuity = parseFloat($scope.order.gratuity).toFixed(2);
+					$scope.shipping = parseFloat($scope.order.shippingCost).toFixed(2);
 					$scope.discount = parseFloat($scope.order.discount).toFixed(2);
 					$scope.total = '$'+parseFloat($scope.order.total).toFixed(2);
 					$scope.bevThings = $scope.order.bevThings;
-					if($scope.order && $scope.order.things) {
-						$scope.order.things.forEach(function(thing) {
-							$scope.getRestaurantName(thing.optionId).then(function(restaurantData) {
-								var restaurant = _.find($scope.orderRestaurants, {name: restaurantData.name});
-								if(! restaurant) {
-									restaurant = {name: restaurantData.name, phone: restaurantData.phone, items: []};
-									$scope.orderRestaurants.push(restaurant);
-								}
-								restaurant.items.push(
-									_.pick(thing, ['quantity', 'name', 'option', 'specInst'])
-								);
-							});
-						});
-					}
 
 					customerMgmt.getCustomer($scope.order.customerId).then(function(customer) {
 						$scope.customer = customer;
@@ -120,18 +103,18 @@
 						$scope.phone = $scope.customer.phone;
 						$scope.address = $scope.customer.addresses.primary.streetNumber+' '+$scope.customer.addresses.primary.streetName+' '+$scope.customer.addresses.primary.city;
 
-						$scope.src = $sce.trustAsResourceUrl(
-							'https://www.google.com/maps/embed/v1/place?' + querystring.stringify({
-								key: configMgr.config.vendors.googleMaps.key,
-								q: ([
-									$scope.customer.addresses.primary.streetNumber,
-									$scope.customer.addresses.primary.streetName,
-									$scope.customer.addresses.primary.city,
-									$scope.customer.addresses.primary.state,
-									$scope.customer.addresses.primary.zip
-								].join('+'))
-							})
-						);
+//						$scope.src = $sce.trustAsResourceUrl(
+//							'https://www.google.com/maps/embed/v1/place?' + querystring.stringify({
+//								key: configMgr.config.vendors.googleMaps.key,
+//								q: ([
+//									$scope.customer.addresses.primary.streetNumber,
+//									$scope.customer.addresses.primary.streetName,
+//									$scope.customer.addresses.primary.city,
+//									$scope.customer.addresses.primary.state,
+//									$scope.customer.addresses.primary.zip
+//								].join('+'))
+//							})
+//						);
 					});
 				});
 			});
@@ -142,51 +125,6 @@
 		}
 		refreshData();
 
-		$scope.getRestaurantName = function(optionId) {
-			return $q(function(resolve, reject) {
-				var r = $http.get('/options/' + optionId);
-					
-				r.error(function(err) {
-					console.log('OrderDetailsController: getRestaurantName-options ajax failed');
-					console.log(err);
-					reject(err);
-				});
-					
-				r.then(function(res) {
-					var s = $http.get('/items/' + res.data.itemId);
-						
-					s.error(function(err) {
-						console.log('OrderDetailsController: getRestaurantName-items ajax failed');
-						console.log(err);
-						reject(err);
-					});
-						
-					s.then(function(res) {
-						var t = $http.get('/menus/' + res.data.menuId);
-							
-						t.error(function(err) {
-							console.log('OrderDetailsController: getRestaurantName-menus ajax failed');
-							console.log(err);
-							reject(err);
-						});
-							
-						t.then(function(res) {
-							var u = $http.get('/restaurants/' + res.data.restaurantId);
-								
-							u.error(function(err) {
-								console.log('OrderDetailsController: getRestaurantName-restaurants ajax failed');
-								console.log(err);
-								reject(err);
-							});
-								
-							u.then(function(res) {
-								resolve(res.data);
-							});
-						});
-					});
-				});
-			});
-		};
 	}
 
 }());

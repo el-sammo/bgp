@@ -115,8 +115,8 @@
 												class="row" 
 												ng-repeat="method in customer.paymentMethods"
 											>
-												<div class="col-md-11 col-md-offset-1">
-													<span>Card ending in {{method.lastFour}} (expires {{method.expires.substr(5,6)}}-{{method.expires.substr(0, 4)}})</span><!--  - <span class="managementLink" ng-click="removePM(method.id)">Remove</span><br/> -->
+												<div class="col-md-12">
+													<span>Card ending {{method.lastFour}} (exp {{method.expires.substr(5,6)}}-{{method.expires.substr(0, 4)}})</span><!--  - <span class="managementLink" ng-click="removePM(method.id)">Remove</span><br/> -->
 												</div>
 											</div>
 										</div>

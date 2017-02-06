@@ -90,6 +90,26 @@
 
 
 		///
+		// Order
+		///
+
+		$routeProvider.when('/order/:id', {
+			controller: 'OrderDetailsController',
+			templateUrl: '/templates/orderDetails.html'
+		});
+
+
+		///
+		// Order (small)
+		///
+
+		$routeProvider.when('/orderSmall/:id', {
+			controller: 'OrderDetailsController',
+			templateUrl: '/templates/orderDetailsSmall.html'
+		});
+
+
+		///
 		// Story
 		///
 

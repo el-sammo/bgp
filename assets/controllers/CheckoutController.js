@@ -86,7 +86,7 @@
 
 					$scope.checkoutPaymentMethods = paymentMethods;
 
-					// TODO: better way of managing delivery areas
+					// TODO: better way of managing delivery areas (1 cup = 40 grams / 11 cups = ~1 lb)
 					var pZipCode = foundCustomer.addresses.primary.zip;
 					if(freeDeliveryPossible(pZipCode)) {
 						foundCustomer.addresses.primary.fee = 0;
