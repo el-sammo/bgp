@@ -82,8 +82,6 @@ function controller(
 		hideAll();
 		showPopcorn();
 
-		$scope.activeCart = false;
-
 		$scope.logIn = layoutMgmt.logIn;
 		$scope.signUp = layoutMgmt.signUp;
 		$scope.logOut = layoutMgmt.logOut;
@@ -181,6 +179,10 @@ function controller(
 		$scope.activeCart = true;
 	});
 
+	$rootScope.$on('itemAdded', function(evt, customer) {
+		$scope.activeCart = true;
+	});
+
 	$rootScope.$on('cartEmptied', function(evt, customer) {
 		$scope.activeCart = false;
 	});
@@ -235,6 +237,12 @@ function controller(
 				$scope.showLogout = false;
 			}
 			
+			if(sessionData.order && sessionData.order.things && sessionData.order.things.length > 0) {
+				$scope.activeCart = true;
+			} else {
+				$scope.activeCart = false;
+			}
+
 			if(!urlFlavor) {
 				showCategory();
 				showFlavor()

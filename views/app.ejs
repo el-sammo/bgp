@@ -11,13 +11,12 @@
 					class="pull-right"
 					ng-show="bigScreen"
 				>
-					<span ng-show="activeCart">
-						<span 
-							class="login clickable topDepth" 
-							ng-click="showCart()"
-						>
-							View Cart({{cartItemsCount}} Items)
-						</span>
+					<span 
+						ng-show="activeCart"
+						class="login clickable topDepth" 
+						ng-click="showCart()"
+					>
+						<i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
 					</span>
 					<span ng-show="!accessAccount">
 						Already Have an Account? 
@@ -25,14 +24,14 @@
 							class="login clickable topDepth" 
 							ng-click="logIn()"
 						>
-							Log In
+							Log In&nbsp;&nbsp;
 						</span> 
 						Need an Account? 
 						<span 
 							class="login clickable topDepth" 
 							ng-click="signUp()"
 						>
-							Create Account
+							Create Account&nbsp;&nbsp;
 						</span>
 					</span>
 					<span ng-show="accessAccount">
@@ -40,13 +39,13 @@
 							class="login clickable topDepth" 
 							ng-click="showAccount()"
 						>
-							My Account
+							My Account&nbsp;&nbsp;
 						</span> 
 						<span 
 							class="login clickable topDepth" 
 							ng-click="logOut()"
 						>
-							Log Out
+							Log Out&nbsp;&nbsp;
 						</span>
 					</span>
 				</div>
@@ -132,6 +131,8 @@
 >
 	<div class="container">
 		<span class="footerLink" style="cursor: pointer;" ng-click="showPopcorn()">Home</span>
+		<span ng-show="activeCart" class="footerLink" ng-click="showCart()">Shopping Cart</span>
+		<span class="footerLink" style="cursor: pointer;" ng-click="showAccount()">My Account</span>
 		<span class="footerLink" style="cursor: pointer;" ng-click="showStory()">Our Story</span>
 		<span class="footerLink" style="cursor: pointer;" ng-click="showFeedback()">Feedback</span>
 		<span class="footerLink" style="cursor: pointer;" ng-click="showCareers()">Careers</span>
