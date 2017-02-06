@@ -36,7 +36,7 @@ function controller(
 	///
 
 	var todayDate;
-	var legMap, partMap, amountMap, wagerAbbrevMap;
+	var urlFlavor = false;
 
 
 	///
@@ -53,6 +53,32 @@ function controller(
 	function init() {
 		initDate();
 		initCategories();
+
+		if($routeParams.id) {
+			// routeParams.id is a flavorName
+			if($routeParams.id.indexOf('flavor') > -1) {
+				var rpId = $routeParams.id.toLowerCase().replace('flavor=','').replace(/-/g,' ');
+				popcornMgmt.getAllPopcorn().then(function(popcorn) {
+					popcorn.forEach(function(flavor) {
+						var flavorName = flavor.name.toLowerCase();
+						if(flavorName === rpId) {
+							urlFlavor = flavor;
+							categoryMgmt.getCategoryById(flavor.category).then(function(category) {
+								showCategory(category[0], true);
+							});
+						}
+					});
+				});
+			}
+			// routeParams.id is an orderId
+			if($routeParams.id.indexOf('order') > -1) {
+				var orderId = $routeParams.id.toLowerCase().replace('order=','');
+				$http.get('/orders/'+orderId).then(function(order) {
+					showOrder(order.data, true);
+				});
+			}
+		}
+
 		hideAll();
 		showPopcorn();
 
@@ -67,6 +93,7 @@ function controller(
 
 		$scope.showAccount = showAccount;
 		$scope.showCareers = showCareers;
+		$scope.showCart = showCart;
 		$scope.showContact = showContact;
 		$scope.showFeedback = layoutMgmt.feedback;
 		$scope.showPrivacy = showPrivacy;
@@ -126,6 +153,10 @@ function controller(
 		showCareers();
 	});
 
+	$rootScope.$on('showCart', function(evt, args) {
+		showCart();
+	});
+
 	$rootScope.$on('showContact', function(evt, args) {
 		showContact();
 	});
@@ -136,10 +167,6 @@ function controller(
 
 	$rootScope.$on('showPrivacy', function(evt, args) {
 		showPrivacy();
-	});
-
-	$rootScope.$on('showOrder', function(evt, args) {
-		showOrder();
 	});
 
 	$rootScope.$on('showStory', function(evt, args) {
@@ -159,7 +186,7 @@ function controller(
 	});
 
 	$rootScope.$on('itemRemoved', function(evt, args) {
-		showOrder();
+		showCart();
 	});
 
 	$rootScope.$on('loggedInCustomerCheckout', function(evt, args) {
@@ -207,9 +234,12 @@ function controller(
 				$scope.showSignup = true;
 				$scope.showLogout = false;
 			}
-	
-			showCategory();
-			showFlavor();
+			
+			if(!urlFlavor) {
+				showCategory();
+				showFlavor()
+			}
+
 		});
 	}
 
@@ -517,6 +547,7 @@ function controller(
 	function hideAll() {
 		$('#accountShow').hide();
 		$('#careerShow').hide();
+		$('#cartShow').hide();
 		$('#contactShow').hide();
 		$('#privacyShow').hide();
 		$('#popcornShow').hide();
@@ -591,9 +622,100 @@ function controller(
 		$('#careerShow').show();
 	}
 
+	function showCart() {
+		updateOrder();
+		hideAll();
+		$('#cartShow').show();
+
+		var sessionPromise = customerMgmt.getSession();
+		sessionPromise.then(function(sessionData) {
+			$scope.order = sessionData.order;
+			$scope.things = sessionData.order.things;
+		});
+	}
+
 	function showContact() {
 		hideAll();
 		$('#contactShow').show();
+	}
+
+	function showOrder(order, fromUrl) {
+		var thisOrder;
+
+		if(fromUrl) {
+			thisOrder = order;
+		} else {
+			$http.get('/orders/'+order).then(function(orderData) {
+				thisOrder = orderData.data;
+			});
+		}
+
+		var sessionPromise = customerMgmt.getSession();
+		sessionPromise.then(function(sessionData) {
+			if(!sessionData.customerId || !thisOrder.customerId === sessionData.customerId) {
+				$window.location.href = '/';
+				return;
+			}
+
+			var statusMap = [
+				'',
+				'',
+				'',
+				'',
+				'',
+				'Payment Accepted',
+				'Preparation Started',
+				'Preparation Completed',
+				'En Route to Destination',
+				'Delivered to Destination'
+			];
+
+			var currOrderStatus = parseInt(thisOrder.orderStatus);
+
+			$scope.things = thisOrder.things;
+
+			$scope.thisOrderStatusFormatted = statusMap[currOrderStatus];
+
+			$scope.thisOrderDate = new Date(thisOrder.paymentAcceptedAt).toDateString().substr(4);
+
+			$scope.paymentAcceptedAtFormatted = new Date(thisOrder.paymentAcceptedAt).toTimeString().substr(0,5);
+			$scope.placedAtFormatted = new Date(thisOrder.orderPlacedAt).toTimeString().substr(0,5);
+			$scope.collectedAtFormatted = new Date(thisOrder.orderCollectedAt).toTimeString().substr(0,5);
+			$scope.deliveredAtFormatted = new Date(thisOrder.orderDeliveredAt).toTimeString().substr(0,5);
+
+			$scope.thisOrderStatus = parseInt(thisOrder.orderStatus);
+			$scope.paymentMethod = thisOrder.paymentMethods;
+			$scope.subtotal = parseFloat(thisOrder.subtotal).toFixed(2);
+			$scope.tax = parseFloat(thisOrder.tax).toFixed(2);
+			$scope.shipping = parseFloat(thisOrder.shippingCost).toFixed(2);
+			$scope.discount = parseFloat(thisOrder.discount).toFixed(2);
+			$scope.total = '$'+parseFloat(thisOrder.total).toFixed(2);
+			$scope.bevThings = thisOrder.bevThings;
+
+			customerMgmt.getCustomer(thisOrder.customerId).then(function(customer) {
+				$scope.customer = customer;
+				$scope.fName = $scope.customer.fName;
+				$scope.lName = $scope.customer.lName;
+				$scope.phone = $scope.customer.phone;
+				$scope.address = $scope.customer.addresses.primary.streetNumber+' '+$scope.customer.addresses.primary.streetName+' '+$scope.customer.addresses.primary.city;
+
+//				$scope.src = $sce.trustAsResourceUrl(
+//					'https://www.google.com/maps/embed/v1/place?' + querystring.stringify({
+//						key: configMgr.config.vendors.googleMaps.key,
+//						q: ([
+//							$scope.customer.addresses.primary.streetNumber,
+//							$scope.customer.addresses.primary.streetName,
+//							$scope.customer.addresses.primary.city,
+//							$scope.customer.addresses.primary.state,
+//							$scope.customer.addresses.primary.zip
+//						].join('+'))
+//					})
+//				);
+			});
+
+			hideAll();
+			$('#orderShow').show();
+		});
 	}
 
 	function showPrivacy() {
@@ -604,18 +726,6 @@ function controller(
 	function showPopcorn() {
 		hideAll();
 		$('#popcornShow').show();
-	}
-
-	function showOrder() {
-		updateOrder();
-		hideAll();
-		$('#orderShow').show();
-
-		var sessionPromise = customerMgmt.getSession();
-		sessionPromise.then(function(sessionData) {
-			$scope.order = sessionData.order;
-			$scope.things = sessionData.order.things;
-		});
 	}
 
 	function showStory() {
@@ -633,7 +743,7 @@ function controller(
 		$scope.SpecialtyShow = false;
 	}
 
-	function showCategory(category) {
+	function showCategory(category, fromUrl) {
 		if(!category) {
 			popcornMgmt.getPopcornByCategory($scope.popcornCategories[0].id).then(function(categoryFlavors) {
 				$scope.categoryFlavors = categoryFlavors;
@@ -643,7 +753,19 @@ function controller(
 			hideCategories();
 			popcornMgmt.getPopcornByCategory(category.id).then(function(categoryFlavors) {
 				$scope.categoryFlavors = categoryFlavors;
-				showFlavor(categoryFlavors[0], 0);
+				if(fromUrl) {
+					if(urlFlavor.active) {
+						categoryFlavors.forEach(function(catFlavor, idx) {
+							if(catFlavor.name === urlFlavor.name) {
+								showFlavor(urlFlavor, idx);
+							}
+						});
+					} else {
+						showFlavor(categoryFlavors[0], 0);
+					}
+				} else {
+					showFlavor(categoryFlavors[0], 0);
+				}
 			});
 			switch(category.name) {
 				case 'Candy':

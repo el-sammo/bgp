@@ -83,7 +83,7 @@
 		// Home
 		///
 
-		$routeProvider.when('/', {
+		$routeProvider.when('/:id', {
 			controller: 'HomeController',
 			templateUrl: '/templates/home.html'
 		});
@@ -134,7 +134,8 @@
 		///
 
 		$routeProvider.otherwise({
-			redirectTo: '/'
+			controller: 'HomeController',
+			templateUrl: '/templates/home.html'
 		});
 
 

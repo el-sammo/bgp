@@ -49,6 +49,10 @@
 			$rootScope.$broadcast('showCareers');
 		}
 
+		$scope.showCart = function() {
+			$rootScope.$broadcast('showCart');
+		}
+
 		$scope.showContact = function() {
 			$rootScope.$broadcast('showContact');
 		}
@@ -59,10 +63,6 @@
 
 		$scope.showPopcorn = function() {
 			$rootScope.$broadcast('showPopcorn');
-		}
-
-		$scope.showOrder = function() {
-			$rootScope.$broadcast('showOrder');
 		}
 
 		$scope.showStory = function() {
