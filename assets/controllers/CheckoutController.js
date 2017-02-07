@@ -98,21 +98,21 @@
 					}
 
 
-					addresses.forEach(function(address) {
-						if(freeDeliveryPossible(address.zip)) {
-							address.fee = 0;
-							deliveryAddresses.push(address);
-						} else {
-							// TODO: implement actual shipping costs
-							address.fee = 15;
-							deliveryAddresses.push(address);
-						}
-					});
+					if(addresses && addressess.length > 0) {
+						addresses.forEach(function(address) {
+							if(freeDeliveryPossible(address.zip)) {
+								address.fee = 0;
+								deliveryAddresses.push(address);
+							} else {
+								// TODO: implement actual shipping costs
+								address.fee = 15;
+								deliveryAddresses.push(address);
+							}
+						});
+					}
 
 					$scope.customer = foundCustomer;
 					$scope.deliveryAddresses = deliveryAddresses;
-console.log('deliveryAddresses:');
-console.log(deliveryAddresses);
 
 // TODO: when we start offering bevs, uncomment the
 			// following line and delete the next line
@@ -275,10 +275,10 @@ console.log('cash transaction');
 						$http.post('/mail/sendOrderToCustomer/'+$scope.order.id);
 						$modalInstance.dismiss('done');
 						if(deviceMgr.isBigScreen()) {
-							$window.location.href = '/app/order/' + $scope.order.id;
+							$window.location.href = '/app/order=' + $scope.order.id;
 							messenger.show('Your order has been received.', 'Success!');
 						} else {
-							$window.location.href = '/app/orderSmall/' + $scope.order.id;
+							$window.location.href = '/app/order=' + $scope.order.id;
 						}
 						$rootScope.$broadcast('cartEmptied');
 					} else {
@@ -314,10 +314,10 @@ console.log('phone transaction');
 						$http.post('/mail/sendPhoneOrderToCustomer/'+$scope.order.id);
 						$modalInstance.dismiss('done');
 						if(deviceMgr.isBigScreen()) {
-							$window.location.href = '/app/order/' + $scope.order.id;
+							$window.location.href = '/app/order=' + $scope.order.id;
 							messenger.show('Your order has been received.', 'Success!');
 						} else {
-							$window.location.href = '/app/orderSmall/' + $scope.order.id;
+							$window.location.href = '/app/order=' + $scope.order.id;
 						}
 						$rootScope.$broadcast('cartEmptied');
 					} else {
@@ -353,13 +353,12 @@ console.log('cc transaction');
 						// notify customer
 						$http.post('/mail/sendOrderToCustomer/'+$scope.order.id);
 						$modalInstance.dismiss('done');
-
-						var redirectTo = '/orderSmall/' + $scope.order.id;
 						if(deviceMgr.isBigScreen()) {
-							redirectTo = '/order/' + $scope.order.id;
+							$window.location.href = '/app/order=' + $scope.order.id;
+							messenger.show('Your order has been received.', 'Success!');
+						} else {
+							$window.location.href = '/app/order=' + $scope.order.id;
 						}
-
-						$location.path(redirectTo);
 						messenger.show('Your order has been received.', 'Success!');
 					} else {
 						$http.post('/mail/sendFailToOperator/'+$scope.order.id);

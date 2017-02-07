@@ -99,6 +99,8 @@ function controller(
 			} else {
 				showPopcorn();
 			}
+		} else {
+			showPopcorn();
 		}
 
 		$scope.logIn = layoutMgmt.logIn;

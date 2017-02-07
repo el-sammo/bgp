@@ -81,12 +81,12 @@
 		$rootScope.$on('orderChanged', function(evt, customer) {
 			var sessionPromise = customerMgmt.getSession();
 			sessionPromise.then(function(sessionData) {
-				if(sessionData.order.things.length > 0) {
+				if(sessionData.order && sessionData.order.things && sessionData.order.things.length > 0) {
 					$scope.activeCart = true;
+					$scope.cartItemsCount = sessionData.order.things.length;
 				} else {
 					$scope.activeCart = false;
 				}
-				$scope.cartItemsCount = sessionData.order.things.length;
 			});
 		});
 
