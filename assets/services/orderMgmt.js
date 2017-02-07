@@ -10,10 +10,10 @@
 	app.factory('orderMgmt', service);
 	
 	service.$inject = [
-		'$modal', '$rootScope', '$http'
+		'$modal', '$rootScope', '$http', 'deviceMgr'
 	];
 	
-	function service($modal, $rootScope, $http) {
+	function service($modal, $rootScope, $http, deviceMgr) {
 		var service = {
 			checkout: function(order) {
 				$modal.open({
@@ -59,18 +59,33 @@
 				});
 			},
 			add: function(flavor) {
-				$modal.open({
-					templateUrl: '/templates/addFlavorOptions.html',
-					backdrop: true,
-					controller: 'OrderMgmtController',
-					resolve: {
-						args: function() {
-							return {
-								flavor: flavor
+				if(deviceMgr.isBigScreen()) {
+					$modal.open({
+						templateUrl: '/templates/addFlavorOptions.html',
+						backdrop: true,
+						controller: 'OrderMgmtController',
+						resolve: {
+							args: function() {
+								return {
+									flavor: flavor
+								}
 							}
 						}
-					}
-				});
+					});
+				} else {
+					$modal.open({
+						templateUrl: '/templates/addFlavorOptionsSmall.html',
+						backdrop: true,
+						controller: 'OrderMgmtController',
+						resolve: {
+							args: function() {
+								return {
+									flavor: flavor
+								}
+							}
+						}
+					});
+				}
 			},
 			addBev: function(bev) {
 				$modal.open({

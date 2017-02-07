@@ -55,8 +55,8 @@ function controller(
 		initCategories();
 
 		if($routeParams.id) {
-			// routeParams.id is a flavorName
 			if($routeParams.id.indexOf('flavor') > -1) {
+				// routeParams.id is a flavorName
 				var rpId = $routeParams.id.toLowerCase().replace('flavor=','').replace(/-/g,' ');
 				popcornMgmt.getAllPopcorn().then(function(popcorn) {
 					popcorn.forEach(function(flavor) {
@@ -69,18 +69,37 @@ function controller(
 						}
 					});
 				});
-			}
-			// routeParams.id is an orderId
-			if($routeParams.id.indexOf('order') > -1) {
+				// routeParams.id is an orderId
+			} else if($routeParams.id.indexOf('order') > -1) {
 				var orderId = $routeParams.id.toLowerCase().replace('order=','');
 				$http.get('/orders/'+orderId).then(function(order) {
 					showOrder(order.data, true);
 				});
+				// routeParams.id is a route to home
+			} else if($routeParams.id.indexOf('home') > -1) {
+				showPopcorn();
+				// routeParams.id is a route to cart
+			} else if($routeParams.id.indexOf('cart') > -1) {
+				showCart();
+				// routeParams.id is a route to account
+			} else if($routeParams.id.indexOf('account') > -1) {
+				showAccount();
+				// routeParams.id is a route to story
+			} else if($routeParams.id.indexOf('story') > -1) {
+				showStory();
+				// routeParams.id is a route to careers
+			} else if($routeParams.id.indexOf('careers') > -1) {
+				showCareers();
+				// routeParams.id is a route to privacy
+			} else if($routeParams.id.indexOf('privacy') > -1) {
+				showPrivacy();
+				// routeParams.id is a route to contact
+			} else if($routeParams.id.indexOf('contact') > -1) {
+				showContact();
+			} else {
+				showPopcorn();
 			}
 		}
-
-		hideAll();
-		showPopcorn();
 
 		$scope.logIn = layoutMgmt.logIn;
 		$scope.signUp = layoutMgmt.signUp;
@@ -554,18 +573,27 @@ function controller(
 
 	function hideAll() {
 		$('#accountShow').hide();
+		$('#accountShowSmall').hide();
 		$('#careerShow').hide();
+		$('#careerShowSmall').hide();
 		$('#cartShow').hide();
+		$('#cartShowSmall').hide();
 		$('#contactShow').hide();
+		$('#contactShowSmall').hide();
 		$('#privacyShow').hide();
+		$('#privacyShowSmall').hide();
 		$('#popcornShow').hide();
+		$('#popcornShowSmall').hide();
 		$('#orderShow').hide();
+		$('#orderShowSmall').hide();
 		$('#storyShow').hide();
+		$('#storyShowSmall').hide();
 	}
 
 	function showAccount() {
 		hideAll();
 		$('#accountShow').show();
+		$('#accountShowSmall').show();
 
 		var sessionPromise = customerMgmt.getSession();
 
@@ -615,6 +643,8 @@ function controller(
 						var completedDate = orderYear+'-'+orderMonth+'-'+orderDate;
 
 						order.orderDate = completedDate;
+
+						$scope.orderDate = order.orderDate;
 						order.total = parseFloat(order.total).toFixed(2);
 						completedHistory.push(order);
 					}
@@ -628,12 +658,14 @@ function controller(
 	function showCareers() {
 		hideAll();
 		$('#careerShow').show();
+		$('#careerShowSmall').show();
 	}
 
 	function showCart() {
 		updateOrder();
 		hideAll();
 		$('#cartShow').show();
+		$('#cartShowSmall').show();
 
 		var sessionPromise = customerMgmt.getSession();
 		sessionPromise.then(function(sessionData) {
@@ -645,6 +677,7 @@ function controller(
 	function showContact() {
 		hideAll();
 		$('#contactShow').show();
+		$('#contactShowSmall').show();
 	}
 
 	function showOrder(order, fromUrl) {
@@ -680,6 +713,8 @@ function controller(
 
 			var currOrderStatus = parseInt(thisOrder.orderStatus);
 
+			$scope.orderStatusFormatted = statusMap[currOrderStatus];
+
 			$scope.things = thisOrder.things;
 
 			$scope.thisOrderStatusFormatted = statusMap[currOrderStatus];
@@ -693,10 +728,10 @@ function controller(
 
 			$scope.thisOrderStatus = parseInt(thisOrder.orderStatus);
 			$scope.paymentMethod = thisOrder.paymentMethods;
-			$scope.subtotal = parseFloat(thisOrder.subtotal).toFixed(2);
-			$scope.tax = parseFloat(thisOrder.tax).toFixed(2);
-			$scope.shipping = parseFloat(thisOrder.shippingCost).toFixed(2);
-			$scope.discount = parseFloat(thisOrder.discount).toFixed(2);
+			$scope.subtotal = thisOrder.subtotal;
+			$scope.tax = thisOrder.tax;
+			$scope.shipping = thisOrder.shippingCost;
+			$scope.discount = thisOrder.discount;
 			$scope.total = '$'+parseFloat(thisOrder.total).toFixed(2);
 			$scope.bevThings = thisOrder.bevThings;
 
@@ -723,22 +758,26 @@ function controller(
 
 			hideAll();
 			$('#orderShow').show();
+			$('#orderShowSmall').show();
 		});
 	}
 
 	function showPrivacy() {
 		hideAll();
 		$('#privacyShow').show();
+		$('#privacyShowSmall').show();
 	}
 
 	function showPopcorn() {
 		hideAll();
 		$('#popcornShow').show();
+		$('#popcornShowSmall').show();
 	}
 
 	function showStory() {
 		hideAll();
 		$('#storyShow').show();
+		$('#storyShowSmall').show();
 	}
 
 

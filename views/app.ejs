@@ -127,17 +127,58 @@
 <nav 
 	class="navbar navbar-default navbar-fixed-bottom" 
 	ng-controller="HomeController"
-	ng-show="bigScreen"
+	ng-cloak
 >
-	<div class="container">
-		<span class="footerLink" style="cursor: pointer;" ng-click="showPopcorn()">Home</span>
-		<span ng-show="activeCart" class="footerLink" ng-click="showCart()">Shopping Cart</span>
-		<span class="footerLink" style="cursor: pointer;" ng-click="showAccount()">My Account</span>
-		<span class="footerLink" style="cursor: pointer;" ng-click="showStory()">Our Story</span>
-		<span class="footerLink" style="cursor: pointer;" ng-click="showFeedback()">Feedback</span>
-		<span class="footerLink" style="cursor: pointer;" ng-click="showCareers()">Careers</span>
-		<span class="footerLink" style="cursor: pointer;" ng-click="showPrivacy()">Privacy Policy</span>
-		<span class="footerLink" style="cursor: pointer;" ng-click="showContact()">Contact Us</span>
+	<div 
+		class="container"
+		ng-show="bigScreen"
+		ng-cloak
+	>
+		<span class="footerLink clickable" ng-click="showPopcorn()">Home</span>
+		<span class="footerLink clickable" ng-show="activeCart" ng-click="showCart()">Shopping Cart</span>
+		<span class="footerLink clickable" ng-show="showLogout && !showLogin" ng-click="showAccount()">My Account</span>
+		<span class="footerLink clickable" ng-show="showLogin && !showLogout" ng-click="logIn()">Log In</span> 
+		<span class="footerLink clickable" ng-show="showLogout && !showLogin" ng-click="logOut()">Log Out</span> 
+		<span class="footerLink clickable" ng-show="showLogin && !showLogout" ng-click="signUp()">Sign Up</span>
+		<span class="footerLink clickable" ng-click="showStory()">Our Story</span>
+		<span class="footerLink clickable" ng-click="showFeedback()">Feedback</span>
+		<span class="footerLink clickable" ng-click="showCareers()">Careers</span>
+		<span class="footerLink clickable" ng-click="showPrivacy()">Privacy Policy</span>
+		<span class="footerLink clickable" ng-click="showContact()">Contact Us</span>
+	</div>
+	<div 
+		class="container"
+		ng-show="!bigScreen && showLogin && !showLogout"
+		ng-cloak
+	>
+		<a href="/app/home" class="footerLink clickable">Home</a>
+		<a href="/app/cart" class="footerLink clickable">Shopping Cart</a>
+		<span class="footerLink clickable" ng-click="logIn()">Log In</span>
+		<br/>
+		<span class="footerLink clickable" ng-click="signUp()">Sign Up</span>
+		<a href="/app/story" class="footerLink clickable">Our Story</a>
+		<span class="footerLink clickable" ng-click="showFeedback()">Feedback</span>
+		<br/>
+		<a href="/app/careers" class="footerLink clickable">Careers</a>
+		<a href="/app/privacy" class="footerLink clickable">Privacy Policy</a>
+		<a href="/app/contact" class="footerLink clickable">Contact Us</a>
+	</div>
+	<div 
+		class="container"
+		ng-show="!bigScreen && !showLogin && showLogout"
+		ng-cloak
+	>
+		<a href="/app/home" class="footerLink clickable">Home</a>
+		<a href="/app/cart" class="footerLink clickable">Shopping Cart</a>
+		<a href="/app/account" class="footerLink clickable">My Account</a>
+		<br/>
+		<span class="footerLink clickable">Log Out</span> 
+		<a href="/app/story" class="footerLink clickable">Our Story</a>
+		<span class="footerLink clickable" ng-click="showFeedback()">Feedback</span>
+		<br/>
+		<a href="/app/careers" class="footerLink clickable">Careers</a>
+		<a href="/app/privacy" class="footerLink clickable">Privacy Policy</a>
+		<a href="/app/contact" class="footerLink clickable">Contact Us</a>
 	</div>
 </nav>
 <!-- /Footer -->

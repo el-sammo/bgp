@@ -124,11 +124,18 @@ html {
 	border: 1px solid black;
 }
 
-.softBack {
+.softBackBig {
 	border: 1px solid black;
 	border-radius: 12px;
 	background: rgba(255,255,0, .2);
 	min-height: 620px;
+}
+
+.softBackSmall {
+	border: 1px solid black;
+	border-radius: 12px;
+	background: rgba(255,255,0, .2);
+	height: 760px;
 }
 
 .clickable {
@@ -153,15 +160,42 @@ html {
 	color: #a800ff;
 }
 
+.popcornFlavorSmall {
+	left: 12px;
+	size: 12px;
+	font-weight: 600;
+	text-align: left!important;
+	color: #a800ff;
+	position: relative;
+}
+
 .popcornDescription {
 	size: 14px;
 	font-weight: 500;
 	text-align: left!important;
 }
 
+.popcornDescriptionSmall {
+	left: 12px;
+	size: 14px;
+	font-weight: 500;
+	text-align: left!important;
+	position: relative;
+}
+
 .sizePriceHead {
 	size: 18px;
 	font-weight: 600;
+}
+
+.sizePriceSmallLeft {
+	left: 12px!important;
+	position: relative!important;
+}
+
+.sizePriceSmallRight {
+	right: 12px!important;
+	position: relative!important;
 }
 
 .orderFlavor {

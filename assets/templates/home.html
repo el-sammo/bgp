@@ -1,5 +1,5 @@
 				<div 
-					class="softBack offsetNeg75"
+					class="softBackBig offsetNeg75"
 					ng-show="bigScreen"
 				>
 					<br/>
@@ -29,29 +29,32 @@
 					</div>
 				</div>
 				<div 
-					class="softBack offsetNeg100"
+					class="softBackSmall offsetNeg100"
 					ng-show="!bigScreen"
 				>
 					<br/>
-					<div id="accountShow" style="display: none;">
+					<div id="accountShowSmall" style="display: none;">
 						<ng-include src="'/templates/accountShowTmpl.html'"></ng-include>
 					</div>
-					<div id="careerShow" style="display: none;">
+					<div id="careerShowSmall" style="display: none;">
 						<ng-include src="'/templates/careerShowTmpl.html'"></ng-include>
 					</div>
-					<div id="contactShow" style="display: none;">
+					<div id="cartShowSmall">
+						<ng-include src="'/templates/cartShowTmpl.html'"></ng-include>
+					</div>
+					<div id="contactShowSmall" style="display: none;">
 						<ng-include src="'/templates/contactShowTmpl.html'"></ng-include>
 					</div>
-					<div id="privacyShow" style="display: none;">
+					<div id="privacyShowSmall" style="display: none;">
 						<ng-include src="'/templates/privacyShowTmpl.html'"></ng-include>
 					</div>
-					<div id="popcornShow">
+					<div id="popcornShowSmall" style="display: none;">
 						<ng-include src="'/templates/popcornShowSmallTmpl.html'"></ng-include>
 					</div>
-					<div id="orderShow" style="display: none;">
+					<div id="orderShowSmall" style="display: none;">
 						<ng-include src="'/templates/orderShowTmpl.html'"></ng-include>
 					</div>
-					<div id="storyShow" style="display: none;">
+					<div id="storyShowSmall" style="display: none;">
 						<ng-include src="'/templates/storyShowTmpl.html'"></ng-include>
 					</div>
 				</div>
