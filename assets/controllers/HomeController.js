@@ -57,11 +57,11 @@ function controller(
 		if($routeParams.id) {
 			if($routeParams.id.indexOf('flavor') > -1) {
 				// routeParams.id is a flavorName
-				var rpId = $routeParams.id.toLowerCase().replace('flavor=','').replace(/-/g,' ');
+				var rpId = $routeParams.id.toLowerCase().replace('flavor=','').replace(/\'/,'').replace(/-/g,' ');
 				popcornMgmt.getAllPopcorn().then(function(popcorn) {
 					var matchFound = false;
 					popcorn.forEach(function(flavor) {
-						var flavorName = flavor.name.toLowerCase();
+						var flavorName = flavor.name.replace(/\'/,'').replace(/-/g,' ').toLowerCase();
 						if(flavorName === rpId) {
 							matchFound = true;
 							urlFlavor = flavor;
