@@ -59,15 +59,21 @@ function controller(
 				// routeParams.id is a flavorName
 				var rpId = $routeParams.id.toLowerCase().replace('flavor=','').replace(/-/g,' ');
 				popcornMgmt.getAllPopcorn().then(function(popcorn) {
+					var matchFound = false;
 					popcorn.forEach(function(flavor) {
 						var flavorName = flavor.name.toLowerCase();
 						if(flavorName === rpId) {
+							matchFound = true;
 							urlFlavor = flavor;
 							categoryMgmt.getCategoryById(flavor.category).then(function(category) {
+								showPopcorn();
 								showCategory(category[0], true);
 							});
 						}
 					});
+					if(!matchFound) {
+						showPopcorn();
+					}
 				});
 				// routeParams.id is an orderId
 			} else if($routeParams.id.indexOf('order') > -1) {
@@ -244,8 +250,8 @@ function controller(
 				$rootScope.customerId = sessionData.customerId;
 				$scope.customerId = $rootScope.customerId;
 				$scope.showLogin = false;
-				$scope.showSignup = false;
 				$scope.showLogout = true;
+				$scope.showSignup = false;
 
 				var getCustomerPromise = customerMgmt.getCustomer($scope.customerId);
 				getCustomerPromise.then(function(customer) {
@@ -254,8 +260,8 @@ function controller(
 
 			} else {
 				$scope.showLogin = true;
-				$scope.showSignup = true;
 				$scope.showLogout = false;
+				$scope.showSignup = true;
 			}
 			
 			if(sessionData.order && sessionData.order.things && sessionData.order.things.length > 0) {

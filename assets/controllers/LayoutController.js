@@ -28,6 +28,10 @@
 			$scope.bigScreen = false;
 		}
 
+		$scope.showLogin = true;
+		$scope.showLogout = false;
+		$scope.showSignup = true;
+
 		$scope.showMenu = false;
 
 		$scope.menuClicked = function(forceValue) {
@@ -37,6 +41,10 @@
 			}
 			$scope.showMenu = !$scope.showMenu;
 		}
+
+		$scope.showFeedback = layoutMgmt.feedback;
+
+		$rootScope.$on('customerLoggedIn', onCustomerLoggedIn);
 
 		$scope.accessAccount = false;
 		$scope.activeCart = false;
@@ -90,6 +98,18 @@
 			});
 		});
 
+		function onCustomerLoggedIn(evt, args) {
+			$scope.customerId = args;
+			$scope.showLogin = false;
+			$scope.showLogout = true;
+			$scope.showSignup = false;
+
+			var getCustomerPromise = customerMgmt.getCustomer($scope.customerId);
+			getCustomerPromise.then(function(customer) {
+				$scope.customer = customer;
+			});
+		}
+
 		$rootScope.$on('cartEmptied', function(evt, customer) {
 			$scope.activeCart = false;
 		});
@@ -98,8 +118,16 @@
 
 		sessionPromise.then(function(sessionData) {
 			if(sessionData.customerId) {
-				$scope.accessAccount = true;
+				$rootScope.customerId = sessionData.customerId;
 				$scope.customerId = sessionData.customerId;
+				$scope.accessAccount = true;
+				$scope.showLogin = false;
+				$scope.showLogout = true;
+				$scope.showSignup = false;
+			} else {
+				$scope.showLogin = true;
+				$scope.showLogout = false;
+				$scope.showSignup = true;
 			}
 
 			if(sessionData.order && sessionData.order.things && sessionData.order.things.length > 0) {
