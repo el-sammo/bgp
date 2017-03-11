@@ -3,6 +3,7 @@ var Promise = require('bluebird');
 
 module.exports = {
 	getOrder: function(orderId) {
+console.log('MailService orderId:' +orderId);
 		if(!(orderId)) {
 			return {success: false, reason: 'invalid'};
 		}

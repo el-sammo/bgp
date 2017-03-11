@@ -27,6 +27,10 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, extra);
 
 module.exports = {
   createANet: function(req, res) {
+console.log(' ');
+console.log('CustomersController req:');
+console.log(req);
+console.log(' ');
 		console.log('createANet() called with: '+req.body.customerId);
     var isAjax = req.headers.accept.match(/application\/json/);
 

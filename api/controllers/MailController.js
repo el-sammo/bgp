@@ -91,7 +91,7 @@ module.exports = {
 	sendFeedbackToManagement: function(req, res) {
 		if(env && env === 'production') {
 			var feedbackId = req.params.id;
-			var email = 'sam.barrett@gmail.com';
+			var email = 'sam.barrett@gmail.com, sales@beccaspopcorn.com';
 			sendMail(email, 'Feedback Received!', 'feedback', feedbackId);
 		}
 	},

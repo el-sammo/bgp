@@ -67,6 +67,9 @@
 						return;
 					}
 
+console.log('preparing to call createANet (#1)');
+console.log('scope:');
+console.log(scope);
 					return $http.post('/customers/createANet', {
 						customerId: scope.customer.id
 					}).then(function(res) {
