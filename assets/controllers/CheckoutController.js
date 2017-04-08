@@ -98,7 +98,7 @@
 					}
 
 
-					if(addresses && addressess.length > 0) {
+					if(addresses && addresses.length > 0) {
 						addresses.forEach(function(address) {
 							if(freeDeliveryPossible(address.zip)) {
 								address.fee = 0;
@@ -196,11 +196,18 @@
 					var feeData = feeDataObj.data;
 					if(feeData.success) {
 						$scope.validCode = true;
-						$scope.promoAmount = feeData.amount;
 
-						$scope.codeEffect = 'Your order has been reduced by $' + (parseFloat(feeData.amount)).toFixed(2) + '!';
+						if(feeData.amount < 1) {
+console.log('percent');
+							$scope.promoAmount = parseFloat(($scope.order.subtotal * feeData.amount)).toFixed(2);
+							$scope.codeEffect = 'Your order has been reduced by $' + (parseFloat(($scope.order.subtotal - ($scope.order.subtotal * feeData.amount)))).toFixed(2) + '!';
+						} else {
+console.log('amount');
+							$scope.promoAmount = feeData.amount;
+							$scope.codeEffect = 'Your order has been reduced by $' + (parseFloat(feeData.amount)).toFixed(2) + '!';
+						}
 
-						currentTotal = (parseFloat(total) - parseFloat(feeData.amount)).toFixed(2);
+						currentTotal = (parseFloat(total) - $scope.promoAmount).toFixed(2);
 						$scope.currentTotal = currentTotal;
 					} else {
 						$scope.validCode = false;

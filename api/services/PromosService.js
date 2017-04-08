@@ -69,7 +69,13 @@ module.exports = {
 				}
 
 				if(thisPromo.effect == 'reduce') {
+					if(thisPromo.amount < 1) {
+console.log('percent');
+					changeAmount = parseFloat(currentDelFee - (currentDelFee * thisPromo.amount)).toFixed(2);
+					} else {
+console.log('amount');
 					changeAmount = parseFloat(currentDelFee) - parseFloat(thisPromo.amount);
+					}
 				}
 			
 				if(thisPromo.effect == 'replace') {
