@@ -1,60 +1,52 @@
-				<div 
-					class="softBackBig offsetNeg75"
-					ng-show="bigScreen"
-				>
-					<br/>
-					<div id="accountShow" style="display: none;">
-						<ng-include src="'/templates/accountShowTmpl.html'"></ng-include>
+				<!-- <ng-include src="'/templates/bigHome.html'"></ng-include> -->
+				<!-- <ng-include src="'/templates/littleHome.html'"></ng-include> -->
+
+				<div id="mycarousel" class="carousel slide" data-ride="carousel">
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner" role="listbox">
+						<div class="item active">
+							<img src="/images/lbp_wide.jpg" data-color="lightblue" alt="Gourmet Popcorn">
+							<div class="carousel-caption">
+								<h3>Gourmet Popcorn</h3>
+							</div>
+						</div>
+						<div class="item">
+							<img src="//placehold.it/1800x900" data-color="firebrick" alt="Second Image">
+							<div class="carousel-caption">
+								<h3>Second Image</h3>
+							</div>
+						</div>
+						<div class="item">
+							<img src="//placehold.it/1800x900/555" data-color="violet" alt="Third Image">
+							<div class="carousel-caption">
+								<h3>Third Image</h3>
+							</div>
+						</div>
+						<div class="item">
+							<img src="//placehold.it/1800x900" data-color="lightgreen" alt="Fourth Image">
+							<div class="carousel-caption">
+								<h3>Fourth Image</h3>
+							</div>
+						</div>
+						<div class="item">
+							<img src="//placehold.it/1800x900/444" data-color="tomato" alt="Fifth Image">
+							<div class="carousel-caption">
+								<h3>Fifth Image</h3>
+							</div>
+						</div>
 					</div>
-					<div id="careerShow" style="display: none;">
-						<ng-include src="'/templates/careerShowTmpl.html'"></ng-include>
-					</div>
-					<div id="cartShow" style="display: none;">
-						<ng-include src="'/templates/cartShowTmpl.html'"></ng-include>
-					</div>
-					<div id="contactShow" style="display: none;">
-						<ng-include src="'/templates/contactShowTmpl.html'"></ng-include>
-					</div>
-					<div id="privacyShow" style="display: none;">
-						<ng-include src="'/templates/privacyShowTmpl.html'"></ng-include>
-					</div>
-					<div id="popcornShow" style="display: none;">
-						<ng-include src="'/templates/popcornShowTmpl.html'"></ng-include>
-					</div>
-					<div id="orderShow" style="display: none;">
-						<ng-include src="'/templates/orderShowTmpl.html'"></ng-include>
-					</div>
-					<div id="storyShow" style="display: none;">
-						<ng-include src="'/templates/storyShowTmpl.html'"></ng-include>
-					</div>
+					<!-- Controls -->
+					<a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" href="#mycarousel" role="button" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
 				</div>
-				<div 
-					class="softBackSmall offsetNeg100"
-					ng-show="!bigScreen"
-				>
-					<br/>
-					<div id="accountShowSmall" style="display: none;">
-						<ng-include src="'/templates/accountShowTmpl.html'"></ng-include>
-					</div>
-					<div id="careerShowSmall" style="display: none;">
-						<ng-include src="'/templates/careerShowTmpl.html'"></ng-include>
-					</div>
-					<div id="cartShowSmall" style="display: none;">
-						<ng-include src="'/templates/cartShowTmpl.html'"></ng-include>
-					</div>
-					<div id="contactShowSmall" style="display: none;">
-						<ng-include src="'/templates/contactShowTmpl.html'"></ng-include>
-					</div>
-					<div id="privacyShowSmall" style="display: none;">
-						<ng-include src="'/templates/privacyShowTmpl.html'"></ng-include>
-					</div>
-					<div id="popcornShowSmall" style="display: none;">
-						<ng-include src="'/templates/popcornShowSmallTmpl.html'"></ng-include>
-					</div>
-					<div id="orderShowSmall" style="display: none;">
-						<ng-include src="'/templates/orderShowTmpl.html'"></ng-include>
-					</div>
-					<div id="storyShowSmall" style="display: none;">
-						<ng-include src="'/templates/storyShowTmpl.html'"></ng-include>
-					</div>
-				</div>
+				<script>
+					$('.carousel').carousel({
+						interval: 6000
+					});
+				</script>

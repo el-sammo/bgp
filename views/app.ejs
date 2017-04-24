@@ -16,7 +16,7 @@
 						class="login clickable topDepth" 
 						ng-click="showCart()"
 					>
-						<i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;Click Here to View Your Shopping Cart Items&nbsp;&nbsp;
 					</span>
 					<span ng-show="!accessAccount">
 						Already Have an Account? 
@@ -62,44 +62,7 @@
 					alt="Check Out Our New Flavors!" 
 				/>
 			</div>
-			<div
-				class="col-md-8 col-md-offset-2"
-			>
-				<div 
-					class="row"
-					ng-show="bigScreen"
-				>
-					<div class="col-md-1 offsetNeg50 nearTopDepth">
-						<span 
-							class="clickable"
-							id="logo"
-						>
-							<img 
-								src="/images/logo_purple.png" 
-								class="pull-left" 
-								alt="Rebecca's Gourmet Popcorn" 
-							/>
-						</span>
-					</div>
-				</div>
-				<div 
-					class="row"
-					ng-show="!bigScreen"
-				>
-					<div class="col-md-12 offsetNeg50 nearTopDepth">
-						<span 
-							class="clickable"
-							id="logo"
-						>
-							<img 
-								src="/images/logo_purple.png" 
-								alt="Rebecca's Gourmet Popcorn" 
-							/>
-						</span>
-					</div>
-				</div>
-				<div ng-view>
-				</div>
+			<div ng-view>
 			</div>
 		</div>
 	</div>

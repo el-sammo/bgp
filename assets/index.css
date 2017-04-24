@@ -2,11 +2,12 @@
 /** Global **/
 
 html {
-	background: url(images/popcorn.gif) no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
+//	background: url(images/popcorn.gif) no-repeat center center fixed; 
+//	-webkit-background-size: cover;
+//	-moz-background-size: cover;
+//	-o-background-size: cover;
+//	background-size: cover;
+	height: 100%;
 }
 
 .App {
@@ -20,12 +21,14 @@ html {
 }
 
 .App-body {
+	margin: 0 auto;
 }
 
 .App-diag-msg {
 	top: 0;
 	right: 0;
 	position: absolute;
+	z-index: 98;
 }
 
 .no-deco {
@@ -233,6 +236,7 @@ html {
 
 body {
 	font-family: 'Open Sans', sans-serif;
+	background-color: black;
 	height: 100%;
 }
 
@@ -1900,6 +1904,14 @@ td {
 /** Angular Bootstrap **/
 
 .nav a, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.carousel, .item, .active {
+	height: 100%;
+}
+
+.carousel-inner {
+	height: 100%;
+}
 
 /** Pods **/
 
