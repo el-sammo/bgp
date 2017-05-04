@@ -50,6 +50,11 @@ html {
 	position: relative;
 }
 
+.offset30 {
+	top: 30px;
+	position: relative;
+}
+
 .offset40 {
 	top: 40px;
 	position: relative;
@@ -140,6 +145,12 @@ html {
 
 .clickable {
 	cursor: pointer;
+}
+
+.showShoppingCart {
+	size: 32px;
+	font-weight: 700;
+	color: #a800ff;
 }
 
 .catHead {
