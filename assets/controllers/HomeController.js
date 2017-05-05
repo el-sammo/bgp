@@ -37,6 +37,7 @@ function controller(
 
 	var todayDate;
 	var urlFlavor = false;
+	$scope.carouselShow = true;
 
 
 	///
@@ -55,6 +56,7 @@ function controller(
 		initCategories();
 
 		if($routeParams.id) {
+console.log('$routeParams.id found');
 			if($routeParams.id.indexOf('flavor') > -1) {
 				// routeParams.id is a flavorName
 				var rpId = $routeParams.id.toLowerCase().replace('flavor=','').replace(/\'/,'').replace(/-/g,' ');
@@ -105,8 +107,8 @@ function controller(
 			} else {
 				showPopcorn();
 			}
-		} else {
-			showPopcorn();
+//		} else {
+//			showPopcorn();
 		}
 
 		$scope.logIn = layoutMgmt.logIn;
@@ -115,6 +117,8 @@ function controller(
 
 		$scope.showCategory = showCategory;
 		$scope.showFlavor = showFlavor;
+		$scope.showCarousel = showCarousel;
+		$scope.hideCarousel = hideCarousel;
 
 		$scope.showAccount = showAccount;
 		$scope.showCareers = showCareers;
@@ -187,6 +191,7 @@ function controller(
 	});
 
 	$rootScope.$on('showPopcorn', function(evt, args) {
+console.log('$rootScope.$on(showPopcorn)');
 		showPopcorn();
 	});
 
@@ -576,6 +581,7 @@ function controller(
 	}
 
 	$("#logo").click(function() {
+console.log('logo.click');
 		showPopcorn();
 	});
 
@@ -607,7 +613,7 @@ function controller(
 
 		sessionPromise.then(function(sessionData) {
 			if(!sessionData.customerId) {
-				showPopcorn();
+//				showPopcorn();
 				return;
 			}
 
@@ -777,7 +783,9 @@ function controller(
 	}
 
 	function showPopcorn() {
+console.log('showPopcorn() called');
 		hideAll();
+		hideCarousel();
 		$('#popcornShow').show();
 		$('#popcornShowSmall').show();
 	}
@@ -874,6 +882,16 @@ function controller(
 			$scope.activeFlavorImgSrc = "/images/popcorn_images/" + flavor.name.toLowerCase().replace('\'', '').replace('&', 'and').replace(/ /g, '_') + ".jpg";
 			showDescription(showId);
 		}
+	}
+
+	function showCarousel() {
+console.log('showCarousel() called');
+		$scope.carouselShow = true;
+	}
+
+	function hideCarousel() {
+console.log('hideCarousel() called');
+		$scope.carouselShow = false;
 	}
 
 	function showDescription(showId) {
