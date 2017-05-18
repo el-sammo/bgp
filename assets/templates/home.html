@@ -7,32 +7,45 @@
 					<div class="carousel-inner" role="listbox">
 						<div 
 							class="item active"
-							ng-click="showPopcorn()"
 						>
-							<img src="/images/lbp_wide.jpg" data-color="lightblue" alt="Gourmet Popcorn">
-							<div class="carousel-caption">
-								<h3>Gourmet Popcorn</h3>
-							</div>
+							<a href="#popcornShow">
+								<img src="/images/lbp_wide.jpg" data-color="lightblue" alt="Gourmet Popcorn">
+								<div class="carousel-caption">
+									<h3>Gourmet Popcorn</h3>
+								</div>
+							</a>
 						</div>
-						<div class="item">
+						<div 
+							class="item"
+							ng-click="skipToCatering()"
+						>
 							<img src="//placehold.it/1800x900" data-color="firebrick" alt="Second Image">
 							<div class="carousel-caption">
 								<h3>Second Image</h3>
 							</div>
 						</div>
-						<div class="item">
+						<div 
+							class="item"
+							ng-click="skipToPopcorn()"
+						>
 							<img src="//placehold.it/1800x900/555" data-color="violet" alt="Third Image">
 							<div class="carousel-caption">
 								<h3>Third Image</h3>
 							</div>
 						</div>
-						<div class="item">
+						<div 
+							class="item"
+							ng-click="skipToTins()"
+						>
 							<img src="//placehold.it/1800x900" data-color="lightgreen" alt="Fourth Image">
 							<div class="carousel-caption">
 								<h3>Fourth Image</h3>
 							</div>
 						</div>
-						<div class="item">
+						<div 
+							class="item"
+							ng-click="skipToPopcorn()"
+						>
 							<img src="//placehold.it/1800x900/444" data-color="tomato" alt="Fifth Image">
 							<div class="carousel-caption">
 								<h3>Fifth Image</h3>
@@ -61,14 +74,9 @@
 						<span class="sr-only">Next</span>
 					</a>
 				</div>
-				<!--
-				<div
-					ng-if="!carouselShow"
-				>
-					<ng-include src="'/templates/bigHome.html'"></ng-include>
-					<ng-include src="'/templates/littleHome.html'"></ng-include>
-				</div>
-				-->
+				<br/><br/>
+				<ng-include src="'/templates/bigHome.html'"></ng-include>
+				<br/><br/>
 				<script>
 					$('.carousel').carousel({
 						interval: 6000

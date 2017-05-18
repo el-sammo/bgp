@@ -127,6 +127,9 @@ console.log('$routeParams.id found');
 		$scope.showFeedback = layoutMgmt.feedback;
 		$scope.showPrivacy = showPrivacy;
 		$scope.showPopcorn = showPopcorn;
+		$scope.skipToCatering = skipToCatering;
+		$scope.skipToPopcorn = skipToPopcorn;
+		$scope.skipToTins = skipToTins;
 		$scope.showOrder = showOrder;
 		$scope.showStory = showStory;
 		$scope.updateOrder = updateOrder;
@@ -788,6 +791,18 @@ console.log('showPopcorn() called');
 		hideCarousel();
 		$('#popcornShow').show();
 		$('#popcornShowSmall').show();
+	}
+
+	function skipToCatering() {
+console.log('skipToCatering() called');
+	}
+
+	function skipToPopcorn() {
+console.log('skipToPopcorn() called');
+	}
+
+	function skipToTins() {
+console.log('skipToTins() called');
 	}
 
 	function showStory() {

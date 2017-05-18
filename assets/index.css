@@ -31,6 +31,33 @@ html {
 	z-index: 98;
 }
 
+.popcornHeader {
+	top: 0px;
+	left: 0px;
+	height: 200px;
+	width: 100%;
+	background: rgba(54, 25, 25, .2);
+	z-index: 98;
+	position: absolute;
+}
+
+.popcornBackground {
+	background: url(images/popcorn.gif) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 100%;
+}
+
+.popcornFooter {
+	height: 60px;
+	width: 100%;
+	background: rgba(54, 25, 25, .2);
+	text-align: center;
+	z-index: 98;
+}
+
 .no-deco {
 	text-decoration: none;
 }
@@ -41,6 +68,11 @@ html {
 
 .topDepth {
 	z-index: 99;
+}
+
+.offset10 {
+	top: 10px;
+	position: relative;
 }
 
 .offset15 {
@@ -236,7 +268,7 @@ html {
 
 body {
 	font-family: 'Open Sans', sans-serif;
-	background-color: black;
+	background-color: #FFFFFF;
 	height: 100%;
 }
 
@@ -387,7 +419,7 @@ footer {
 */
 
 .navbar.navbar-fixed-bottom {
-	background-color: black;
+	background-color: #FFFFFF;
 	min-height: 20px!important;
 }
 
@@ -397,7 +429,7 @@ footer {
 
 .navbar.navbar-fixed-bottom .footerLink {
 	margin-right: 20px;
-	color: #FFFFFF;
+	color: #A800FF;
 	font-size: 14px;
 	text-align: left;
 	line-height: 20px;
@@ -418,7 +450,7 @@ footer {
 
 .navbar.navbar-fixed-top .footerLink {
 	margin-right: 20px;
-	color: #FFF;
+	color: #A800FF;
 	font-size: 12pt;
 	text-align: left;
 	line-height: 20pt;
@@ -445,17 +477,19 @@ td {
 }
 
 .footerLink {
-	color: #000;
-	font-size: 14px;
-	line-height: 20pt;
-	font-weight: 500;
+	top: 18px;
+	color: #A800FF;
+	font-size: 18px;
+	font-weight: 700;
 	font-style: normal;
+	padding: 12px;
 	text-decoration: none!important;
 	cursor: pointer;
+	position: relative;
 }
 
 .footerLinkSmaller {
-	color: #000;
+	color: #A800FF;
 	font-size: 10px;
 	line-height: 20pt;
 	font-weight: 300;

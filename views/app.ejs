@@ -1,151 +1,36 @@
 <div ng-cloak ng-controller="LayoutController">
-	<!-- Big Navbar -->
-	<div 
-		class="App"
-	>
-		<div 
-			class="App-header"
-		>
-			<div class="col-md-8 col-md-offset-2 offset15">
-				<div 
-					class="pull-right"
-					ng-show="bigScreen"
-				>
-					<span 
-						ng-show="activeCart"
-						class="login clickable topDepth" 
-						ng-click="showCart()"
-					>
-						<i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;Click Here to View Your Shopping Cart Items&nbsp;&nbsp;
-					</span>
-					<span ng-show="!accessAccount">
-						Already Have an Account? 
-						<span 
-							class="login clickable topDepth" 
-							ng-click="logIn()"
-						>
-							Log In&nbsp;&nbsp;
-						</span> 
-						Need an Account? 
-						<span 
-							class="login clickable topDepth" 
-							ng-click="signUp()"
-						>
-							Create Account&nbsp;&nbsp;
-						</span>
-					</span>
-					<span ng-show="accessAccount">
-						<span 
-							class="login clickable topDepth" 
-							ng-click="showAccount()"
-						>
-							My Account&nbsp;&nbsp;
-						</span> 
-						<span 
-							class="login clickable topDepth" 
-							ng-click="logOut()"
-						>
-							Log Out&nbsp;&nbsp;
-						</span>
-					</span>
-				</div>
-			</div>
-		</div>
-		<div class="App-body">
-			<div 
-				class="App-diag-msg"
-				ng-show="bigScreen"
+	<div class="popcornHeader">
+		<div class="col-md-1 offset10 nearTopDepth">
+			<span 
+				class="clickable"
+				id="logo"
 			>
 				<img 
-					src="/images/new_flavors.png" 
-					class="App-diag-msg" 
-					alt="Check Out Our New Flavors!" 
+					src="/images/logo_purple.png" 
+					class="pull-left" 
+					alt="Rebecca's Gourmet Popcorn" 
 				/>
-			</div>
-			<div ng-view>
-			</div>
+			</span>
 		</div>
 	</div>
-	<!-- /Big Navbar -->
+	<div class="popcornBackground">
+		<div ng-view>
+		</div>
+		<div class="popcornFooter">
+			<span class="footerLink clickable" ng-click="showPopcorn()">Home</span>
+			<span class="footerLink clickable" ng-show="activeCart" ng-click="showCart()">Shopping Cart</span>
+			<span class="footerLink clickable" ng-show="showLogout && !showLogin" ng-click="showAccount()">My Account</span>
+			<span class="footerLink clickable" ng-show="showLogin && !showLogout" ng-click="logIn()">Log In</span> 
+			<span class="footerLink clickable" ng-show="showLogout && !showLogin" ng-click="logOut()">Log Out</span> 
+			<span class="footerLink clickable" ng-show="showLogin && !showLogout" ng-click="signUp()">Sign Up</span>
+			<span class="footerLink clickable" ng-click="showStory()">Our Story</span>
+			<span class="footerLink clickable" ng-click="showFeedback()">Feedback</span>
+			<span class="footerLink clickable" ng-click="showCareers()">Careers</span>
+			<span class="footerLink clickable" ng-click="showPrivacy()">Privacy Policy</span>
+			<span class="footerLink clickable" ng-click="showContact()">Contact Us</span>
+		</div>
+	</div>
 </div>
-		
-<div 
-	ng-controller="MessageController" 
-	id="tt-messenger" 
-	ng-cloak
->
-  <alert 
-  	type="{{alertType}}" 
-  	ng-show="userMessage" 
-  	close="close()"
-  >
-    <strong ng-show="title">
-    	{{title}}&nbsp;
-    </strong>
-    {{userMessage}}
-  </alert>
-</div>
-
-<!-- Footer -->
-<nav 
-	class="navbar navbar-default navbar-fixed-bottom" 
-	ng-controller="LayoutController"
-	ng-cloak
->
-	<div 
-		class="container"
-		ng-show="bigScreen"
-		ng-cloak
-	>
-		<span class="footerLink clickable" ng-click="showPopcorn()">Home</span>
-		<span class="footerLink clickable" ng-show="activeCart" ng-click="showCart()">Shopping Cart</span>
-		<span class="footerLink clickable" ng-show="showLogout && !showLogin" ng-click="showAccount()">My Account</span>
-		<span class="footerLink clickable" ng-show="showLogin && !showLogout" ng-click="logIn()">Log In</span> 
-		<span class="footerLink clickable" ng-show="showLogout && !showLogin" ng-click="logOut()">Log Out</span> 
-		<span class="footerLink clickable" ng-show="showLogin && !showLogout" ng-click="signUp()">Sign Up</span>
-		<span class="footerLink clickable" ng-click="showStory()">Our Story</span>
-		<span class="footerLink clickable" ng-click="showFeedback()">Feedback</span>
-		<span class="footerLink clickable" ng-click="showCareers()">Careers</span>
-		<span class="footerLink clickable" ng-click="showPrivacy()">Privacy Policy</span>
-		<span class="footerLink clickable" ng-click="showContact()">Contact Us</span>
-	</div>
-	<div 
-		class="container"
-		ng-show="!bigScreen && showLogin && !showLogout"
-		ng-cloak
-	>
-		<a href="/app/home" class="footerLink clickable">Home</a>
-		<a href="/app/cart" class="footerLink clickable">Shopping Cart</a>
-		<span class="footerLink clickable" ng-click="logIn()">Log In</span>
-		<br/>
-		<span class="footerLink clickable" ng-click="signUp()">Sign Up</span>
-		<a href="/app/story" class="footerLink clickable">Our Story</a>
-		<span class="footerLink clickable" ng-click="showFeedback()">Feedback</span>
-		<br/>
-		<a href="/app/careers" class="footerLink clickable">Careers</a>
-		<a href="/app/privacy" class="footerLink clickable">Privacy Policy</a>
-		<a href="/app/contact" class="footerLink clickable">Contact Us</a>
-	</div>
-	<div 
-		class="container"
-		ng-show="!bigScreen && !showLogin && showLogout"
-		ng-cloak
-	>
-		<a href="/app/home" class="footerLink clickable">Home</a>
-		<a href="/app/cart" class="footerLink clickable">Shopping Cart</a>
-		<a href="/app/account" class="footerLink clickable">My Account</a>
-		<br/>
-		<span class="footerLink clickable" ng-click="logOut()">Log Out</span> 
-		<a href="/app/story" class="footerLink clickable">Our Story</a>
-		<span class="footerLink clickable" ng-click="showFeedback()">Feedback</span>
-		<br/>
-		<a href="/app/careers" class="footerLink clickable">Careers</a>
-		<a href="/app/privacy" class="footerLink clickable">Privacy Policy</a>
-		<a href="/app/contact" class="footerLink clickable">Contact Us</a>
-	</div>
-</nav>
-<!-- /Footer -->
-
 
 <!-- Hack for ensuring event-based services are instantiated -->
 <div ng-controller="LoadServices" style="display:none;" aria-hidden="true"></div>
