@@ -117,6 +117,7 @@ console.log('$routeParams.id found');
 
 		$scope.showCategory = showCategory;
 		$scope.showFlavor = showFlavor;
+		$scope.formatFlavorImgSrc = formatFlavorImgSrc;
 		$scope.showCarousel = showCarousel;
 		$scope.hideCarousel = hideCarousel;
 
@@ -897,6 +898,10 @@ console.log('skipToTins() called');
 			$scope.activeFlavorImgSrc = "/images/popcorn_images/" + flavor.name.toLowerCase().replace('\'', '').replace('&', 'and').replace(/ /g, '_') + ".jpg";
 			showDescription(showId);
 		}
+	}
+
+	function formatFlavorImgSrc(flavorName) {
+		return "/images/popcorn_images/" + flavorName.toLowerCase().replace('\'', '').replace('&', 'and').replace(/ /g, '_');
 	}
 
 	function showCarousel() {

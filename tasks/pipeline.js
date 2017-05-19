@@ -50,6 +50,7 @@ var jsFilesToInject = [
 	'packages/angular-bootstrap-tour/dist/angular-bootstrap-tour.min.js',
 	'packages/spin.js/spin.min.js',
 	'packages/angular-spinner/angular-spinner.min.js',
+	'packages/jssor/jssor.slider-23.1.6.min.js',
 	'app.js',
 	'local.js',
 	// 'datatables.js',
